@@ -1,0 +1,331 @@
+﻿<UserControl
+    x:Class="BC_Control_System.View.Opration.CarrierTrackView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:conv="clr-namespace:ValueConverters;assembly=ValueConverters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:BC_Control_System.View.Alarm"
+    xmlns:localCommand="clr-namespace:BC_Control_System.Command"
+    xmlns:localConverters="clr-namespace:BC_Control_System.Converters"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:theme="clr-namespace:BC_Control_System.Theme"
+    d:DesignHeight="655"
+    d:DesignWidth="1348"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <localConverters:BoolToVisibilityConverter1 x:Key="BoolToVisibilityConverter" />
+        <localConverters:EnumListToIntStringConverter x:Key="EnumListToIntStringConverter" />
+        <localConverters:InverseBooleanConverter x:Key="InverseBooleanConverter" />
+        <conv:BoolToBrushConverter
+            x:Key="BoolToColorConverter"
+            FalseValue="White"
+            TrueValue="Yellow" />
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition Width="176" />
+        </Grid.ColumnDefinitions>
+        <Border
+            Margin="6"
+            BorderBrush="Gray"
+            BorderThickness="1">
+            <DataGrid
+                x:Name="grid"
+                AutoGenerateColumns="False"
+                CanUserAddRows="False"
+                CanUserDeleteRows="False"
+                CanUserReorderColumns="False"
+                CanUserResizeColumns="False"
+                CanUserResizeRows="False"
+                ColumnHeaderHeight="25"
+                FontSize="12"
+                GridLinesVisibility="All"
+                HeadersVisibility="Column"
+                HorizontalGridLinesBrush="Black"
+                ItemsSource="{Binding StorageStations}"
+                SelectionMode="Extended"
+                Style="{x:Null}"
+                VerticalGridLinesBrush="Black">
+                <DataGrid.RowStyle>
+                    <Style TargetType="DataGridRow">
+                        <Setter Property="Height" Value="55" />
+                        <Setter Property="Visibility" Value="{Binding PlaceSenser, Converter={StaticResource BoolToVisibilityConverter}}" />
+                        <Setter Property="Background" Value="{Binding StationInfo.MAPError, Converter={StaticResource BoolToColorConverter}}" />
+                        <Setter Property="IsEnabled" Value="{Binding StationInfo.MAPError, Converter={StaticResource InverseBooleanConverter}}" />
+                    </Style>
+                </DataGrid.RowStyle>
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn
+                        Width="120"
+                        Header="StationName"
+                        IsReadOnly="True">
+                        <DataGridTemplateColumn.HeaderStyle>
+                            <Style TargetType="DataGridColumnHeader">
+                                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                            </Style>
+                        </DataGridTemplateColumn.HeaderStyle>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock
+                                    Margin="10,0,0,0"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    FontFamily="Microsoft YaHei"
+                                    FontSize="14"
+                                    Text="{Binding StationName}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn
+                        Width="150"
+                        Header="Carrier ID"
+                        IsReadOnly="True">
+                        <DataGridTemplateColumn.HeaderStyle>
+                            <Style TargetType="DataGridColumnHeader">
+                                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                            </Style>
+                        </DataGridTemplateColumn.HeaderStyle>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock
+                                    Margin="10,0,0,0"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    FontFamily="Microsoft YaHei"
+                                    FontSize="14"
+                                    Text="{Binding StationInfo.RFID}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn
+                        Width="*"
+                        Header="Recipe Name"
+                        IsReadOnly="True">
+                        <DataGridTemplateColumn.HeaderStyle>
+                            <Style TargetType="DataGridColumnHeader">
+                                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                            </Style>
+                        </DataGridTemplateColumn.HeaderStyle>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock
+                                    Margin="10,0,0,0"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    FontFamily="Microsoft YaHei"
+                                    FontSize="14"
+                                    Text="{Binding StationInfo.RecipeName}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn
+                        Width="150"
+                        Header="Carrier State"
+                        IsReadOnly="True">
+                        <DataGridTemplateColumn.HeaderStyle>
+                            <Style TargetType="DataGridColumnHeader">
+                                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                            </Style>
+                        </DataGridTemplateColumn.HeaderStyle>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock
+                                    Margin="10,0,0,0"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    FontFamily="Microsoft YaHei"
+                                    FontSize="14"
+                                    Text="{Binding StationInfo.ProcessState}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn
+                        Width="100"
+                        Header="Wafers"
+                        IsReadOnly="True">
+                        <DataGridTemplateColumn.HeaderStyle>
+                            <Style TargetType="DataGridColumnHeader">
+                                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                            </Style>
+                        </DataGridTemplateColumn.HeaderStyle>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock
+                                    Margin="10,0,0,0"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    FontFamily="Microsoft YaHei"
+                                    FontSize="14"
+                                    Text="{Binding StationInfo.WaferCount}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn
+                        Width="300"
+                        Header="Wafers Mapping"
+                        IsReadOnly="True">
+                        <DataGridTemplateColumn.HeaderStyle>
+                            <Style TargetType="DataGridColumnHeader">
+                                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                            </Style>
+                        </DataGridTemplateColumn.HeaderStyle>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock
+                                    Margin="10,0,0,0"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    FontFamily="Microsoft YaHei"
+                                    FontSize="14"
+                                    Text="{Binding StationInfo.WaferMap, Converter={StaticResource EnumListToIntStringConverter}}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn
+                        Width="300"
+                        Header="Return Wafers Mapping"
+                        IsReadOnly="True">
+                        <DataGridTemplateColumn.HeaderStyle>
+                            <Style TargetType="DataGridColumnHeader">
+                                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                            </Style>
+                        </DataGridTemplateColumn.HeaderStyle>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock
+                                    Margin="10,0,0,0"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    FontFamily="Microsoft YaHei"
+                                    FontSize="14"
+                                    Text="{Binding StationInfo.ClearWaferMap, Converter={StaticResource EnumListToIntStringConverter}}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn
+                        Width="120"
+                        Header="LoadingPort"
+                        IsReadOnly="True">
+                        <DataGridTemplateColumn.HeaderStyle>
+                            <Style TargetType="DataGridColumnHeader">
+                                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                            </Style>
+                        </DataGridTemplateColumn.HeaderStyle>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock
+                                    Margin="10,0,0,0"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    FontFamily="Microsoft YaHei"
+                                    FontSize="14"
+                                    Text="{Binding StationInfo.Form_LP}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn
+                        Width="100"
+                        Header="Batch ID"
+                        IsReadOnly="True">
+                        <DataGridTemplateColumn.HeaderStyle>
+                            <Style TargetType="DataGridColumnHeader">
+                                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                            </Style>
+                        </DataGridTemplateColumn.HeaderStyle>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock
+                                    Margin="10,0,0,0"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    FontFamily="Microsoft YaHei"
+                                    FontSize="14"
+                                    Text="{Binding StationInfo.Batchid.Batchid}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn
+                        Width="100"
+                        Header="BatchState"
+                        IsReadOnly="True">
+                        <DataGridTemplateColumn.HeaderStyle>
+                            <Style TargetType="DataGridColumnHeader">
+                                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                            </Style>
+                        </DataGridTemplateColumn.HeaderStyle>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock
+                                    Margin="10,0,0,0"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    FontFamily="Microsoft YaHei"
+                                    FontSize="14"
+                                    Text="{Binding StationInfo.Batchid.BatchState}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                </DataGrid.Columns>
+                <DataGrid.Resources>
+                    <Style TargetType="DataGridColumnHeader">
+                        <Setter Property="HorizontalContentAlignment" Value="Center" />
+                    </Style>
+                </DataGrid.Resources>
+            </DataGrid>
+        </Border>
+        <Border
+            Grid.Column="1"
+            Margin="6"
+            BorderBrush="Gray"
+            BorderThickness="1">
+            <StackPanel Grid.Column="1">
+                <Button
+                    Width="140"
+                    Margin="5,5"
+                    VerticalAlignment="Center"
+                    Click="Button_Click"
+                    Command="{Binding ProcessStartCommand}"
+                    CommandParameter="{Binding ElementName=grid, Path=SelectedItems}"
+                    Content="Process Start"
+                    FontSize="12" />
+                <Button
+                    Width="140"
+                    Margin="5,5"
+                    VerticalAlignment="Center"
+                    Command="{Binding CarrierOutCommand}"
+                    CommandParameter="{Binding ElementName=grid, Path=SelectedItem}"
+                    Content="Carier Out"
+                    FontSize="12" />
+                <Button
+                    Width="140"
+                    Margin="5,5"
+                    VerticalAlignment="Center"
+                    Command="{Binding ChangeDataCommand}"
+                    CommandParameter="{Binding ElementName=grid, Path=SelectedItem}"
+                    Content="Cancel Service"
+                    FontSize="12" />
+                <Button
+                    Width="140"
+                    Margin="5,5"
+                    VerticalAlignment="Center"
+                    Command="{Binding ChangeDataCommand}"
+                    CommandParameter="{Binding ElementName=grid, Path=SelectedItem}"
+                    Content="Change Data"
+                    FontSize="12" />
+                <Button
+                    Width="140"
+                    Margin="5,5"
+                    VerticalAlignment="Center"
+                    Command="{Binding RemoveCarrierCommand}"
+                    CommandParameter="{Binding ElementName=grid, Path=SelectedItem}"
+                    Content="Delete Carrier"
+                    FontSize="12" />
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

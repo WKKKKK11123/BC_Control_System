@@ -1,0 +1,164 @@
+﻿<UserControl
+    x:Class="BC_Control_System.View.Status.HorizontalStateView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:com="clr-namespace:BC_Control_System.Converters"
+    xmlns:conv="clr-namespace:ValueConverters;assembly=ValueConverters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:BC_Control_System.View.Status"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="545"
+    d:DesignWidth="674"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <conv:ValueConverterGroup x:Key="ConverterBoolToBrush">
+
+            <!--<valueConverters:ValueToBoolConverter/>-->
+            <conv:StringToBoolConverter FalseValue="0" />
+            <!--<conv:BoolInverter />-->
+            <conv:BoolToBrushConverter FalseValue="Red" TrueValue="Blue" />
+        </conv:ValueConverterGroup>
+        <conv:ValueConverterGroup x:Key="ConverterStringToBool">
+            <!--<valueConverters:ValueToBoolConverter/>-->
+            <conv:StringIsNullOrEmptyConverter />
+            <conv:BoolToStringConverter TrueValue="-------" />
+        </conv:ValueConverterGroup>
+        <com:StateToColorAttibute x:Key="StateColorConverter" />
+        <conv:BoolToVisibilityConverter x:Key="BoolToVisibleConv" />
+        <conv:ValueConverterGroup x:Key="CountToVisibility">
+            <com:ListCountToBoolConverter />
+            <conv:BoolToVisibilityConverter />
+        </conv:ValueConverterGroup>
+    </UserControl.Resources>
+    <Grid>
+        <TabControl
+            x:Name="myTabControl"
+            Margin="80,0,80,20"
+            Background="{DynamicResource BackgroundBrush}"
+            BorderBrush="{DynamicResource BorderBrush}"
+            BorderThickness="4"
+            SelectedIndex="{Binding ShowIndex, Mode=TwoWay}"
+            Style="{x:Null}">
+            <TabItem
+                x:Name="ITEM1"
+                BorderBrush="{DynamicResource BorderBrush}"
+                FontFamily="Microsoft YaHei"
+                FontSize="14"
+                Visibility="{Binding TemperatureControlOffList, Converter={StaticResource CountToVisibility}}">
+                <TabItem.Header>
+                    <TextBlock Text="Module State" />
+                </TabItem.Header>
+                <Border Margin="20,20">
+                    <ItemsControl
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        FocusVisualStyle="{x:Null}"
+                        FontFamily="Microsoft YaHei"
+                        FontSize="14"
+                        ItemsSource="{Binding TemperatureControlOffList}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                                    <TextBlock Width="310" Text="{Binding ParameterName}" />
+                                    <TextBlock Width="200" Text="{Binding Value}">
+                                        <TextBlock.Foreground>
+                                            <MultiBinding Converter="{StaticResource StateColorConverter}">
+                                                <Binding Path="Value" />
+                                                <Binding Path="StatusArributeString" />
+                                            </MultiBinding>
+                                        </TextBlock.Foreground>
+                                    </TextBlock>
+                                    <TextBlock Width="50" Text="{Binding Unit}" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </Border>
+            </TabItem>
+            <TabItem
+                x:Name="ITEM2"
+                FocusVisualStyle="{x:Null}"
+                FontFamily="Microsoft YaHei"
+                FontSize="14"
+                Visibility="{Binding ModuleDatas, Converter={StaticResource CountToVisibility}}">
+                <TabItem.Header>
+                    <TextBlock Text="Bath Data" />
+                </TabItem.Header>
+                <Border Margin="20,20">
+                    <StackPanel>
+                        <StackPanel Height="25" Orientation="Horizontal">
+                            <TextBlock Margin="300,0,0,0" Text="Actual Value" />
+                            <TextBlock Margin="45,0,0,0" Text="Setting Value" />
+                        </StackPanel>
+                        <ItemsControl FocusVisualStyle="{x:Null}" ItemsSource="{Binding ModuleDatas}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Width="200" Text="{Binding ParameterName}" />
+                                        <TextBlock
+                                            Width="120"
+                                            Text="{Binding Value}"
+                                            TextAlignment="Center" />
+                                        <TextBlock
+                                            Width="160"
+                                            Text="{Binding SettingValue}"
+                                            TextAlignment="Center" />
+                                        <TextBlock
+                                            Width="100"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            Text="{Binding Unit}" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
+                </Border>
+            </TabItem>
+            <TabItem
+                x:Name="ITEM3"
+                FontFamily="Microsoft YaHei"
+                FontSize="14"
+                Visibility="{Binding ModuleStatus, Converter={StaticResource CountToVisibility}}">
+                <TabItem.Header>
+                    <TextBlock Text="Bath State" />
+                </TabItem.Header>
+                <Border Margin="20,20">
+                    <ItemsControl
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        FocusVisualStyle="{x:Null}"
+                        ItemsSource="{Binding ModuleStatus}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                                    <TextBlock Width="260" Text="{Binding ParameterName}" />
+                                    <TextBlock
+                                        Width="150"
+                                        Foreground="{Binding Value, Converter={StaticResource ConverterBoolToBrush}}"
+                                        Text="{Binding Value}" />
+                                    <TextBlock Width="50" Text="{Binding Unit}" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </Border>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</UserControl>

@@ -1,0 +1,556 @@
+﻿<UserControl
+    x:Class="BC_Control_System.View.Status.LPD_1IOView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Controls="clr-namespace:BC_Control_CustomControl.Controls;assembly=BC_Control_CustomControl"
+    xmlns:com="clr-namespace:BC_Control_System.Converters"
+    xmlns:conv="clr-namespace:ValueConverters;assembly=ValueConverters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:ioviewmodel="clr-namespace:BC_Control_System.ViewModel.Status.IOViewModel"
+    xmlns:local="clr-namespace:BC_Control_System.View.Status.IOView"
+    xmlns:localCommand="clr-namespace:BC_Control_System.Command"
+    xmlns:localConverters="clr-namespace:BC_Control_System.Converters"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="655"
+    d:DesignWidth="674"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <conv:BoolToBrushConverter
+            x:Key="ConverterBoolToVisibility"
+            FalseValue="LightGray"
+            TrueValue="Cyan" />
+        <conv:BoolToBrushConverter
+            x:Key="ConverterBoolToYellowBrush"
+            FalseValue="LightGray"
+            TrueValue="Yellow" />
+        <conv:BoolToBrushConverter
+            x:Key="ConverterBoolToBlueBrush"
+            FalseValue="Black"
+            TrueValue="Blue" />
+        <conv:BoolToBrushConverter
+            x:Key="ConverterBoolToRedBrush"
+            FalseValue="LightGray"
+            TrueValue="Red" />
+        <ControlTemplate x:Key="CustomButtonTemplate" TargetType="Button">
+
+            <Border
+                x:Name="border"
+                Background="{TemplateBinding Background}"
+                BorderBrush="#595959"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                CornerRadius="1">
+                <Border
+                    Margin="2,2,0,0"
+                    BorderBrush="#939392"
+                    BorderThickness="0,0,1,1">
+                    <ContentPresenter
+                        Margin="10,5"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Content="{TemplateBinding Content}" />
+                </Border>
+            </Border>
+        </ControlTemplate>
+        <conv:BoolToVisibilityConverter x:Key="BoolToVisibleConv" />
+        <conv:StringToBoolConverter x:Key="ConvStringToBool" />
+    </UserControl.Resources>
+    <Grid>
+
+        <GroupBox Margin="10,30,30,10" Style="{x:Null}">
+            <GroupBox.Header>
+                <TextBlock
+                    Margin="10,0,0,0"
+                    FontSize="17"
+                    Text="LPD_9 IO State" />
+            </GroupBox.Header>
+            <Viewbox Margin="0,20,0,20" Stretch="Uniform">
+                <Canvas Width="600" Height="525">
+
+                    <Image
+                        Canvas.Left="53"
+                        Canvas.Top="1"
+                        Width="498"
+                        Height="496"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top">
+                        <Image.Source>
+                            <DrawingImage>
+                                <DrawingImage.Drawing>
+                                    <DrawingGroup ClipGeometry="M0,0 V600 H600 V0 H0 Z">
+                                        <GeometryDrawing Geometry="F0 M600,600z M0,0z M231,244L231,269 177,269">
+                                            <GeometryDrawing.Pen>
+                                                <Pen
+                                                    Brush="#FF000000"
+                                                    EndLineCap="Flat"
+                                                    LineJoin="Miter"
+                                                    StartLineCap="Flat"
+                                                    Thickness="4" />
+                                            </GeometryDrawing.Pen>
+                                        </GeometryDrawing>
+                                        <GeometryDrawing Geometry="F0 M600,600z M0,0z M457,186L457,294 134,294 134,187">
+                                            <GeometryDrawing.Pen>
+                                                <Pen
+                                                    Brush="#FF800000"
+                                                    EndLineCap="Flat"
+                                                    LineJoin="Miter"
+                                                    StartLineCap="Flat"
+                                                    Thickness="6" />
+                                            </GeometryDrawing.Pen>
+                                        </GeometryDrawing>
+                                        <GeometryDrawing Geometry="F0 M600,600z M0,0z M460,233L507,233">
+                                            <GeometryDrawing.Pen>
+                                                <Pen
+                                                    Brush="#FF000000"
+                                                    EndLineCap="Flat"
+                                                    LineJoin="Miter"
+                                                    StartLineCap="Flat"
+                                                    Thickness="4" />
+                                            </GeometryDrawing.Pen>
+                                        </GeometryDrawing>
+                                        <GeometryDrawing Geometry="F0 M600,600z M0,0z M99,85L99,168 245,168">
+                                            <GeometryDrawing.Pen>
+                                                <Pen
+                                                    Brush="#FF000000"
+                                                    EndLineCap="Flat"
+                                                    LineJoin="Miter"
+                                                    StartLineCap="Flat"
+                                                    Thickness="4" />
+                                            </GeometryDrawing.Pen>
+                                        </GeometryDrawing>
+                                        <GeometryDrawing Geometry="F0 M600,600z M0,0z M101,144L266,144">
+                                            <GeometryDrawing.Pen>
+                                                <Pen
+                                                    Brush="#FF000000"
+                                                    EndLineCap="Flat"
+                                                    LineJoin="Miter"
+                                                    StartLineCap="Flat"
+                                                    Thickness="4" />
+                                            </GeometryDrawing.Pen>
+                                        </GeometryDrawing>
+                                        <GeometryDrawing Geometry="F0 M600,600z M0,0z M539,144L379,144">
+                                            <GeometryDrawing.Pen>
+                                                <Pen
+                                                    Brush="#FF000000"
+                                                    EndLineCap="Flat"
+                                                    LineJoin="Miter"
+                                                    StartLineCap="Flat"
+                                                    Thickness="4" />
+                                            </GeometryDrawing.Pen>
+                                        </GeometryDrawing>
+                                        <GeometryDrawing Geometry="F0 M600,600z M0,0z M538,122L364,122">
+                                            <GeometryDrawing.Pen>
+                                                <Pen
+                                                    Brush="#FF000000"
+                                                    EndLineCap="Flat"
+                                                    LineJoin="Miter"
+                                                    StartLineCap="Flat"
+                                                    Thickness="4" />
+                                            </GeometryDrawing.Pen>
+                                        </GeometryDrawing>
+                                        <GeometryDrawing Geometry="F0 M600,600z M0,0z M539,100L346,100">
+                                            <GeometryDrawing.Pen>
+                                                <Pen
+                                                    Brush="#FF000000"
+                                                    EndLineCap="Flat"
+                                                    LineJoin="Miter"
+                                                    StartLineCap="Flat"
+                                                    Thickness="4" />
+                                            </GeometryDrawing.Pen>
+                                        </GeometryDrawing>
+                                        <GeometryDrawing Geometry="F0 M600,600z M0,0z M540,84.782L540,167.4 399,167.4">
+                                            <GeometryDrawing.Pen>
+                                                <Pen
+                                                    Brush="#FF000000"
+                                                    EndLineCap="Flat"
+                                                    LineJoin="Miter"
+                                                    StartLineCap="Flat"
+                                                    Thickness="4" />
+                                            </GeometryDrawing.Pen>
+                                        </GeometryDrawing>
+                                        <GeometryDrawing Brush="#FFFFFFFF">
+                                            <GeometryDrawing.Pen>
+                                                <Pen
+                                                    Brush="#FF000000"
+                                                    EndLineCap="Flat"
+                                                    LineJoin="Miter"
+                                                    StartLineCap="Flat"
+                                                    Thickness="1" />
+                                            </GeometryDrawing.Pen>
+                                            <GeometryDrawing.Geometry>
+                                                <EllipseGeometry
+                                                    Center="398,167"
+                                                    RadiusX="6"
+                                                    RadiusY="6" />
+                                            </GeometryDrawing.Geometry>
+                                        </GeometryDrawing>
+                                        <GeometryDrawing Brush="#FFFFFFFF">
+                                            <GeometryDrawing.Pen>
+                                                <Pen
+                                                    Brush="#FF000000"
+                                                    EndLineCap="Flat"
+                                                    LineJoin="Miter"
+                                                    StartLineCap="Flat"
+                                                    Thickness="1" />
+                                            </GeometryDrawing.Pen>
+                                            <GeometryDrawing.Geometry>
+                                                <EllipseGeometry
+                                                    Center="376,143"
+                                                    RadiusX="6"
+                                                    RadiusY="6" />
+                                            </GeometryDrawing.Geometry>
+                                        </GeometryDrawing>
+                                        <GeometryDrawing Brush="#FFFFFFFF">
+                                            <GeometryDrawing.Pen>
+                                                <Pen
+                                                    Brush="#FF000000"
+                                                    EndLineCap="Flat"
+                                                    LineJoin="Miter"
+                                                    StartLineCap="Flat"
+                                                    Thickness="1" />
+                                            </GeometryDrawing.Pen>
+                                            <GeometryDrawing.Geometry>
+                                                <EllipseGeometry
+                                                    Center="359,122"
+                                                    RadiusX="6"
+                                                    RadiusY="6" />
+                                            </GeometryDrawing.Geometry>
+                                        </GeometryDrawing>
+                                        <GeometryDrawing Brush="#FFFFFFFF">
+                                            <GeometryDrawing.Pen>
+                                                <Pen
+                                                    Brush="#FF000000"
+                                                    EndLineCap="Flat"
+                                                    LineJoin="Miter"
+                                                    StartLineCap="Flat"
+                                                    Thickness="1" />
+                                            </GeometryDrawing.Pen>
+                                            <GeometryDrawing.Geometry>
+                                                <EllipseGeometry
+                                                    Center="343,99"
+                                                    RadiusX="6"
+                                                    RadiusY="6" />
+                                            </GeometryDrawing.Geometry>
+                                        </GeometryDrawing>
+                                        <GeometryDrawing Brush="#FFFFFFFF">
+                                            <GeometryDrawing.Pen>
+                                                <Pen
+                                                    Brush="#FF000000"
+                                                    EndLineCap="Flat"
+                                                    LineJoin="Miter"
+                                                    StartLineCap="Flat"
+                                                    Thickness="1" />
+                                            </GeometryDrawing.Pen>
+                                            <GeometryDrawing.Geometry>
+                                                <EllipseGeometry
+                                                    Center="269,144"
+                                                    RadiusX="6"
+                                                    RadiusY="6" />
+                                            </GeometryDrawing.Geometry>
+                                        </GeometryDrawing>
+                                        <GeometryDrawing Brush="#FFFFFFFF">
+                                            <GeometryDrawing.Pen>
+                                                <Pen
+                                                    Brush="#FF000000"
+                                                    EndLineCap="Flat"
+                                                    LineJoin="Miter"
+                                                    StartLineCap="Flat"
+                                                    Thickness="1" />
+                                            </GeometryDrawing.Pen>
+                                            <GeometryDrawing.Geometry>
+                                                <EllipseGeometry
+                                                    Center="246,167"
+                                                    RadiusX="6"
+                                                    RadiusY="6" />
+                                            </GeometryDrawing.Geometry>
+                                        </GeometryDrawing>
+                                        <GeometryDrawing Brush="#FFA5A5A5" Geometry="F0 M600,600z M0,0z M379,67L552,67 552,85 379,85 379,67z">
+                                            <GeometryDrawing.Pen>
+                                                <Pen
+                                                    Brush="#FF000000"
+                                                    EndLineCap="Flat"
+                                                    LineJoin="Miter"
+                                                    StartLineCap="Flat"
+                                                    Thickness="1" />
+                                            </GeometryDrawing.Pen>
+                                        </GeometryDrawing>
+                                        <GeometryDrawing>
+                                            <GeometryDrawing.Brush>
+                                                <SolidColorBrush Opacity="0.68" Color="#FF0000FF" />
+                                            </GeometryDrawing.Brush>
+                                            <GeometryDrawing.Geometry>
+                                                <RectangleGeometry
+                                                    RadiusX="0"
+                                                    RadiusY="0"
+                                                    Rect="212,266,243,25" />
+                                            </GeometryDrawing.Geometry>
+                                        </GeometryDrawing>
+                                        <GeometryDrawing Brush="#FFA5A5A5" Geometry="F0 M600,600z M0,0z M389.028,66.5L379.7,57.316 387.452,49.684 396.779,58.866 396.35,58.866 396.35,65.9 396.292,65.957 395.746,66.495 389.026,66.495z">
+                                            <GeometryDrawing.Pen>
+                                                <Pen
+                                                    Brush="#FF000000"
+                                                    EndLineCap="Flat"
+                                                    LineJoin="Miter"
+                                                    StartLineCap="Flat"
+                                                    Thickness="1" />
+                                            </GeometryDrawing.Pen>
+                                        </GeometryDrawing>
+                                        <GeometryDrawing Geometry="F0 M600,600z M0,0z M221,216L153,216 153,377">
+                                            <GeometryDrawing.Pen>
+                                                <Pen
+                                                    Brush="#FF000000"
+                                                    EndLineCap="Flat"
+                                                    LineJoin="Miter"
+                                                    StartLineCap="Flat"
+                                                    Thickness="4" />
+                                            </GeometryDrawing.Pen>
+                                        </GeometryDrawing>
+                                        <GeometryDrawing Geometry="F0 M600,600z M0,0z M94,376L215,376 215,408">
+                                            <GeometryDrawing.Pen>
+                                                <Pen
+                                                    Brush="#FF000000"
+                                                    EndLineCap="Flat"
+                                                    LineJoin="Miter"
+                                                    StartLineCap="Flat"
+                                                    Thickness="4" />
+                                            </GeometryDrawing.Pen>
+                                        </GeometryDrawing>
+                                        <GeometryDrawing Geometry="F0 M600,600z M0,0z M270,410L161,410 161,451">
+                                            <GeometryDrawing.Pen>
+                                                <Pen
+                                                    Brush="#FF000000"
+                                                    EndLineCap="Flat"
+                                                    LineJoin="Miter"
+                                                    StartLineCap="Flat"
+                                                    Thickness="4" />
+                                            </GeometryDrawing.Pen>
+                                        </GeometryDrawing>
+                                        <GeometryDrawing Geometry="F0 M600,600z M0,0z M271,453L98,453">
+                                            <GeometryDrawing.Pen>
+                                                <Pen
+                                                    Brush="#FF000000"
+                                                    EndLineCap="Flat"
+                                                    LineJoin="Miter"
+                                                    StartLineCap="Flat"
+                                                    Thickness="4" />
+                                            </GeometryDrawing.Pen>
+                                        </GeometryDrawing>
+                                        <GeometryDrawing Geometry="F0 M600,600z M0,0z M272,239L272,497 93,497">
+                                            <GeometryDrawing.Pen>
+                                                <Pen
+                                                    Brush="#FF000000"
+                                                    EndLineCap="Flat"
+                                                    LineJoin="Miter"
+                                                    StartLineCap="Flat"
+                                                    Thickness="4" />
+                                            </GeometryDrawing.Pen>
+                                        </GeometryDrawing>
+                                        <GeometryDrawing Geometry="F0 M600,600z M0,0z M223,187L223,243 418,243 418,187">
+                                            <GeometryDrawing.Pen>
+                                                <Pen
+                                                    Brush="#FF800000"
+                                                    EndLineCap="Flat"
+                                                    LineJoin="Miter"
+                                                    StartLineCap="Flat"
+                                                    Thickness="6" />
+                                            </GeometryDrawing.Pen>
+                                        </GeometryDrawing>
+                                        <DrawingGroup Opacity="1">
+                                            <GeometryDrawing Brush="#FFC0C0C0" Geometry="F0 M600,600z M0,0z M19.737,387.5L19.737,364.5 85.59,364.5 102.263,375.814 102.263,376.186 85.59,387.5 19.737,387.5z">
+                                                <GeometryDrawing.Pen>
+                                                    <Pen
+                                                        Brush="#FF000000"
+                                                        EndLineCap="Flat"
+                                                        LineJoin="Miter"
+                                                        StartLineCap="Flat"
+                                                        Thickness="1" />
+                                                </GeometryDrawing.Pen>
+                                            </GeometryDrawing>
+                                            <GeometryDrawing Brush="#FF333333" Geometry="F0 M600,600z M0,0z M46.656,379.893A4.971,4.971,0,0,0,50.18,378.621A4.394,4.394,0,0,0,51.548,375.24A4.073,4.073,0,0,0,50.18,372.018A5.01,5.01,0,0,0,46.749,370.818L44.16,370.818 44.16,379.894 46.66,379.894z M46.7,371.86A3.881,3.881,0,0,1,49.319,372.715A3.183,3.183,0,0,1,50.319,375.27A3.515,3.515,0,0,1,49.349,377.912A3.707,3.707,0,0,1,46.649,378.856L45.332,378.856 45.332,371.856 46.7,371.856z M53.3,370.817L53.3,379.893 54.472,379.893 54.472,370.817 53.3,370.817z M66.454,370.817L64.674,377.7A4.809,4.809,0,0,0,64.504,378.591L64.48,378.591A5.706,5.706,0,0,0,64.328,377.724L62.453,370.816 61.3,370.816 59.337,377.671A5.2,5.2,0,0,0,59.144,378.603L59.107,378.603A4.493,4.493,0,0,0,58.961,377.671L57.109,370.816 55.814,370.816 58.445,379.892 59.8,379.892 61.646,373.341A4.4,4.4,0,0,0,61.81,372.415L61.833,372.415A4.28,4.28,0,0,0,61.98,373.353L63.808,379.892 65.173,379.892 67.716,370.816 66.456,370.816z" />
+                                        </DrawingGroup>
+                                        <DrawingGroup Opacity="1">
+                                            <GeometryDrawing Brush="#FFC0C0C0" Geometry="F0 M600,600z M0,0z M506.737,244.5L506.737,221.5 572.59,221.5 589.263,232.814 589.263,233.186 572.59,244.5 506.737,244.5z">
+                                                <GeometryDrawing.Pen>
+                                                    <Pen
+                                                        Brush="#FF000000"
+                                                        EndLineCap="Flat"
+                                                        LineJoin="Miter"
+                                                        StartLineCap="Flat"
+                                                        Thickness="1" />
+                                                </GeometryDrawing.Pen>
+                                            </GeometryDrawing>
+                                            <GeometryDrawing Brush="#FF333333" Geometry="F0 M600,600z M0,0z M521.273,223.817L520.019,223.817 516.562,232.893 517.857,232.893 518.73,230.408 522.51,230.408 523.435,232.893 524.735,232.893z M519.1,229.383L520.459,225.61A3.5,3.5,0,0,0,520.605,224.977L520.635,224.977A4.2,4.2,0,0,0,520.775,225.61L522.146,229.383 519.1,229.383z M530.373,231.545A2.616,2.616,0,0,1,528.791,232.096A2.033,2.033,0,0,1,527.218,231.463A2.487,2.487,0,0,1,526.635,229.711A2.606,2.606,0,0,1,527.253,227.892A2.062,2.062,0,0,1,528.853,227.209A2.512,2.512,0,0,1,530.377,227.709L530.377,226.572A3.377,3.377,0,0,0,528.853,226.256A3.235,3.235,0,0,0,526.384,227.232A3.58,3.58,0,0,0,525.461,229.801A3.261,3.261,0,0,0,526.316,232.139A2.974,2.974,0,0,0,528.578,233.039A3.429,3.429,0,0,0,530.371,232.594L530.371,231.539z M531.973,224.634A0.7,0.7,0,0,0,532.489,224.834A0.732,0.732,0,0,0,533.013,224.634A0.668,0.668,0,0,0,533.227,224.127A0.681,0.681,0,0,0,533.013,223.612A0.727,0.727,0,0,0,532.489,223.406A0.71,0.71,0,0,0,531.768,224.127A0.686,0.686,0,0,0,531.978,224.634z M533.052,232.893L533.052,226.412 531.903,226.412 531.903,232.893 533.052,232.893z M540.727,223.301L539.579,223.301 539.579,227.291 539.56,227.291A2.054,2.054,0,0,0,537.639,226.26A2.674,2.674,0,0,0,535.494,227.23A3.852,3.852,0,0,0,534.674,229.805A3.591,3.591,0,0,0,535.4,232.169A2.412,2.412,0,0,0,537.357,233.045A2.366,2.366,0,0,0,539.557,231.815L539.581,231.815 539.581,232.893 540.729,232.893 540.729,223.3z M539.585,229.94A2.286,2.286,0,0,1,539.057,231.478A1.7,1.7,0,0,1,537.698,232.096A1.647,1.647,0,0,1,536.347,231.466A2.663,2.663,0,0,1,535.841,229.752A2.966,2.966,0,0,1,536.368,227.892A1.724,1.724,0,0,1,537.809,227.209A1.7,1.7,0,0,1,539.072,227.734A1.789,1.789,0,0,1,539.585,229.034L539.585,229.934z M522.48,242.1L518.771,242.1 518.771,239.047 522.017,239.047 522.017,238.01 518.771,238.01 518.771,235.1 522.271,235.1 522.271,234.057 517.6,234.057 517.6,243.133 522.48,243.133 522.48,242.1z M527.695,236.656L526.119,239.34 526.1,239.34Q525.941,239.024,525.83,238.824L524.617,236.656 523.281,236.656 525.381,239.956 523.181,243.138 524.5,243.138 525.76,241.075A5.636,5.636,0,0,0,526.053,240.575L526.076,240.575Q526.258,240.914,526.357,241.075L527.594,243.138 528.93,243.138 526.791,239.921 528.959,236.657 527.7,236.657z M535.605,239.147Q535.605,236.504,533.42,236.504A2.346,2.346,0,0,0,531.305,237.723L531.281,237.723 531.281,233.545 530.133,233.545 530.133,243.137 531.281,243.137 531.281,239.46A2.123,2.123,0,0,1,531.773,238.022A1.565,1.565,0,0,1,533.01,237.45Q534.462,237.45,534.463,239.407L534.463,243.134 535.605,243.134 535.605,239.144z M537.674,238.215A3.282,3.282,0,0,1,539.801,237.43Q541.114,237.43,541.113,239.018L539.191,239.287Q537.042,239.587,537.041,241.403A1.773,1.773,0,0,0,537.598,242.78A2.138,2.138,0,0,0,539.098,243.289A2.164,2.164,0,0,0,541.084,242.135L541.113,242.135 541.113,243.135 542.25,243.135 542.25,238.963Q542.25,236.501,539.906,236.502A4.119,4.119,0,0,0,537.674,237.102L537.674,238.209z M541.113,239.885L541.113,240.5A1.878,1.878,0,0,1,540.627,241.824A1.606,1.606,0,0,1,539.391,242.352A1.256,1.256,0,0,1,538.523,242.059A0.971,0.971,0,0,1,538.195,241.303A1.093,1.093,0,0,1,538.495,240.482A1.965,1.965,0,0,1,539.595,240.082z M549.504,236.656L548.35,236.656 548.35,240.389A2.107,2.107,0,0,1,547.887,241.789A1.506,1.506,0,0,1,546.674,242.343Q545.162,242.343,545.162,240.368L545.162,236.659 544.025,236.659 544.025,240.538Q544.025,243.292,546.325,243.292A2.137,2.137,0,0,0,548.325,242.12L548.349,242.12 548.349,243.14 549.5,243.14 549.5,236.659z M551.185,242.908A3.834,3.834,0,0,0,552.943,243.289A3.22,3.22,0,0,0,554.833,242.777A1.626,1.626,0,0,0,555.562,241.377A1.571,1.571,0,0,0,555.182,240.305A3.746,3.746,0,0,0,553.717,239.467A4.394,4.394,0,0,1,552.612,238.91A0.756,0.756,0,0,1,552.363,238.31A0.736,0.736,0,0,1,552.709,237.677A1.537,1.537,0,0,1,553.609,237.437A2.968,2.968,0,0,1,555.256,237.906L555.256,236.798A4.062,4.062,0,0,0,553.721,236.511A3.018,3.018,0,0,0,551.921,237.03A1.611,1.611,0,0,0,551.191,238.41A1.651,1.651,0,0,0,551.514,239.438A3.389,3.389,0,0,0,552.914,240.296A4.6,4.6,0,0,1,554.103,240.873A0.769,0.769,0,0,1,554.396,241.492Q554.396,242.371,553.055,242.37A3.131,3.131,0,0,1,551.185,241.744L551.185,242.915z M560.215,242.117A1.085,1.085,0,0,1,559.541,242.334A0.866,0.866,0,0,1,558.82,242.059A1.5,1.5,0,0,1,558.603,241.145L558.603,237.6 560.215,237.6 560.215,236.65 558.6,236.65 558.6,234.729 557.458,235.092 557.458,236.65 556.345,236.65 556.345,237.6 557.458,237.6 557.458,241.344Q557.458,243.271,559.198,243.272A2.117,2.117,0,0,0,560.212,243.066L560.212,242.111z" />
+                                        </DrawingGroup>
+                                        <DrawingGroup Opacity="1">
+                                            <GeometryDrawing Brush="#FFC0C0C0" Geometry="F0 M600,600z M0,0z M101.516,509.5L101.516,486.5 36.057,486.5 19.484,497.813 19.484,498.185 36.057,509.5 101.516,509.5z">
+                                                <GeometryDrawing.Pen>
+                                                    <Pen
+                                                        Brush="#FF000000"
+                                                        EndLineCap="Flat"
+                                                        LineJoin="Miter"
+                                                        StartLineCap="Flat"
+                                                        Thickness="1" />
+                                                </GeometryDrawing.Pen>
+                                            </GeometryDrawing>
+                                            <GeometryDrawing Brush="#FF333333" Geometry="F0 M600,600z M0,0z M66.542,501.893L66.542,492.817 65.03,492.817 62.305,499.017Q62.182,499.317,61.877,500.154L61.837,500.154A8.1,8.1,0,0,0,61.437,499.04L58.759,492.818 57.167,492.818 57.167,501.894 58.286,501.894 58.286,495.935Q58.286,494.727,58.227,494.095L58.262,494.095A6.129,6.129,0,0,0,58.532,495.062L61.52,501.894 62.17,501.894 65.164,495.009A5.553,5.553,0,0,0,65.433,494.095L65.462,494.095Q65.374,495.137,65.374,495.882L65.374,501.894 66.54,501.894z M71.388,501.893A4.97,4.97,0,0,0,74.912,500.621A4.394,4.394,0,0,0,76.28,497.24A4.073,4.073,0,0,0,74.912,494.018A5.01,5.01,0,0,0,71.481,492.818L68.891,492.818 68.891,501.894 71.391,501.894z M71.435,493.86A3.881,3.881,0,0,1,74.054,494.715A3.183,3.183,0,0,1,75.054,497.27A3.515,3.515,0,0,1,74.084,499.912A3.707,3.707,0,0,1,71.384,500.856L70.063,500.856 70.063,493.856 71.434,493.856z" />
+                                        </DrawingGroup>
+                                        <DrawingGroup Opacity="1">
+                                            <GeometryDrawing Brush="#FFC0C0C0" Geometry="F0 M600,600z M0,0z M101.516,465.5L101.516,442.5 36.057,442.5 19.484,453.813 19.484,454.186 36.057,465.5 101.516,465.5z">
+                                                <GeometryDrawing.Pen>
+                                                    <Pen
+                                                        Brush="#FF000000"
+                                                        EndLineCap="Flat"
+                                                        LineJoin="Miter"
+                                                        StartLineCap="Flat"
+                                                        Thickness="1" />
+                                                </GeometryDrawing.Pen>
+                                            </GeometryDrawing>
+                                            <GeometryDrawing Brush="#FF333333" Geometry="F0 M600,600z M0,0z M45.817,457.524A3.057,3.057,0,0,0,46.863,457.896A6.313,6.313,0,0,0,48.12,458.045A3.99,3.99,0,0,0,50.528,457.406A2.138,2.138,0,0,0,51.395,455.572A2.182,2.182,0,0,0,50.862,454.137A5.582,5.582,0,0,0,48.993,452.86A7.273,7.273,0,0,1,47.417,451.916A1.18,1.18,0,0,1,47.054,451.016A1.1,1.1,0,0,1,47.578,450.046A2.41,2.41,0,0,1,48.934,449.697A3.559,3.559,0,0,1,51.008,450.266L51.008,448.988A4.54,4.54,0,0,0,49.022,448.66A3.79,3.79,0,0,0,46.731,449.322A2.106,2.106,0,0,0,45.823,451.115A2.173,2.173,0,0,0,46.257,452.448A5.165,5.165,0,0,0,48.057,453.711A14.781,14.781,0,0,1,49.399,454.432A1.96,1.96,0,0,1,49.962,454.971A1.2,1.2,0,0,1,50.167,455.656Q50.167,457.016,48.257,457.016A4.139,4.139,0,0,1,46.933,456.781A3.248,3.248,0,0,1,45.82,456.181L45.82,457.517z M53.452,457.131A3.049,3.049,0,0,0,55.772,458.045A3.1,3.1,0,0,0,58.145,457.102A4,4,0,0,0,58.201,452.154A2.967,2.967,0,0,0,55.913,451.26A3.222,3.222,0,0,0,53.481,452.189A3.5,3.5,0,0,0,52.581,454.723A3.354,3.354,0,0,0,53.452,457.131z M54.316,452.871A1.894,1.894,0,0,1,55.842,452.209A1.822,1.822,0,0,1,57.342,452.842A3.442,3.442,0,0,1,57.342,456.466A1.826,1.826,0,0,1,55.842,457.096A1.92,1.92,0,0,1,54.322,456.451A2.579,2.579,0,0,1,53.757,454.688A2.728,2.728,0,0,1,54.316,452.871z M61.79,457.893L61.79,448.3 60.642,448.3 60.642,457.892 61.79,457.892z M67.854,451.412L66.2,456.065A4.226,4.226,0,0,0,65.995,456.973L65.962,456.973A4.13,4.13,0,0,0,65.734,456.041L64.152,451.412 62.9,451.412 65.338,457.893 66.5,457.893 69.066,451.412 67.854,451.412z M75.418,454.365A3.364,3.364,0,0,0,74.703,452.077A2.5,2.5,0,0,0,72.717,451.26A2.763,2.763,0,0,0,70.57,452.227A3.545,3.545,0,0,0,69.706,454.682A3.6,3.6,0,0,0,70.494,457.155A2.779,2.779,0,0,0,72.688,458.045A3.86,3.86,0,0,0,74.956,457.445L74.956,456.419A3.206,3.206,0,0,1,72.956,457.119A1.981,1.981,0,0,1,71.45,456.554A2.33,2.33,0,0,1,70.882,454.954L75.417,454.954 75.417,454.373z M70.883,454.026A2.359,2.359,0,0,1,71.513,452.696A1.608,1.608,0,0,1,72.7,452.186A1.436,1.436,0,0,1,73.854,452.666A2.058,2.058,0,0,1,74.27,454.026L70.884,454.026z M82.426,453.932A3.083,3.083,0,0,0,81.869,451.943A1.973,1.973,0,0,0,80.246,451.26A2.337,2.337,0,0,0,78.119,452.485L78.1,452.485 78.1,451.412 76.948,451.412 76.948,457.893 78.1,457.893 78.1,454.193A2.1,2.1,0,0,1,78.586,452.769A1.569,1.569,0,0,1,79.828,452.206Q81.287,452.206,81.287,454.206L81.287,457.892 82.43,457.892 82.43,453.931z M87.453,456.873A1.084,1.084,0,0,1,86.779,457.09A0.865,0.865,0,0,1,86.058,456.815A1.5,1.5,0,0,1,85.841,455.901L85.841,452.362 87.452,452.362 87.452,451.412 85.843,451.412 85.843,449.49 84.7,449.854 84.7,451.412 83.587,451.412 83.587,452.362 84.7,452.362 84.7,456.106Q84.7,458.034,86.44,458.033A2.117,2.117,0,0,0,87.454,457.828L87.454,456.873z" />
+                                        </DrawingGroup>
+                                        <GeometryDrawing Brush="#FF3FFFFF">
+                                            <GeometryDrawing.Geometry>
+                                                <RectangleGeometry
+                                                    RadiusX="0"
+                                                    RadiusY="0"
+                                                    Rect="226,187,189,1" />
+                                            </GeometryDrawing.Geometry>
+                                        </GeometryDrawing>
+                                        <GeometryDrawing Brush="#FF3FFFFF">
+                                            <GeometryDrawing.Geometry>
+                                                <RectangleGeometry
+                                                    RadiusX="0"
+                                                    RadiusY="0"
+                                                    Rect="212,265,209,1" />
+                                            </GeometryDrawing.Geometry>
+                                        </GeometryDrawing>
+                                    </DrawingGroup>
+                                </DrawingImage.Drawing>
+                            </DrawingImage>
+
+                        </Image.Source>
+                    </Image>
+                    <Controls:ValveControl
+                        x:Name="AV_SY_SD3"
+                        Canvas.Left="144"
+                        Canvas.Top="294"
+                        Width="31"
+                        Height="30"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        ActState="{Binding TankStatusClass.AV_SY_6.Value}"
+                        RotationAngle="0"
+                        ScaleFactor="1" />
+                    <Controls:ValveControl
+                        x:Name="AV_SY_SD2"
+                        Canvas.Left="197"
+                        Canvas.Top="295"
+                        Width="26"
+                        Height="29"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        ActState="{Binding TankStatusClass.AV_SY_6.Value}"
+                        RotationAngle="0"
+                        ScaleFactor="1" />
+                    <Controls:ValveControl
+                        x:Name="AV_SY_SD4"
+                        Canvas.Left="160"
+                        Canvas.Top="255"
+                        Width="31"
+                        Height="30"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        ActState="{Binding TankStatusClass.AV_SY_6.Value}"
+                        RenderTransformOrigin="0.5,0.5"
+                        RotationAngle="0"
+                        ScaleFactor="1">
+                        <Controls:ValveControl.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform />
+                                <SkewTransform />
+                                <RotateTransform Angle="-90" />
+                                <TranslateTransform />
+                            </TransformGroup>
+                        </Controls:ValveControl.RenderTransform>
+                    </Controls:ValveControl>
+                    <Controls:ValveControl
+                        x:Name="AV_SY_SD1"
+                        Canvas.Left="189"
+                        Canvas.Top="162"
+                        Width="31"
+                        Height="30"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        ActState="{Binding TankStatusClass.AV_SY_6.Value}"
+                        RotationAngle="0"
+                        ScaleFactor="1" />
+                    <Controls:ValveControl
+                        x:Name="AV_SY_DR1"
+                        Canvas.Left="191"
+                        Canvas.Top="206"
+                        Width="31"
+                        Height="30"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        ActState="{Binding TankStatusClass.AV_SY_6.Value}"
+                        RotationAngle="0"
+                        ScaleFactor="1" />
+                    <Controls:ValveControl
+                        x:Name="AV_SY_DR2"
+                        Canvas.Left="436"
+                        Canvas.Top="176"
+                        Width="31"
+                        Height="30"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        ActState="{Binding TankStatusClass.AV_SY_6.Value}"
+                        RotationAngle="0"
+                        ScaleFactor="1" />
+                    <Controls:ValveControl
+                        x:Name="AV_SY_DR3"
+                        Canvas.Left="249"
+                        Canvas.Top="324"
+                        Width="25"
+                        Height="28"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Top"
+                        ActState="{Binding TankStatusClass.AV_SY_6.Value}"
+                        RotationAngle="0"
+                        ScaleFactor="1" />
+                    <Controls:ValveControl
+                        x:Name="AV_SY_DR4"
+                        Canvas.Left="224"
+                        Canvas.Top="357"
+                        Width="31"
+                        Height="30"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        ActState="{Binding TankStatusClass.AV_SY_6.Value}"
+                        RotationAngle="0"
+                        ScaleFactor="1" />
+                    <Controls:PumpControl
+                        x:Name="PumpState"
+                        Canvas.Left="214"
+                        Canvas.Top="324"
+                        Width="30"
+                        Height="30"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        ActState="{Binding TankStatusClass.PumpState.Value}"
+                        ScaleFactor="1" />
+                    <Controls:ValveControl
+                        x:Name="AV_SY_DR6"
+                        Canvas.Left="223"
+                        Canvas.Top="394"
+                        Width="31"
+                        Height="30"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        ActState="{Binding TankStatusClass.AV_SY_6.Value}"
+                        RotationAngle="0"
+                        ScaleFactor="1" />
+
+                </Canvas>
+            </Viewbox>
+        </GroupBox>
+    </Grid>
+</UserControl>

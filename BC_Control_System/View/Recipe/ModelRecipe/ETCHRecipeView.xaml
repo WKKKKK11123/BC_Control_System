@@ -1,0 +1,547 @@
+﻿<UserControl
+    x:Class="BC_Control_System.View.Recipe.ModelRecipe.ETCHRecipeView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:behavior="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:BC_Control_System.View.Recipe.ModelRecipe"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:rule="clr-namespace:BC_Control_System.Rule"
+    x:Name="rootControl"
+    d:DesignHeight="930"
+    d:DesignWidth="1900"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <Style TargetType="TextBox">
+            <!--  默认状态：透明背景  -->
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderBrush" Value="Gray" />
+            <Setter Property="BorderThickness" Value="1" />
+
+            <Style.Triggers>
+                <Trigger Property="IsKeyboardFocused" Value="True">
+                    <Setter Property="Background" Value="White" />
+                </Trigger>
+                <Trigger Property="Validation.HasError" Value="True">
+                    <Setter Property="ToolTip" Value="{Binding RelativeSource={x:Static RelativeSource.Self}, Path=(Validation.Errors)[0].ErrorContent}" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+
+    </UserControl.Resources>
+    <Grid>
+        <Border
+            Margin="6"
+            BorderBrush="Gray"
+            BorderThickness="1">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="3*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition Height="0.1" />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition Height="30*" />
+                </Grid.RowDefinitions>
+                <Grid Grid.RowSpan="5" Grid.ColumnSpan="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.63*" />
+                        <ColumnDefinition Width="7*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*" />
+                        <RowDefinition Height="1*" />
+                        <RowDefinition Height="1*" />
+                        <RowDefinition Height="1*" />
+                        <RowDefinition Height="1*" />
+                    </Grid.RowDefinitions>
+                    <Border
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Background="#E0E0F0"
+                        BorderBrush="Gray"
+                        BorderThickness="0.5">
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Text="Attibute" />
+                    </Border>
+                    <Border
+                        Grid.Row="0"
+                        Grid.ColumnSpan="2"
+                        Margin="138,0,0,0"
+                        Background="White"
+                        BorderBrush="Gray"
+                        BorderThickness="0.3">
+                        <TextBox
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            BorderBrush="Transparent"
+                            Style="{x:Null}"
+                            Text="{Binding ModuleName}" />
+                    </Border>
+                    <Border
+                        Grid.RowSpan="2"
+                        Grid.Column="0"
+                        Margin="0,21,0,0"
+                        Background="#E0E0F0"
+                        BorderBrush="Gray"
+                        BorderThickness="0.3">
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Text="Name" />
+                    </Border>
+                    <Border
+                        Grid.RowSpan="2"
+                        Grid.ColumnSpan="2"
+                        Margin="138,21,0,0"
+                        Background="White"
+                        BorderBrush="Gray"
+                        BorderThickness="0.3">
+                        <TextBox
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            BorderBrush="Transparent"
+                            Style="{x:Null}"
+                            Text="{Binding ModuleRecipeEntity.Name}" />
+                    </Border>
+                    <Border
+                        Grid.Row="1"
+                        Grid.RowSpan="2"
+                        Grid.Column="0"
+                        Margin="0,21,0,0"
+                        Background="#E0E0F0"
+                        BorderBrush="Gray"
+                        BorderThickness="0.3">
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Text="Comment" />
+                    </Border>
+                    <Border
+                        Grid.Row="1"
+                        Grid.RowSpan="2"
+                        Grid.ColumnSpan="2"
+                        Margin="138,21,0,0"
+                        Background="White"
+                        BorderBrush="Gray"
+                        BorderThickness="0.3">
+                        <TextBox
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            BorderBrush="Transparent"
+                            Style="{x:Null}"
+                            Text="{Binding ModuleRecipeEntity.Comment}" />
+                    </Border>
+                    <Border
+                        Grid.Row="2"
+                        Grid.RowSpan="2"
+                        Grid.Column="0"
+                        Margin="0,21,0,0"
+                        Background="#E0E0F0"
+                        BorderBrush="Gray"
+                        BorderThickness="0.3">
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Text="Revision No." />
+                    </Border>
+                    <Border
+                        Grid.Row="2"
+                        Grid.RowSpan="2"
+                        Grid.ColumnSpan="2"
+                        Margin="138,21,0,0"
+                        Background="White"
+                        BorderBrush="Gray"
+                        BorderThickness="0.3">
+                        <TextBox
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            BorderBrush="Transparent"
+                            Style="{x:Null}"
+                            Text="{Binding ModuleRecipeEntity.RevisionNo}" />
+
+                    </Border>
+                    <Border
+                        Grid.Row="3"
+                        Grid.RowSpan="3"
+                        Grid.Column="0"
+                        Margin="0,21,0,0"
+                        Background="#E0E0F0"
+                        BorderBrush="Gray"
+                        BorderThickness="0.3">
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Text="Rev.Comment" />
+                    </Border>
+                    <Border
+                        Grid.Row="3"
+                        Grid.RowSpan="3"
+                        Grid.ColumnSpan="2"
+                        Margin="138,21,0,0"
+                        Background="White"
+                        BorderBrush="Gray"
+                        BorderThickness="0.3">
+                        <TextBox
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            BorderBrush="Transparent"
+                            Style="{x:Null}"
+                            Text="{Binding ModuleRecipeEntity.RevComment}" />
+                    </Border>
+                </Grid>
+
+
+                <Border
+                    Grid.Row="6"
+                    Grid.Column="0"
+                    Background="#E0E0F0"
+                    BorderBrush="Gray"
+                    BorderThickness="0.3">
+                    <TextBlock
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Text="Lifter Speed Pre(mm/sec)" />
+                </Border>
+                <Border
+                    Grid.Row="6"
+                    Grid.Column="1"
+                    Background="White"
+                    BorderBrush="Gray"
+                    BorderThickness="0.3">
+                    <TextBox
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        BorderBrush="Transparent">
+                        <TextBox.Text>
+                            <Binding
+                                Mode="TwoWay"
+                                Path="ModuleRecipeEntity.LiftSpeedPre"
+                                UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <ExceptionValidationRule />
+                                    <rule:ValueLimitRule MaxValue="10000" MinValue="0" />
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
+
+                </Border>
+                <Border
+                    Grid.Row="7"
+                    Grid.Column="0"
+                    Background="#E0E0F0"
+                    BorderBrush="Gray"
+                    BorderThickness="0.3">
+                    <TextBlock
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Text="Lifter Speed Down1(mm/sec)" />
+                </Border>
+                <Border
+                    Grid.Row="7"
+                    Grid.Column="1"
+                    Background="White"
+                    BorderBrush="Gray"
+                    BorderThickness="0.3">
+                    <TextBox
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        BorderBrush="Transparent">
+                        <TextBox.Text>
+                            <Binding
+                                Mode="TwoWay"
+                                Path="ModuleRecipeEntity.LiftSpeedDown1"
+                                UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <ExceptionValidationRule />
+                                    <rule:ValueLimitRule MaxValue="10000" MinValue="0" />
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
+                </Border>
+                <Border
+                    Grid.Row="8"
+                    Grid.Column="0"
+                    Background="#E0E0F0"
+                    BorderBrush="Gray"
+                    BorderThickness="0.3">
+                    <TextBlock
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Text="Lifter Speed Down2(mm/sec)" />
+                </Border>
+                <Border
+                    Grid.Row="8"
+                    Grid.Column="1"
+                    Background="White"
+                    BorderBrush="Gray"
+                    BorderThickness="0.3">
+                    <TextBox
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        BorderBrush="Transparent">
+                        <TextBox.Text>
+                            <Binding
+                                Mode="TwoWay"
+                                Path="ModuleRecipeEntity.LiftSpeedDown2"
+                                UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <ExceptionValidationRule />
+                                    <rule:ValueLimitRule MaxValue="10000" MinValue="0" />
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
+                </Border>
+                <Border
+                    Grid.Row="9"
+                    Grid.Column="0"
+                    Background="#E0E0F0"
+                    BorderBrush="Gray"
+                    BorderThickness="0.3">
+                    <TextBlock
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Text="Lifter Speed Up1(mm/sec)" />
+                </Border>
+                <Border
+                    Grid.Row="9"
+                    Grid.Column="1"
+                    Background="White"
+                    BorderBrush="Gray"
+                    BorderThickness="0.3">
+                    <TextBox
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        BorderBrush="Transparent">
+                        <TextBox.Text>
+                            <Binding
+                                Mode="TwoWay"
+                                Path="ModuleRecipeEntity.LiftSpeedUp1"
+                                UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <ExceptionValidationRule />
+                                    <rule:ValueLimitRule MaxValue="10000" MinValue="0" />
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
+                </Border>
+                <Border
+                    Grid.Row="10"
+                    Grid.Column="0"
+                    Background="#E0E0F0"
+                    BorderBrush="Gray"
+                    BorderThickness="0.3">
+                    <TextBlock
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Text="Lifter Speed Up2(mm/sec)" />
+                </Border>
+                <Border
+                    Grid.Row="10"
+                    Grid.Column="1"
+                    Background="White"
+                    BorderBrush="Gray"
+                    BorderThickness="0.3">
+                    <TextBox
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        BorderBrush="Transparent">
+                        <TextBox.Text>
+                            <Binding
+                                Mode="TwoWay"
+                                Path="ModuleRecipeEntity.LiftSpeedUp2"
+                                UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <ExceptionValidationRule />
+                                    <rule:ValueLimitRule MaxValue="100" MinValue="0" />
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
+                </Border>
+                <DataGrid
+                    x:Name="grid"
+                    Grid.Row="11"
+                    Grid.ColumnSpan="2"
+                    AutoGenerateColumns="False"
+                    CanUserAddRows="False"
+                    CanUserDeleteRows="False"
+                    CanUserReorderColumns="False"
+                    CanUserResizeColumns="False"
+                    CanUserResizeRows="False"
+                    ColumnHeaderHeight="25"
+                    FontSize="12"
+                    GridLinesVisibility="All"
+                    HeadersVisibility="Column"
+                    HorizontalGridLinesBrush="LightGray"
+                    ItemsSource="{Binding RecipeStep, Mode=TwoWay}"
+                    SelectedItem="{Binding DataContext.SelectStepEntity, ElementName=grid}"
+                    SelectionMode="Single"
+                    Style="{x:Null}"
+                    VerticalGridLinesBrush="LightGray">
+                    <DataGrid.RowStyle>
+                        <Style TargetType="DataGridRow">
+                            <Setter Property="Height" Value="25" />
+                        </Style>
+                    </DataGrid.RowStyle>
+                    <DataGrid.Columns>
+
+                        <DataGridTemplateColumn Width="150" Header="Step">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock
+                                        Width="150"
+                                        Height="25"
+                                        Margin="5,0,0,0"
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Center"
+                                        FontFamily="Microsoft YaHei"
+                                        FontSize="14"
+                                        Text="{Binding Step, UpdateSourceTrigger=PropertyChanged}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTextColumn
+                            Width="150"
+                            Binding="{Binding Time, UpdateSourceTrigger=PropertyChanged}"
+                            Header="Time(S)">
+                            <DataGridTextColumn.EditingElementStyle>
+                                <Style TargetType="TextBox">
+                                    <Setter Property="FontFamily" Value="Microsoft YaHei" />
+                                    <Setter Property="FontSize" Value="14" />
+                                    <Setter Property="HorizontalAlignment" Value="Center" />
+                                    <Setter Property="VerticalAlignment" Value="Center" />
+
+                                </Style>
+                            </DataGridTextColumn.EditingElementStyle>
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="FontFamily" Value="Microsoft YaHei" />
+                                    <Setter Property="FontSize" Value="14" />
+                                    <Setter Property="HorizontalAlignment" Value="Center" />
+                                    <Setter Property="VerticalAlignment" Value="Center" />
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+
+
+                        <!--<DataGridTemplateColumn Width="150">
+                            <DataGridTemplateColumn.Header>
+                                <TextBlock>
+                                    <TextBlock.Style>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="Text" Value="Megasonic(1200)" />
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding DataContext.IsType1Module, ElementName=rootControl}" Value="True">
+                                                    <Setter Property="Text" Value="Ultrasonic(7)" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
+                            </DataGridTemplateColumn.Header>
+
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBox
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        BorderThickness="0"
+                                        FontSize="14"
+                                        TextAlignment="Center">
+                                        <behavior:Interaction.Behaviors>
+                                            <rule:ValidationBehavior ErrorHandler="{Binding HandleValidationErrorAction}" />
+                                        </behavior:Interaction.Behaviors>
+
+                                        <TextBox.Style>
+                                            <Style BasedOn="{StaticResource {x:Type TextBox}}" TargetType="TextBox">
+                                                <Setter Property="Text">
+                                                    <Setter.Value>
+                                                        <Binding
+                                                            Path="DSM"
+                                                            UpdateSourceTrigger="PropertyChanged"
+                                                            ValidatesOnDataErrors="True">
+                                                            <Binding.ValidationRules>
+                        -->
+                        <!--  默认验证规则 (Type2)  -->
+                        <!--
+                                                                <rule:ValueLimitRule MaxValue="1000" MinValue="0" />
+                                                            </Binding.ValidationRules>
+                                                        </Binding>
+                                                    </Setter.Value>
+                                                </Setter>
+
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding DataContext.IsType1Module, ElementName=rootControl}" Value="True">
+                                                        <Setter Property="Text">
+                                                            <Setter.Value>
+                                                                <Binding
+                                                                    Path="DSM"
+                                                                    UpdateSourceTrigger="PropertyChanged"
+                                                                    ValidatesOnDataErrors="True">
+                                                                    <Binding.ValidationRules>
+                        -->
+                        <!--  Type1模块的验证规则  -->
+                        <!--
+                                                                        <rule:ValueLimitRule MaxValue="7" MinValue="0" />
+                                                                    </Binding.ValidationRules>
+                                                                </Binding>
+                                                            </Setter.Value>
+                                                        </Setter>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBox.Style>
+                                    </TextBox>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>-->
+                        <DataGridTemplateColumn Width="150" Header="Pump Stop">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <CheckBox
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        IsChecked="{Binding PumpStop, UpdateSourceTrigger=PropertyChanged}"
+                                        Style="{x:Null}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn
+                            Width="150"
+                            Header="Agitation"
+                            IsReadOnly="True">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <CheckBox
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        IsChecked="{Binding Agination, UpdateSourceTrigger=PropertyChanged}"
+                                        Style="{x:Null}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+
+        </Border>
+    </Grid>
+</UserControl>

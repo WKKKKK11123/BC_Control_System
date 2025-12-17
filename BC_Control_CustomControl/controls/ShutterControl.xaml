@@ -1,0 +1,38 @@
+﻿<UserControl
+    x:Class="BC_Control_CustomControl.Controls.ShutterControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:BC_Control_CustomControl.Controls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Width="6"
+    Height="140"
+    mc:Ignorable="d">
+    <Grid>
+        <Viewbox
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Stretch="Fill">
+            <Canvas Width="6" Height="140">
+                <Rectangle
+                    x:Name="Door1"
+                    Width="5"
+                    Height="64"
+                    Margin="0,1,0,1"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Top"
+                    Fill="Gray"
+                    Stroke="Black" />
+                <Rectangle
+                    x:Name="Door2"
+                    Width="5"
+                    Height="64"
+                    Margin="0,65,0,0"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Top"
+                    Fill="Gray"
+                    Stroke="Black" />
+            </Canvas>
+        </Viewbox>
+    </Grid>
+</UserControl>

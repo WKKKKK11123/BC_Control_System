@@ -1,0 +1,183 @@
+﻿<UserControl
+    x:Class="BC_Control_System.Views.IO.IOView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:localCommand="clr-namespace:BC_Control_System.Command"
+    xmlns:localConverters="clr-namespace:BC_Control_System.Converters"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:theme="clr-namespace:BC_Control_System.Theme"
+    xmlns:valueConverters="clr-namespace:ValueConverters;assembly=ValueConverters"
+    Width="1200"
+    Height="562"
+    theme:ColorThemeProps.Background="{DynamicResource BackgroundBrush}"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+
+        <localConverters:IOIndextoColor x:Key="ConverttoColor" />
+        <valueConverters:ValueConverterGroup x:Key="ConverterBoolToBrush">
+            <!--<valueConverters:ValueToBoolConverter/>-->
+            <valueConverters:BoolToBrushConverter FalseValue="Gray" TrueValue="Lime" />
+        </valueConverters:ValueConverterGroup>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="9*" />
+        </Grid.RowDefinitions>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="5*" />
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="5*" />
+            </Grid.ColumnDefinitions>
+            <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                <TextBlock
+                    Margin="30,0,10,0"
+                    VerticalAlignment="Center"
+                    Text="Input Select :" />
+                <ComboBox
+                    MinWidth="80"
+                    ItemsSource="{Binding InputEnumValues}"
+                    SelectedItem="{Binding InputMenuItem}" 
+                    />
+            </StackPanel>
+            <TextBlock
+                Grid.Column="1"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                FontSize="16"
+                Text="{Binding DisplayTitle}" />
+            <StackPanel
+                Grid.Column="2"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Orientation="Horizontal">
+                <TextBlock
+                    Margin="30,0,10,0"
+                    VerticalAlignment="Center"
+                    Text="Output Select :" />
+                <ComboBox
+                    MinWidth="80"
+                    Margin="10,0,30,0"
+                    ItemsSource="{Binding OutputEnumValues}"
+                    SelectedItem="{Binding OutputMenuItem}" />
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <ItemsControl
+                Grid.Column="0"
+                Margin="10"
+                ItemsSource="{Binding InputOberver}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid Columns="1" Rows="16" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.Resources>
+                                <Style TargetType="Border">
+                                    <Setter Property="BorderBrush" Value="#C0C0C0" />
+                                    <Setter Property="BorderThickness" Value="1" />
+                                    <Setter Property="Margin" Value="-1" />
+                                </Style>
+                            </Grid.Resources>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="0.2*" />
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="0.4*" />
+                            </Grid.ColumnDefinitions>
+                            <Border
+                                Grid.Column="0"
+                                Grid.ColumnSpan="3"
+                                Background="{Binding Start, Converter={StaticResource ConverttoColor}}" />
+                            <Border Grid.Column="0">
+                                <Border
+                                    Margin="5"
+                                    Background="{Binding VarValue, Converter={StaticResource ConverterBoolToBrush}}"
+                                    BorderBrush="#8787FF"
+                                    BorderThickness="2" />
+                            </Border>
+                            <Border Grid.Column="1">
+                                <TextBlock
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Text="{Binding Remark}" />
+                            </Border>
+                            <Border Grid.Column="2">
+                                <TextBlock
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Text="{Binding VarName}" />
+                            </Border>
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
+            <ItemsControl
+                Grid.Column="1"
+                Margin="10"
+                ItemsSource="{Binding OutputOberver}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid Columns="1" Rows="16" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.Resources>
+                                <Style TargetType="Border">
+                                    <Setter Property="BorderBrush" Value="#C0C0C0" />
+                                    <Setter Property="BorderThickness" Value="1" />
+                                    <Setter Property="Margin" Value="-1" />
+                                </Style>
+                            </Grid.Resources>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="0.2*" />
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="0.5*" />
+                            </Grid.ColumnDefinitions>
+                            <Border
+                                Grid.Column="0"
+                                Grid.ColumnSpan="3"
+                                Background="{Binding Start, Converter={StaticResource ConverttoColor}}" />
+                            <Border Grid.Column="0">
+                                <!--<Border
+                                Margin="5"
+                                Background="{Binding VarValue, Converter={StaticResource ToColor}}"
+                                BorderBrush="#8787FF"
+                                BorderThickness="2" />-->
+                                <Border
+                                    Margin="5"
+                                    Background="{Binding VarValue, Converter={StaticResource ConverterBoolToBrush}}"
+                                    BorderBrush="#8787FF"
+                                    BorderThickness="2" />
+                            </Border>
+                            <Border Grid.Column="1">
+                                <TextBlock
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Text="{Binding Remark}" />
+                            </Border>
+                            <Border Grid.Column="2">
+                                <TextBlock
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Text="{Binding VarName}" />
+                            </Border>
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </Grid>
+    </Grid>
+</UserControl>

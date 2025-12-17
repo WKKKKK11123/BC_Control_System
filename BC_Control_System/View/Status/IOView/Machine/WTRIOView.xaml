@@ -1,0 +1,718 @@
+﻿<UserControl
+    x:Class="BC_Control_System.View.Status.IOView.WTRIOView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Controls="clr-namespace:BC_Control_CustomControl.Controls;assembly=BC_Control_CustomControl"
+    xmlns:com="clr-namespace:BC_Control_System.Converters"
+    xmlns:conv="clr-namespace:ValueConverters;assembly=ValueConverters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:ioviewmodel="clr-namespace:BC_Control_System.ViewModel.Status.IOViewModel"
+    xmlns:local="clr-namespace:BC_Control_System.View.Status.IOView"
+    xmlns:localCommand="clr-namespace:BC_Control_System.Command"
+    xmlns:localConverters="clr-namespace:BC_Control_System.Converters"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DataContext="{d:DesignInstance Type=ioviewmodel:WTRIOViewModel}"
+    d:DesignHeight="655"
+    d:DesignWidth="674"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <localConverters:BoolToBrushConverter
+            x:Key="ConverterBoolToYellowBrush"
+            FalseColor="LightGray"
+            TrueColor="Yellow" />
+        <localConverters:BoolToBrushConverter
+            x:Key="ConverterBoolToRedBrush"
+            FalseColor="LightGray"
+            TrueColor="Red" />
+        <localConverters:BoolToBrushConverter
+            x:Key="ConverterBoolToTransparentBrush"
+            FalseColor="Transparent"
+            TrueColor="Cyan" />
+        <localConverters:BoolToBrushConverter
+            x:Key="ConverterBoolToTransparent2Brush"
+            FalseColor="Transparent"
+            TrueColor="Black" />
+        <conv:BoolToVisibilityConverter x:Key="BoolToVisibleConv" />
+        <conv:StringToBoolConverter x:Key="ConvStringToBool" />
+        <com:StringIsBoolConverter x:Key="StringIsBoolConv" />
+    </UserControl.Resources>
+    <Grid>
+        <GroupBox
+            Margin="50"
+            FontSize="18"
+            Header="IO State"
+            Style="{x:Null}">
+            <Canvas>
+                <TextBlock
+                    Canvas.Left="20"
+                    Canvas.Top="274"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Top"
+                    FontSize="14"
+                    Text="DOG" />
+                <TextBlock
+                    Canvas.Left="20"
+                    Canvas.Top="240"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Top"
+                    FontSize="14"
+                    Text="FLS" />
+                <TextBlock
+                    Canvas.Left="68"
+                    Canvas.Top="497"
+                    FontSize="14"
+                    Text="FLS" />
+                <Controls:UtypePhotoelectricSwitch
+                    x:Name="Z轴负极限Sensor"
+                    Canvas.Left="60"
+                    Canvas.Top="234"
+                    Width="31"
+                    Height="30"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Top"
+                    ActState="{Binding WTRStatus.VerticalAxisFLS.Value, Converter={StaticResource StringIsBoolConv}}"
+                    ScaleFactor="0.7"
+                    Tag="Z轴负极限Sensor" />
+                <Controls:UtypePhotoelectricSwitch
+                    x:Name="Z轴原点Sensor"
+                    Canvas.Left="60"
+                    Canvas.Top="268"
+                    Width="31"
+                    Height="30"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Top"
+                    ActState="{Binding WTRStatus.VerticalAxisDOG.Value, Converter={StaticResource StringIsBoolConv}}"
+                    ScaleFactor="0.7"
+                    Tag="Z轴原点Sensor" />
+                <Controls:UtypePhotoelectricSwitch
+                    x:Name="X轴负极限Sensor"
+                    Canvas.Left="64"
+                    Canvas.Top="466"
+                    Width="30"
+                    Height="30"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    ActState="{Binding WTRStatus.LateralAxisFLS.Value, Converter={StaticResource StringIsBoolConv}}"
+                    ScaleFactor="0.7" />
+
+                <Border
+                    Canvas.Left="191"
+                    Canvas.Top="228"
+                    Width="40"
+                    Height="120"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Top"
+                    BorderBrush="Black"
+                    BorderThickness="0.8">
+                    <StackPanel Background="Gray">
+                        <Border
+                            x:Name="Z轴上定位"
+                            Width="40"
+                            Height="20"
+                            Margin="0,20,0,20"
+                            HorizontalAlignment="Center"
+                            Background="{Binding WTRStatus.VerticalAxisPos1.Value, Converter={StaticResource ConverterBoolToYellowBrush}}"
+                            BorderBrush="Black"
+                            BorderThickness="0.5"
+                            Tag="Z轴上定位" />
+
+
+                        <Border
+                            x:Name="Z轴下定位"
+                            Width="40"
+                            Height="20"
+                            Margin="0,20"
+                            HorizontalAlignment="Center"
+                            Background="{Binding WTRStatus.VerticalAxisPos2.Value, Converter={StaticResource ConverterBoolToYellowBrush}}"
+                            BorderBrush="Black"
+                            BorderThickness="0.5"
+                            Tag="Z轴下定位" />
+                    </StackPanel>
+                </Border>
+                <Border
+                    Canvas.Left="56"
+                    Canvas.Top="417"
+                    Width="425"
+                    Height="20"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    BorderBrush="Black"
+                    BorderThickness="0.8">
+                    <StackPanel Background="Gray" Orientation="Horizontal">
+                        <Border
+                            x:Name="X轴位置1"
+                            Width="20"
+                            Height="20"
+                            Margin="10,0,5,0"
+                            VerticalAlignment="Center"
+                            Background="{Binding WTRStatus.LateralAxisPos1.Value, Converter={StaticResource ConverterBoolToYellowBrush}}"
+                            BorderBrush="Black"
+                            BorderThickness="0.5"
+                            Tag="X轴位置1" />
+                        <Border
+                            x:Name="X轴位置2"
+                            Width="20"
+                            Height="20"
+                            Margin="5,0"
+                            VerticalAlignment="Center"
+                            Background="{Binding WTRStatus.LateralAxisPos10.Value, Converter={StaticResource ConverterBoolToYellowBrush}}"
+                            BorderBrush="Black"
+                            BorderThickness="0.5"
+                            Tag="X轴位置2" />
+                        <Border
+                            x:Name="X轴位置3"
+                            Width="20"
+                            Height="20"
+                            Margin="5,0"
+                            VerticalAlignment="Center"
+                            Background="{Binding WTRStatus.LateralAxisPos9.Value, Converter={StaticResource ConverterBoolToYellowBrush}}"
+                            BorderBrush="Black"
+                            BorderThickness="0.5"
+                            Tag="X轴位置3" />
+                        <Border
+                            x:Name="X轴位置4"
+                            Width="20"
+                            Height="20"
+                            Margin="5,0"
+                            VerticalAlignment="Center"
+                            Background="{Binding WTRStatus.LateralAxisPos11.Value, Converter={StaticResource ConverterBoolToYellowBrush}}"
+                            BorderBrush="Black"
+                            BorderThickness="0.5"
+                            Tag="X轴位置4" />
+                        <Border
+                            x:Name="X轴位置5"
+                            Width="20"
+                            Height="20"
+                            Margin="5,0"
+                            VerticalAlignment="Center"
+                            Background="{Binding WTRStatus.LateralAxisPos8.Value, Converter={StaticResource ConverterBoolToYellowBrush}}"
+                            BorderBrush="Black"
+                            BorderThickness="0.5"
+                            Tag="X轴位置5" />
+                        <Border
+                            x:Name="X轴位置6"
+                            Width="20"
+                            Height="20"
+                            Margin="5,0"
+                            VerticalAlignment="Center"
+                            Background="{Binding WTRStatus.LateralAxisPos7.Value, Converter={StaticResource ConverterBoolToYellowBrush}}"
+                            BorderBrush="Black"
+                            BorderThickness="0.5"
+                            Tag="X轴位置6" />
+                        <Border
+                            x:Name="X轴位置7"
+                            Width="20"
+                            Height="20"
+                            Margin="5,0"
+                            VerticalAlignment="Center"
+                            Background="{Binding WTRStatus.LateralAxisPos6.Value, Converter={StaticResource ConverterBoolToYellowBrush}}"
+                            BorderBrush="Black"
+                            BorderThickness="0.5"
+                            Tag="X轴位置7" />
+                        <Border
+                            x:Name="X轴位置8"
+                            Width="20"
+                            Height="20"
+                            Margin="5,0"
+                            VerticalAlignment="Center"
+                            Background="{Binding WTRStatus.LateralAxisPos5.Value, Converter={StaticResource ConverterBoolToYellowBrush}}"
+                            BorderBrush="Black"
+                            BorderThickness="0.5"
+                            Tag="X轴位置8" />
+                        <Border
+                            x:Name="X轴位置9"
+                            Width="20"
+                            Height="20"
+                            Margin="5,0"
+                            VerticalAlignment="Center"
+                            Background="{Binding WTRStatus.LateralAxisPos4.Value, Converter={StaticResource ConverterBoolToYellowBrush}}"
+                            BorderBrush="Black"
+                            BorderThickness="0.5"
+                            Tag="X轴位置9" />
+                        <Border
+                            x:Name="X轴位置10"
+                            Width="20"
+                            Height="20"
+                            Margin="5,0"
+                            VerticalAlignment="Center"
+                            Background="{Binding WTRStatus.LateralAxisPos3.Value, Converter={StaticResource ConverterBoolToYellowBrush}}"
+                            BorderBrush="Black"
+                            BorderThickness="0.5"
+                            Tag="X轴位置10" />
+                        <Border
+                            x:Name="X轴位置11"
+                            Width="20"
+                            Height="20"
+                            Margin="5,0"
+                            VerticalAlignment="Center"
+                            Background="{Binding WTRStatus.LateralAxisPos2.Value, Converter={StaticResource ConverterBoolToYellowBrush}}"
+                            BorderBrush="Black"
+                            BorderThickness="0.5"
+                            Tag="X轴位置11" />
+                        <Border
+                            x:Name="X轴位置12"
+                            Width="20"
+                            Height="20"
+                            Margin="5,0"
+                            VerticalAlignment="Center"
+                            Background="{Binding WTRStatus.LateralAxisPos2.Value, Converter={StaticResource ConverterBoolToYellowBrush}}"
+                            BorderBrush="Black"
+                            BorderThickness="0.5"
+                            Tag="X轴位置12" />
+                        <Border
+                            x:Name="X轴位置13"
+                            Width="20"
+                            Height="20"
+                            Margin="5,0"
+                            VerticalAlignment="Center"
+                            Background="{Binding WTRStatus.LateralAxisPos2.Value, Converter={StaticResource ConverterBoolToYellowBrush}}"
+                            BorderBrush="Black"
+                            BorderThickness="0.5"
+                            Tag="X轴位置13" />
+                        <Border
+                            x:Name="X轴位置14"
+                            Width="20"
+                            Height="20"
+                            Margin="5,0"
+                            VerticalAlignment="Center"
+                            Background="{Binding WTRStatus.LateralAxisPos2.Value, Converter={StaticResource ConverterBoolToYellowBrush}}"
+                            BorderBrush="Black"
+                            BorderThickness="0.5"
+                            Tag="X轴位置14" />
+                    </StackPanel>
+                </Border>
+                <TextBlock
+                    Canvas.Left="164"
+                    Canvas.Top="249"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Top"
+                    FontSize="12"
+                    Text="Up" />
+                <TextBlock
+                    Canvas.Left="147"
+                    Canvas.Top="312"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Top"
+                    FontSize="12"
+                    Text="Down" />
+                <Ellipse
+                    x:Name="ChuckOpen状态"
+                    Canvas.Left="359"
+                    Canvas.Top="70"
+                    Width="15"
+                    Height="15"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Fill="{Binding WTRStatus.ChuckOpen.Value, Converter={StaticResource ConverterBoolToYellowBrush}}"
+                    Stroke="#FF404040"
+                    StrokeThickness="0.5"
+                    Tag="ChuckOpen状态" />
+                <TextBlock
+                    Canvas.Left="294"
+                    Canvas.Top="37"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    FontSize="14"
+                    Text="Chuck" />
+                <TextBlock
+                    Canvas.Left="264"
+                    Canvas.Top="69"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    FontSize="14"
+                    Text="Open State" />
+                <Ellipse
+                    x:Name="ChuckClose状态"
+                    Canvas.Left="359"
+                    Canvas.Top="96"
+                    Width="15"
+                    Height="15"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Fill="{Binding WTRStatus.ChuckClose.Value, Converter={StaticResource ConverterBoolToYellowBrush}}"
+                    Stroke="#FF404040"
+                    StrokeThickness="0.5"
+                    Tag="ChuckClose状态" />
+                <TextBlock
+                    Canvas.Left="263"
+                    Canvas.Top="94"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Top"
+                    FontSize="14"
+                    Text="Close State" />
+                <TextBlock
+                    Canvas.Left="20"
+                    Canvas.Top="198"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Top"
+                    FontSize="14"
+                    Text="Vertical" />
+                <TextBlock
+                    Canvas.Left="20"
+                    Canvas.Top="330"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Top"
+                    FontSize="14"
+                    Text="RLS" />
+                <Controls:UtypePhotoelectricSwitch
+                    x:Name="Z轴正极限Sensor"
+                    Canvas.Left="60"
+                    Canvas.Top="324"
+                    Width="31"
+                    Height="30"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Top"
+                    ActState="{Binding WTRStatus.VerticalAxisRLS.Value, Converter={StaticResource StringIsBoolConv}}"
+                    ScaleFactor="0.7"
+                    Tag="Z轴正极限Sensor" />
+                <TextBlock
+                    Canvas.Left="20"
+                    Canvas.Top="393"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Top"
+                    FontSize="14"
+                    Text="Lateral" />
+                <TextBlock
+                    Canvas.Left="65"
+                    Canvas.Top="441"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Top"
+                    FontSize="9"
+                    Text="Pos1" />
+                <TextBlock
+                    Canvas.Left="95"
+                    Canvas.Top="441"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Top"
+                    FontSize="9"
+                    Text="Pos2" />
+                <TextBlock
+                    Canvas.Left="126"
+                    Canvas.Top="441"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Top"
+                    FontSize="9"
+                    Text="Pos3" />
+                <TextBlock
+                    Canvas.Left="156"
+                    Canvas.Top="441"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Top"
+                    FontSize="9"
+                    Text="Pos4" />
+                <TextBlock
+                    Canvas.Left="186"
+                    Canvas.Top="441"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Top"
+                    FontSize="9"
+                    Text="Pos5" />
+                <TextBlock
+                    Canvas.Left="216"
+                    Canvas.Top="441"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Top"
+                    FontSize="9"
+                    Text="Pos6" />
+                <TextBlock
+                    Canvas.Left="246"
+                    Canvas.Top="441"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Top"
+                    FontSize="9"
+                    Text="Pos7" />
+                <TextBlock
+                    Canvas.Left="277"
+                    Canvas.Top="441"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Top"
+                    FontSize="9"
+                    Text="Pos8" />
+                <TextBlock
+                    Canvas.Left="307"
+                    Canvas.Top="441"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Top"
+                    FontSize="9"
+                    Text="Pos9" />
+                <TextBlock
+                    Canvas.Left="110"
+                    Canvas.Top="497"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    FontSize="14"
+                    Text="DOG" />
+                <Controls:UtypePhotoelectricSwitch
+                    x:Name="X轴原点Sensor"
+                    Canvas.Left="109"
+                    Canvas.Top="466"
+                    Width="30"
+                    Height="30"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    ActState="{Binding WTRStatus.LateralAxisDOG.Value, Converter={StaticResource StringIsBoolConv}}"
+                    ScaleFactor="0.7"
+                    Tag="X轴原点Sensor" />
+                <TextBlock
+                    Canvas.Left="193"
+                    Canvas.Top="497"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    FontSize="14"
+                    Text="RLS" />
+                <Controls:UtypePhotoelectricSwitch
+                    x:Name="X轴正极限Sensor"
+                    Canvas.Left="190"
+                    Canvas.Top="466"
+                    Width="30"
+                    Height="30"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    ActState="{Binding WTRStatus.LateralAxisRLS.Value, Converter={StaticResource StringIsBoolConv}}"
+                    ScaleFactor="0.7" />
+                <Ellipse
+                    x:Name="Z轴使能信号"
+                    Canvas.Left="98"
+                    Canvas.Top="67"
+                    Width="15"
+                    Height="15"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Fill="{Binding WTRStatus.VerticalEnable.Value, Converter={StaticResource ConverterBoolToRedBrush}}"
+                    Stroke="Black"
+                    StrokeThickness="0.5"
+                    Tag="Z轴使能信号" />
+                <Ellipse
+                    x:Name="Z轴初始化完成"
+                    Canvas.Left="98"
+                    Canvas.Top="90"
+                    Width="15"
+                    Height="15"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Fill="{Binding WTRStatus.VerticalInit.Value, Converter={StaticResource ConverterBoolToRedBrush}}"
+                    Stroke="Black"
+                    StrokeThickness="0.5"
+                    Tag="Z轴初始化完成" />
+                <Ellipse
+                    x:Name="Z轴运行中"
+                    Canvas.Left="98"
+                    Canvas.Top="113"
+                    Width="15"
+                    Height="15"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Fill="{Binding WTRStatus.VerticalBusy.Value, Converter={StaticResource ConverterBoolToRedBrush}}"
+                    Stroke="Black"
+                    StrokeThickness="0.5"
+                    Tag="Z轴运行中" />
+                <TextBlock
+                    Canvas.Left="19"
+                    Canvas.Top="10"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontSize="14"
+                    Text="Monitor Driver" />
+                <TextBlock
+                    Canvas.Left="30"
+                    Canvas.Top="36"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontSize="14"
+                    Text="Vertical" />
+                <TextBlock
+                    Canvas.Left="52"
+                    Canvas.Top="112"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontSize="14"
+                    Text="Busy" />
+                <TextBlock
+                    Canvas.Left="39"
+                    Canvas.Top="66"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontSize="14"
+                    Text="Enable" />
+                <TextBlock
+                    Canvas.Left="62"
+                    Canvas.Top="89"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontSize="14"
+                    Text="Init" />
+                <Ellipse
+                    x:Name="Z轴Error"
+                    Canvas.Left="98"
+                    Canvas.Top="137"
+                    Width="15"
+                    Height="16"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Fill="{Binding WTRStatus.VerticalError.Value, Converter={StaticResource ConverterBoolToRedBrush}}"
+                    Stroke="Black"
+                    StrokeThickness="0.5"
+                    Tag="Z轴Error" />
+                <TextBlock
+                    Canvas.Left="51"
+                    Canvas.Top="137"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontSize="14"
+                    Text="Error" />
+                <Ellipse
+                    x:Name="Z轴Alarm"
+                    Canvas.Left="98"
+                    Canvas.Top="163"
+                    Width="15"
+                    Height="16"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Fill="{Binding WTRStatus.VerticalAlarm.Value, Converter={StaticResource ConverterBoolToRedBrush}}"
+                    Stroke="Black"
+                    StrokeThickness="0.5"
+                    Tag="Z轴Alarm" />
+                <TextBlock
+                    Canvas.Left="44"
+                    Canvas.Top="163"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontSize="14"
+                    Text="Alarm" />
+                <Ellipse
+                    x:Name="X轴使能信号"
+                    Canvas.Left="208"
+                    Canvas.Top="67"
+                    Width="15"
+                    Height="15"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Fill="{Binding WTRStatus.LateralEnable.Value, Converter={StaticResource ConverterBoolToRedBrush}}"
+                    Stroke="Black"
+                    StrokeThickness="0.5"
+                    Tag="X轴使能信号" />
+                <Ellipse
+                    x:Name="X轴初始化完成"
+                    Canvas.Left="208"
+                    Canvas.Top="90"
+                    Width="15"
+                    Height="15"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Fill="{Binding WTRStatus.LateralInit.Value, Converter={StaticResource ConverterBoolToRedBrush}}"
+                    Stroke="Black"
+                    StrokeThickness="0.5"
+                    Tag="X轴初始化完成" />
+                <Ellipse
+                    x:Name="X轴运行中"
+                    Canvas.Left="208"
+                    Canvas.Top="113"
+                    Width="15"
+                    Height="15"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Fill="{Binding WTRStatus.LateralBusy.Value, Converter={StaticResource ConverterBoolToRedBrush}}"
+                    Stroke="Black"
+                    StrokeThickness="0.5"
+                    Tag="X轴运行中" />
+                <TextBlock
+                    Canvas.Left="143"
+                    Canvas.Top="36"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontSize="14"
+                    Text="Lateral" />
+                <TextBlock
+                    Canvas.Left="162"
+                    Canvas.Top="112"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontSize="14"
+                    Text="Busy" />
+                <TextBlock
+                    Canvas.Left="149"
+                    Canvas.Top="66"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontSize="14"
+                    Text="Enable" />
+                <TextBlock
+                    Canvas.Left="172"
+                    Canvas.Top="89"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontSize="14"
+                    Text="Init" />
+                <Ellipse
+                    x:Name="X轴Error"
+                    Canvas.Left="208"
+                    Canvas.Top="137"
+                    Width="15"
+                    Height="16"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Fill="{Binding WTRStatus.LateralError.Value, Converter={StaticResource ConverterBoolToRedBrush}}"
+                    Stroke="Black"
+                    StrokeThickness="0.5"
+                    Tag="X轴Error" />
+                <TextBlock
+                    Canvas.Left="161"
+                    Canvas.Top="137"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontSize="14"
+                    Text="Error" />
+                <Ellipse
+                    x:Name="X轴Alarm"
+                    Canvas.Left="208"
+                    Canvas.Top="163"
+                    Width="15"
+                    Height="16"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Fill="{Binding WTRStatus.LateralAlarm.Value, Converter={StaticResource ConverterBoolToRedBrush}}"
+                    Stroke="Black"
+                    StrokeThickness="0.5"
+                    Tag="X轴Alarm" />
+                <TextBlock
+                    Canvas.Left="154"
+                    Canvas.Top="163"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontSize="14"
+                    Text="Alarm" />
+                <TextBlock
+                    Canvas.Left="337"
+                    Canvas.Top="441"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    FontSize="9"
+                    Text="Pos10" />
+                <TextBlock
+                    Canvas.Left="366"
+                    Canvas.Top="441"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    FontSize="9"
+                    Text="Pos11" />
+                <TextBlock
+                    Canvas.Left="396"
+                    Canvas.Top="441"
+                    FontSize="9"
+                    Text="Pos12" HorizontalAlignment="Center" VerticalAlignment="Top" />
+                <TextBlock
+                    Canvas.Left="427"
+                    Canvas.Top="441"
+                    FontSize="9"
+                    Text="Pos13" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                <TextBlock
+                    Canvas.Left="458"
+                    Canvas.Top="441"
+                    FontSize="9"
+                    Text="Pos14" HorizontalAlignment="Left" VerticalAlignment="Top" />
+
+            </Canvas>
+
+        </GroupBox>
+    </Grid>
+</UserControl>

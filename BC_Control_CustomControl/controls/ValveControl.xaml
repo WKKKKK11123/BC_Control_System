@@ -1,0 +1,85 @@
+﻿<UserControl
+    x:Class="BC_Control_CustomControl.Controls.ValveControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:local="clr-namespace:BC_Control_CustomControl.Controls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="30"
+    d:DesignWidth="30"
+    mc:Ignorable="d">
+    <Grid>
+        <Viewbox
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Stretch="Uniform">
+            <Canvas
+                Name="myRectangle"
+                Width="30"
+                Height="30"
+                RenderTransformOrigin="0.5 0.5">
+                <Canvas.RenderTransform>
+                    <TransformGroup>
+                        <RotateTransform x:Name="rectRotateTransform" Angle="0" />
+                        <ScaleTransform x:Name="rectScaleTransform" ScaleX="1" ScaleY="1" />
+                        <TranslateTransform x:Name="rectTranslateTransform" />
+                    </TransformGroup>
+                </Canvas.RenderTransform>
+                <Rectangle
+                    Canvas.Left="7"
+                    Width="16"
+                    Height="7"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Stroke="Black" />
+                <Path
+                    Canvas.Left="7"
+                    Canvas.Top="3"
+                    Width="16"
+                    Height="1"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Top"
+                    Fill="#FFF4F4F5"
+                    RenderTransformOrigin="0.5,0.5"
+                    Stretch="Fill"
+                    Stroke="Black">
+                    <Path.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform ScaleY="-1" />
+                            <SkewTransform />
+                            <RotateTransform />
+                            <TranslateTransform />
+                        </TransformGroup>
+                    </Path.RenderTransform>
+                    <Path.Data>
+                        <PathGeometry Figures="M73.166667,38 L139,38" />
+                    </Path.Data>
+                </Path>
+                <Rectangle
+                    Canvas.Left="11"
+                    Canvas.Top="7"
+                    Width="8"
+                    Height="8"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Fill="Black"
+                    Stroke="Black" />
+                <Path
+                    x:Name="SwitchPath"
+                    Canvas.Top="7"
+                    Width="30"
+                    Height="22"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Top"
+                    Fill="LightGray"
+                    Stretch="Fill"
+                    Stroke="Black">
+                    <Path.Data>
+                        <PathGeometry Figures="M45.666667,68.666667 L79.916668,93.166664 157.23099,93.166664 192.24141,68.666664 192.24141,137.02166 156.85264,110.90029 79.298544,110.90029 45.415684,137.50992 z" />
+                    </Path.Data>
+                </Path>
+            </Canvas>
+        </Viewbox>
+    </Grid>
+</UserControl>

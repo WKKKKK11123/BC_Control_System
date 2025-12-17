@@ -1,0 +1,369 @@
+﻿<UserControl
+    x:Class="BC_Control_System.View.Status.IOView.LFR_4IOView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Controls="clr-namespace:BC_Control_CustomControl.Controls;assembly=BC_Control_CustomControl"
+    xmlns:com="clr-namespace:BC_Control_System.Converters"
+    xmlns:conv="clr-namespace:ValueConverters;assembly=ValueConverters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:ioviewmodel="clr-namespace:BC_Control_System.ViewModel.Status.IOViewModel"
+    xmlns:local="clr-namespace:BC_Control_System.View.Status.IOView"
+    xmlns:localCommand="clr-namespace:BC_Control_System.Command"
+    xmlns:localConverters="clr-namespace:BC_Control_System.Converters"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DataContext="{d:DesignInstance Type=ioviewmodel:LFR_4IOViewModel}"
+    d:DesignHeight="750"
+    d:DesignWidth="674"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <conv:BoolToBrushConverter
+            x:Key="ConverterBoolToYellowBrush"
+            FalseValue="LightGray"
+            TrueValue="Yellow" />
+        <localConverters:BoolToBrushConverter
+            x:Key="ConverterBoolToRedBrush"
+            FalseColor="LightGray"
+            TrueColor="Red" />
+        <localConverters:BoolToBrushConverter
+            x:Key="ConverterBoolToTransparentBrush"
+            FalseColor="Transparent"
+            TrueColor="Cyan" />
+        <localConverters:BoolToBrushConverter
+            x:Key="ConverterBoolToTransparent2Brush"
+            FalseColor="Transparent"
+            TrueColor="Black" />
+        <conv:BoolToVisibilityConverter x:Key="BoolToVisibleConv" />
+        <conv:StringToBoolConverter x:Key="ConvStringToBool" />
+        <com:StringIsBoolConverter x:Key="StringIsBoolConv" />
+    </UserControl.Resources>
+    <Grid>
+        <GroupBox
+            Margin="50"
+            FontSize="18"
+            Header="IO State"
+            Style="{x:Null}">
+            <Canvas>
+                <Image
+                    Canvas.Left="339"
+                    Canvas.Top="141"
+                    Width="102"
+                    Height="342"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Source="/Resources/LiftPic.png" />
+
+
+                <Ellipse
+                    Canvas.Left="98"
+                    Canvas.Top="67"
+                    Width="15"
+                    Height="15"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Fill="{Binding LiftStatusClass.VerticalEnable.Value, Converter={StaticResource ConverterBoolToRedBrush}}"
+                    Stroke="Black"
+                    StrokeThickness="0.5" />
+                <Ellipse
+                    Canvas.Left="98"
+                    Canvas.Top="90"
+                    Width="15"
+                    Height="15"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Fill="{Binding LiftStatusClass.VerticalInit.Value, Converter={StaticResource ConverterBoolToRedBrush}}"
+                    Stroke="Black"
+                    StrokeThickness="0.5" />
+                <Ellipse
+                    Canvas.Left="98"
+                    Canvas.Top="113"
+                    Width="15"
+                    Height="15"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Fill="{Binding LiftStatusClass.VerticalBusy.Value, Converter={StaticResource ConverterBoolToRedBrush}}"
+                    Stroke="Black"
+                    StrokeThickness="0.5" />
+                <TextBlock
+                    Canvas.Left="69"
+                    Canvas.Top="279"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    FontSize="14"
+                    Text="DOG" />
+                <TextBlock
+                    Canvas.Left="79"
+                    Canvas.Top="244"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    FontSize="14"
+                    Text="FLS" />
+                <TextBlock
+                    Canvas.Left="78"
+                    Canvas.Top="492"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    FontSize="14"
+                    Text="RLS" />
+                <Controls:UtypePhotoelectricSwitch
+                    Canvas.Left="109"
+                    Canvas.Top="238"
+                    Width="31"
+                    Height="30"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    ActState="{Binding LiftStatusClass.VerticalAxisFLS.Value, Converter={StaticResource StringIsBoolConv}}"
+                    ScaleFactor="0.7" />
+                <Controls:UtypePhotoelectricSwitch
+                    Canvas.Left="109"
+                    Canvas.Top="273"
+                    Width="31"
+                    Height="30"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    ActState="{Binding LiftStatusClass.VerticalAxisDOG.Value, Converter={StaticResource ConvStringToBool}}"
+                    ScaleFactor="0.7" />
+                <Controls:UtypePhotoelectricSwitch
+                    Canvas.Left="109"
+                    Canvas.Top="486"
+                    Width="30"
+                    Height="30"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    ActState="{Binding LiftStatusClass.VerticalAxisRLS.Value, Converter={StaticResource ConvStringToBool}}"
+                    ScaleFactor="0.7" />
+                <TextBlock
+                    Canvas.Left="19"
+                    Canvas.Top="10"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    FontSize="14"
+                    Text="Monitor Driver" />
+                <TextBlock
+                    Canvas.Left="30"
+                    Canvas.Top="36"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Top"
+                    FontSize="14"
+                    Text="Vertical" />
+                <TextBlock
+                    Canvas.Left="52"
+                    Canvas.Top="112"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    FontSize="14"
+                    Text="Busy" />
+                <TextBlock
+                    Canvas.Left="39"
+                    Canvas.Top="66"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    FontSize="14"
+                    Text="Enable" />
+                <TextBlock
+                    Canvas.Left="62"
+                    Canvas.Top="89"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    FontSize="14"
+                    Text="Init" />
+                <Border
+                    Canvas.Left="238"
+                    Canvas.Top="280"
+                    Width="40"
+                    Height="138"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Top"
+                    BorderBrush="Black"
+                    BorderThickness="0.8">
+                    <StackPanel Background="Gray">
+                        <Border
+                            Height="25"
+                            Margin="0,10"
+                            Background="{Binding LiftStatusClass.VerticalPosUp.Value, Converter={StaticResource ConverterBoolToYellowBrush}}"
+                            BorderBrush="Black"
+                            BorderThickness="0.5" />
+                        <Border
+                            Name="test11"
+                            Height="25"
+                            Margin="0,10"
+                            Background="{Binding LiftStatusClass.VerticalPosStandby.Value, Converter={StaticResource ConverterBoolToYellowBrush}}"
+                            BorderBrush="Black"
+                            BorderThickness="0.5" />
+                        <Border
+                            Height="25"
+                            Margin="0,10"
+                            Background="{Binding LiftStatusClass.VerticalPosDown.Value, Converter={StaticResource ConverterBoolToYellowBrush}}"
+                            BorderBrush="Black"
+                            BorderThickness="0.5" />
+                    </StackPanel>
+                </Border>
+
+                <TextBlock
+                    Canvas.Left="205"
+                    Canvas.Top="295"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    FontSize="12"
+                    Text="Up" />
+                <TextBlock
+                    Canvas.Left="174"
+                    Canvas.Top="342"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Top"
+                    FontSize="12"
+                    Text="Standby" />
+                <TextBlock
+                    Canvas.Left="188"
+                    Canvas.Top="387"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Top"
+                    FontSize="12"
+                    Text="Down" />
+                <Ellipse
+                    Canvas.Left="325"
+                    Canvas.Top="340"
+                    Width="120"
+                    Height="120"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Fill="{Binding LiftStatusClass.LFRIswafer.Value, Converter={StaticResource ConverterBoolToTransparentBrush}}"
+                    Stroke="{Binding LiftStatusClass.LFRIswafer.Value, Converter={StaticResource ConverterBoolToTransparent2Brush}}"
+                    StrokeThickness="0.5" />
+                <Ellipse
+                    Canvas.Left="98"
+                    Canvas.Top="137"
+                    Width="15"
+                    Height="16"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Fill="{Binding LiftStatusClass.VerticalError.Value, Converter={StaticResource ConverterBoolToRedBrush}}"
+                    Stroke="Black"
+                    StrokeThickness="0.5" />
+                <TextBlock
+                    Canvas.Left="51"
+                    Canvas.Top="137"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    FontSize="14"
+                    Text="Error" />
+                <Ellipse
+                    Canvas.Left="98"
+                    Canvas.Top="163"
+                    Width="15"
+                    Height="16"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Fill="{Binding LiftStatusClass.VerticalAlarm.Value, Converter={StaticResource ConverterBoolToRedBrush}}"
+                    Stroke="Black"
+                    StrokeThickness="0.5" />
+                <TextBlock
+                    Canvas.Left="44"
+                    Canvas.Top="163"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    FontSize="14"
+                    Text="Alarm" />
+                <Ellipse
+                    Canvas.Left="208"
+                    Canvas.Top="67"
+                    Width="15"
+                    Height="15"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Fill="{Binding LiftStatusClass.LateralEnable.Value, Converter={StaticResource ConverterBoolToRedBrush}}"
+                    Stroke="Black"
+                    StrokeThickness="0.5" />
+                <Ellipse
+                    Canvas.Left="208"
+                    Canvas.Top="90"
+                    Width="15"
+                    Height="15"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Fill="{Binding LiftStatusClass.LateralInit.Value, Converter={StaticResource ConverterBoolToRedBrush}}"
+                    Stroke="Black"
+                    StrokeThickness="0.5" />
+                <Ellipse
+                    Canvas.Left="208"
+                    Canvas.Top="113"
+                    Width="15"
+                    Height="15"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Fill="{Binding LiftStatusClass.LateralBusy.Value, Converter={StaticResource ConverterBoolToRedBrush}}"
+                    Stroke="Black"
+                    StrokeThickness="0.5" />
+                <TextBlock
+                    Canvas.Left="143"
+                    Canvas.Top="36"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Top"
+                    FontSize="14"
+                    Text="Lateral" />
+                <TextBlock
+                    Canvas.Left="162"
+                    Canvas.Top="112"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    FontSize="14"
+                    Text="Busy" />
+                <TextBlock
+                    Canvas.Left="149"
+                    Canvas.Top="66"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    FontSize="14"
+                    Text="Enable" />
+                <TextBlock
+                    Canvas.Left="172"
+                    Canvas.Top="89"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    FontSize="14"
+                    Text="Init" />
+                <Ellipse
+                    Canvas.Left="208"
+                    Canvas.Top="137"
+                    Width="15"
+                    Height="16"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Fill="{Binding LiftStatusClass.LateralError.Value, Converter={StaticResource ConverterBoolToRedBrush}}"
+                    Stroke="Black"
+                    StrokeThickness="0.5" />
+                <TextBlock
+                    Canvas.Left="161"
+                    Canvas.Top="137"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    FontSize="14"
+                    Text="Error" />
+                <Ellipse
+                    Canvas.Left="208"
+                    Canvas.Top="163"
+                    Width="15"
+                    Height="16"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Fill="{Binding LiftStatusClass.LateralAlarm.Value, Converter={StaticResource ConverterBoolToRedBrush}}"
+                    Stroke="Black"
+                    StrokeThickness="0.5" />
+                <TextBlock
+                    Canvas.Left="154"
+                    Canvas.Top="163"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    FontSize="14"
+                    Text="Alarm" />
+                <TextBlock
+                    Canvas.Left="80"
+                    Canvas.Top="213"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    FontSize="14"
+                    Text="Vertical" />
+            </Canvas>
+
+        </GroupBox>
+    </Grid>
+</UserControl>

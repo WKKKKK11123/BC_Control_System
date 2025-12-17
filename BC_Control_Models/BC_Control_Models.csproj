@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0-windows7.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.0.0" />
+    <PackageReference Include="MiniExcel" Version="1.41.1" />
+    <PackageReference Include="NPOI" Version="2.7.5" />
+    <PackageReference Include="PropertyChanged.Fody" Version="4.1.0" />
+    <PackageReference Include="SqlSugarCore" Version="5.1.4.209-preview01" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="thinger.DataConvertLib">
+      <HintPath>..\BC_Control_System\dll\thinger.DataConvertLib.dll</HintPath>
+    </Reference>
+    <Reference Include="ZCCommunication">
+      <HintPath>..\BC_Control_System\dll\ZCCommunication.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Service\" />
+  </ItemGroup>
+
+</Project>

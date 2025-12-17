@@ -1,0 +1,711 @@
+﻿<Window
+    x:Class="BC_Control_System.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:conv="clr-namespace:ValueConverters;assembly=ValueConverters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:localCommand="clr-namespace:BC_Control_System.Command"
+    xmlns:localConv="clr-namespace:BC_Control_System.Converters"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:prism="http://prismlibrary.com/"
+    xmlns:theme="clr-namespace:BC_Control_System.Theme"
+    Title="BC3100"
+    Width="1920"
+    Height="1070"
+    theme:ColorThemeProps.Background="{DynamicResource BackgroundBrush}"
+    AllowsTransparency="True"
+    ResizeMode="NoResize"
+    Style="{x:Null}"
+    WindowStartupLocation="CenterScreen"
+    WindowState="Normal"
+    WindowStyle="None"
+    mc:Ignorable="d">
+
+    <Window.Resources>
+
+        <!--<localCommand:OpenRecipeEditorViewCommand x:Key="OpenRecipeView" />-->
+        <localConv:RightsConverter x:Key="localRightsConverter" />
+        <conv:BoolToBrushConverter
+            x:Key="ConverterBoolToVisibility"
+            FalseValue="LightGray"
+            TrueValue="Cyan" />
+        <conv:BoolToVisibilityConverter x:Key="MenuItemVisible" />
+        <conv:MinMaxValueToBoolConverter
+            x:Key="ParamConv"
+            MaxValue="1"
+            MinValue="0" />
+        <ControlTemplate x:Key="CustomButtonTemplate" TargetType="Button">
+            <Border
+                x:Name="border"
+                Background="{TemplateBinding Background}"
+                BorderBrush="#595959"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                CornerRadius="1">
+                <Border
+                    Margin="2,2,0,0"
+                    BorderBrush="#939392"
+                    BorderThickness="0,0,1,1">
+                    <ContentPresenter
+                        Margin="10,5"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Content="{TemplateBinding Content}" />
+                </Border>
+            </Border>
+        </ControlTemplate>
+        <Style
+            x:Key="ConfigurableMenuItemStyle"
+            BasedOn="{StaticResource {x:Type MenuItem}}"
+            TargetType="MenuItem">
+            <Setter Property="CommandParameter" Value="{Binding}" />
+            <Setter Property="Header" Value="{Binding StationName}" />
+        </Style>
+        <Style
+            x:Key="ParameterMenuItemStyle"
+            BasedOn="{StaticResource ConfigurableMenuItemStyle}"
+            TargetType="MenuItem">
+            <Setter Property="Command" Value="{Binding DataContext.OpenParameterCommand, RelativeSource={RelativeSource AncestorType=Menu}}" />
+            <Setter Property="IsEnabled" Value="{Binding DataContext.AuthManager.UserRights, Converter={StaticResource localRightsConverter}, ConverterParameter=1, RelativeSource={RelativeSource AncestorType=Menu}}" />
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding HasParameter}" Value="False">
+                    <Setter Property="Visibility" Value="Collapsed" />
+                </DataTrigger>
+            </Style.Triggers>
+
+        </Style>
+        <Style
+            x:Key="StatusMenuItemStyle"
+            BasedOn="{StaticResource ConfigurableMenuItemStyle}"
+            TargetType="MenuItem">
+            <Setter Property="Command" Value="{Binding DataContext.OpenStatusViewCommand, RelativeSource={RelativeSource AncestorType=Menu}}" />
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding HasStatus}" Value="False">
+                    <Setter Property="Visibility" Value="Collapsed" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style
+            x:Key="RecipeMenuItemStyle"
+            BasedOn="{StaticResource ConfigurableMenuItemStyle}"
+            TargetType="MenuItem">
+            <Setter Property="Command" Value="{Binding DataContext.OpenModuleRecipeViewCommand, RelativeSource={RelativeSource AncestorType=Menu}}" />
+            <Setter Property="IsEnabled" Value="{Binding DataContext.AuthManager.UserRights, Converter={StaticResource localRightsConverter}, ConverterParameter=2, RelativeSource={RelativeSource AncestorType=Menu}}" />
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding HasRecipe}" Value="False">
+                    <Setter Property="Visibility" Value="Collapsed" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style
+            x:Key="RecipeDownloadMenuItemStyle"
+            BasedOn="{StaticResource ConfigurableMenuItemStyle}"
+            TargetType="MenuItem">
+            <Setter Property="Command" Value="{Binding DataContext.OpenFolderCommand, RelativeSource={RelativeSource AncestorType=Menu}}" />
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding HasRecipe}" Value="False">
+                    <Setter Property="Visibility" Value="Collapsed" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions />
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1.1*" />
+            <RowDefinition Height="1.2*" />
+            <RowDefinition Height="30*" />
+            <RowDefinition Height="1.2*" />
+        </Grid.RowDefinitions>
+        <Border BorderBrush="{DynamicResource BorderBrush}">
+            <Menu
+                x:Name="MainMenu"
+                Margin="1"
+                Background="White">
+                <MenuItem
+                    Height="{Binding ElementName=MainMenu, Path=ActualHeight}"
+                    Margin="2,0,2,0"
+                    Header="Operation">
+                    <MenuItem
+                        Command="{Binding OpenDialogViewCommand}"
+                        CommandParameter="LoginView"
+                        Header="Login" />
+                    <MenuItem Command="{Binding LogoutCommand}" Header="Logout" />
+                    <MenuItem Command="{Binding CloseCommand}" Header="Shutdown" />
+                    <MenuItem
+                        Command="{Binding OpenViewCommand}"
+                        CommandParameter="CarrierTrackView"
+                        Header="Carrier Tracking"
+                        IsEnabled="{Binding AuthManager.UserRights, Converter={StaticResource localRightsConverter}, ConverterParameter=1}" />
+                    <MenuItem Header="PIO Tracking">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="PreviewMouseDown">
+                                <i:InvokeCommandAction Command="{Binding OpenViewCommand}" CommandParameter="LoadportTrackingView" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </MenuItem>
+                </MenuItem>
+                <MenuItem Margin="2,0,2,0">
+                    <MenuItem.Header>
+                        <TextBlock Text="Recipe" />
+                    </MenuItem.Header>
+                    <MenuItem
+                        Command="{Binding OpenViewCommand}"
+                        CommandParameter="FlowRecipe"
+                        Header="Flow Recipe"
+                        
+                        IsEnabled="{Binding AuthManager.UserRights, Converter={StaticResource localRightsConverter}, ConverterParameter=2}" />
+                    <MenuItem Header="Unit Recipe" ItemsSource="{Binding ProcessTankCollections}">
+                        <MenuItem.ItemContainerStyle>
+                            <StaticResource ResourceKey="RecipeMenuItemStyle" />
+                        </MenuItem.ItemContainerStyle>
+                    </MenuItem>
+                </MenuItem>
+                <MenuItem Margin="2,0,2,0" Header="Parameter">
+                    <MenuItem
+                        Margin="2,0,2,0"
+                        Header="Process Tank "
+                        ItemsSource="{Binding ProcessTankCollections}">
+                        <MenuItem.ItemContainerStyle>
+                            <StaticResource ResourceKey="ParameterMenuItemStyle" />
+                        </MenuItem.ItemContainerStyle>
+                    </MenuItem>
+                    <MenuItem
+                        Margin="2,0,2,0"
+                        Header="Buffer Tank "
+                        ItemsSource="{Binding BufferTankCollections}">
+                        <MenuItem.ItemContainerStyle>
+                            <StaticResource ResourceKey="ParameterMenuItemStyle" />
+                        </MenuItem.ItemContainerStyle>
+                    </MenuItem>
+                    <MenuItem
+                        Margin="2,0,2,0"
+                        Header="Machine"
+                        ItemsSource="{Binding MachineCollections}">
+                        <MenuItem.ItemContainerStyle>
+                            <StaticResource ResourceKey="ParameterMenuItemStyle" />
+                        </MenuItem.ItemContainerStyle>
+                    </MenuItem>
+                </MenuItem>
+                <MenuItem Margin="2,0,2,0" Header="Status">
+                    <MenuItem
+                        Margin="2,0,2,0"
+                        Header="Process Tank "
+                        ItemsSource="{Binding ProcessTankCollections}">
+                        <MenuItem.ItemContainerStyle>
+                            <StaticResource ResourceKey="StatusMenuItemStyle" />
+                        </MenuItem.ItemContainerStyle>
+                    </MenuItem>
+                    <MenuItem
+                        Margin="2,0,2,0"
+                        Header="Buffer Tank "
+                        ItemsSource="{Binding BufferTankCollections}">
+                        <MenuItem.ItemContainerStyle>
+                            <StaticResource ResourceKey="StatusMenuItemStyle" />
+                        </MenuItem.ItemContainerStyle>
+                    </MenuItem>
+                    <MenuItem
+                        Margin="2,0,2,0"
+                        Header="Machine"
+                        ItemsSource="{Binding MachineCollections}">
+                        <MenuItem.ItemContainerStyle>
+                            <StaticResource ResourceKey="StatusMenuItemStyle" />
+                        </MenuItem.ItemContainerStyle>
+                    </MenuItem>
+                </MenuItem>
+                <MenuItem Margin="2,0,2,0" Header="Log">
+                    <MenuItem
+                        Command="{Binding OpenViewCommand}"
+                        CommandParameter="AlarmLogData"
+                        Header="Alarm Log "
+                         />
+                    <MenuItem
+                        Command="{Binding OpenViewCommand}"
+                        CommandParameter="OprationLogView"
+                        Header="Opration Log "
+                        />
+                    <MenuItem
+                        Command="{Binding OpenViewCommand}"
+                        CommandParameter="EventLogView"
+                        Header="Event Log "
+                        />
+                    <MenuItem
+                        Command="{Binding OpenViewCommand}"
+                        CommandParameter="EndofRunLogView"
+                        Header="Process Log "
+                         />
+                    <!--<MenuItem
+                        Command="{Binding OpenViewCommand}"
+                        CommandParameter="WaferRecordView"
+                        Header="Wafer Record"
+                        IsEnabled="{Binding CanAccessLog}" />-->
+
+                    <MenuItem
+                        Margin="2,0,2,0"
+                        Header="Trace Log "
+                        ItemsSource="{Binding ProcessTankCollections}">
+                        <MenuItem.ItemTemplate>
+                            <DataTemplate>
+                                <MenuItem
+                                    Command="{Binding DataContext.OpenTraceLogViewCommand, RelativeSource={RelativeSource AncestorType=Menu}}"
+                                    CommandParameter="{Binding}"
+                                    Header="{Binding StationName}" />
+                            </DataTemplate>
+                        </MenuItem.ItemTemplate>
+                    </MenuItem>
+                </MenuItem>
+                <MenuItem Margin="2,0,2,0" Header="System">
+                    <MenuItem
+                        Command="{Binding OpenDialogViewCommand}"
+                        CommandParameter="UseRegView"
+                        Header="User Reg "
+                        />
+                </MenuItem>
+                <MenuItem Margin="2,0,2,0" Header="Maintenance">
+                    <MenuItem Header="IO View ">
+                        <MenuItem
+                            Command="{Binding OpenIOViewCommand}"
+                            CommandParameter="PLC1"
+                            Header="WTR" />
+                        <MenuItem
+                            Command="{Binding OpenIOViewCommand}"
+                            CommandParameter="PLC2"
+                            Header="MGD" />
+                        <MenuItem
+                            Command="{Binding OpenIOViewCommand}"
+                            CommandParameter="PLC3"
+                            Header="QDR/CC" />
+                        <MenuItem
+                            Command="{Binding OpenIOViewCommand}"
+                            CommandParameter="PLC4"
+                            Header="IPA_1/IPA_2" />
+                        <MenuItem
+                            Command="{Binding OpenIOViewCommand}"
+                            CommandParameter="PLC5"
+                            Header="NMP_1/NMP_2" />
+                        <MenuItem
+                            Command="{Binding OpenIOViewCommand}"
+                            CommandParameter="PLC6"
+                            Header="SYS9070_1/SYS9070_2" />
+                    </MenuItem>
+
+                    <MenuItem
+                        Command="{Binding OpenFolderCommand}"
+                        Header="Manual Recipe"
+                        ItemsSource="{Binding ProcessTankCollections}">
+                        <MenuItem.ItemContainerStyle>
+                            <StaticResource ResourceKey="RecipeDownloadMenuItemStyle" />
+                        </MenuItem.ItemContainerStyle>
+                    </MenuItem>
+
+                </MenuItem>
+                <MenuItem
+                    Margin="2,0,2,0"
+                    Command="{Binding OpenViewCommand}"
+                    CommandParameter="ActAlarmView"
+                    Header="Alarm" />
+                <MenuItem Margin="2,0,2,0" Header="Help">
+                    <MenuItem Header="Theme Helper">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="PreviewMouseDown">
+                                <i:InvokeCommandAction Command="{Binding OpenDialogViewCommand}" CommandParameter="ThemeView" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </MenuItem>
+                </MenuItem>
+            </Menu>
+        </Border>
+        <Border Grid.Row="1" BorderThickness="1">
+            <Border.BorderBrush>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <!--  渐变色模拟 3D 效果  -->
+                    <!--<GradientStop Color="#FFFFFF" Offset="0"/>
+                    <GradientStop Color="#A9A9A9" Offset="0.5"/>-->
+                    <GradientStop Offset="1" Color="#5A5A5A" />
+                </LinearGradientBrush>
+            </Border.BorderBrush>
+            <DockPanel HorizontalAlignment="Stretch" LastChildFill="True">
+                <StackPanel DockPanel.Dock="Left" Orientation="Horizontal">
+                    <Button
+                        Name="Login"
+                        Margin="3,3,1,3"
+                        Background="Green"
+                        Style="{x:Null}">
+                        <Button.Width>
+                            <Binding ElementName="Login" Path="Height" />
+                        </Button.Width>
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="PreviewMouseDown">
+                                <i:InvokeCommandAction Command="{Binding OpenDialogViewCommand}" CommandParameter="LoginView" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                        <Border Padding="1">
+                            <Border.Background>
+                                <SolidColorBrush Color="LightGray" />
+                            </Border.Background>
+                            <Border.CornerRadius>
+                                <CornerRadius
+                                    BottomLeft="100"
+                                    BottomRight="100"
+                                    TopLeft="100"
+                                    TopRight="100" />
+                            </Border.CornerRadius>
+                            <Path
+                                Data="F1 M1024,1024z M0,0z M47.104,453.632Q47.104,410.624 68.096,395.776 89.088,380.928 134.144,380.928 154.624,380.928 198.656,381.44 242.688,381.952 292.352,381.952 342.016,381.952 389.12,382.464 436.224,382.976 463.872,382.976 502.784,384 525.312,376.32 547.84,368.64 547.84,340.992 547.84,320.512 549.376,292.352 550.912,264.192 550.912,243.712 551.936,207.872 571.392,198.144 590.848,188.416 620.544,212.992 651.264,237.568 692.224,271.36 733.184,305.152 777.216,340.48 821.248,375.808 863.232,410.112 905.216,444.416 937.984,470.016 967.68,494.592 968.192,516.608 968.704,538.624 940.032,562.176 910.336,586.752 869.888,618.496 829.44,650.24 785.92,684.032 742.4,717.824 700.416,751.104 658.432,784.384 625.664,809.984 589.824,838.656 566.784,831.488 543.744,824.32 544.768,787.456L544.768,762.88 544.768,733.184Q544.768,717.824 544.256,702.976 543.744,688.128 543.744,675.84 543.744,650.24 528.384,643.584 513.024,636.928 486.4,636.928 456.704,636.928 408.576,636.416 360.448,635.904 308.224,635.904 256,635.904 206.848,635.392 157.696,634.88 126.976,634.88 113.664,634.88 99.328,632.320000000001 84.992,629.760000000001 73.2160000000001,622.592000000001 61.4400000000001,615.424000000001 54.272,601.600000000001 47.104,587.776000000001 47.104,564.224000000001 47.104,536.576000000001 46.592,510.976000000001 46.08,485.376000000001 47.104,453.632000000001z"
+                                Fill="Blue"
+                                Stretch="Uniform"
+                                StrokeThickness="50" />
+                        </Border>
+
+                    </Button>
+                    <Button
+                        Margin="0,3,1,3"
+                        Background="Yellow"
+                        Command="{Binding OpenViewCommand}"
+                        CommandParameter="BatchTrackingView"
+                        IsEnabled="{Binding AuthManager.UserRights, Converter={StaticResource localRightsConverter}, ConverterParameter=1}"
+                        Style="{x:Null}">
+
+                        <Button.Width>
+                            <Binding ElementName="Login" Path="ActualHeight" />
+                        </Button.Width>
+                        <Path
+                            Data="F1 M1024,1024z M0,0z M914.285714,512C914.285714,723.017143,753.054476,896.24381,547.498667,914.285714L547.498667,702.049524 476.501333,702.049524 476.501333,914.285714C270.969905,896.24381 109.714286,723.017143 109.714286,512 109.714286,300.982857 270.945524,127.75619 476.501333,109.714286L476.501333,321.950476 547.498667,321.950476 547.498667,109.714286C753.030095,127.75619,914.285714,300.982857,914.285714,512z M650.044952,535.747048L373.955048,535.747048 346.35581,630.784 677.64419,630.784 650.044952,535.747048z M677.64419,393.216L346.35581,393.216 373.955048,488.252952 650.044952,488.252952 677.64419,393.216z"
+                            Fill="Black"
+                            Stretch="Uniform" />
+                    </Button>
+                    <Button
+                        Margin="0,3,1,3"
+                        Background="Yellow"
+                        Command="{Binding OpenViewCommand}"
+                        CommandParameter="CarrierTrackView"
+                        IsEnabled="{Binding AuthManager.UserRights, Converter={StaticResource localRightsConverter}, ConverterParameter=1}"
+                        Style="{x:Null}">
+                        <Button.Width>
+                            <Binding ElementName="Login" Path="ActualHeight" />
+                        </Button.Width>
+                        <Path
+                            Data="F1 M1024,1024z M0,0z M774.534095,608.01219A73.142857,73.142857,0,0,1,837.87581,644.583619L880.981333,719.238095A73.142857,73.142857,0,0,1,880.981333,792.380952L837.87581,867.035429A73.142857,73.142857,0,0,1,774.534095,903.606857L688.323048,903.606857A73.142857,73.142857,0,0,1,624.981333,867.035429L581.87581,792.380952A73.142857,73.142857,0,0,1,581.87581,719.238095L624.981333,644.583619A73.142857,73.142857,0,0,1,688.323048,608.01219L774.534095,608.01219z M268.190476,146.285714L316.952381,146.285714 316.952381,243.809524A73.142857,73.142857,0,0,0,390.095238,316.952381L633.904762,316.952381A73.142857,73.142857,0,0,0,707.047619,243.809524L707.047619,146.285714 755.809524,146.285714A73.142857,73.142857,0,0,1,828.952381,219.428571L828.928,560.932571 647.631238,561.566476A48.761905,48.761905,0,0,0,609.670095,579.925333L607.280762,583.192381 516.022857,719.408762A48.761905,48.761905,0,0,0,513.438476,769.389714L583.704381,902.095238 268.190476,902.095238A73.142857,73.142857,0,0,1,195.047619,828.952381L195.047619,219.428571A73.142857,73.142857,0,0,1,268.190476,146.285714z M774.534095,681.155048L688.323048,681.155048 645.217524,755.809524 688.323048,830.464 774.534095,830.464 817.639619,755.809524 774.534095,681.155048z M731.428571,707.047619A48.761905,48.761905,0,1,1,731.428571,804.571429A48.761905,48.761905,0,0,1,731.428571,707.047619z M560.761905,536.380952L341.333333,536.380952 341.333333,609.52381 560.761905,609.52381 560.761905,536.380952z M682.666667,390.095238L341.333333,390.095238 341.333333,463.238095 682.666667,463.238095 682.666667,390.095238z M585.142857,73.142857A73.142857,73.142857,0,0,1,658.285714,146.285714L658.285714,195.047619A73.142857,73.142857,0,0,1,585.142857,268.190476L438.857143,268.190476A73.142857,73.142857,0,0,1,365.714286,195.047619L365.714286,146.285714A73.142857,73.142857,0,0,1,438.857143,73.142857L585.142857,73.142857z M585.142857,146.285714L438.857143,146.285714 438.857143,195.047619 585.142857,195.047619 585.142857,146.285714z"
+                            Fill="Black"
+                            Stretch="Uniform" />
+                    </Button>
+                    <Button
+                        Margin="0,3,1,3"
+                        Background="Yellow"
+                        IsEnabled="{Binding AuthManager.UserRights, Converter={StaticResource localRightsConverter}, ConverterParameter=1}"
+                        Style="{x:Null}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="PreviewMouseDown">
+                                <i:InvokeCommandAction Command="{Binding OpenViewCommand}" CommandParameter="LoadportTrackingView" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                        <Button.Width>
+                            <Binding ElementName="Login" Path="ActualHeight" />
+                        </Button.Width>
+
+                        <Path
+                            Data="F1 M1024,1024z M0,0z M833.243429,283.428571C871.277715,283.428571,902.095239,314.148571,902.095238,351.98781L902.095238,809.130667A68.705524,68.705524,0,0,1,833.243429,877.714286L745.837714,877.714286A137.045333,137.045333,0,0,0,764.416,808.594286L764.416,283.428571 833.243429,283.428571z M649.679238,146.285714C687.713524,146.285714,718.531048,177.005714,718.531048,214.844952L718.531048,809.130667A68.705524,68.705524,0,0,1,649.679238,877.714286L190.756571,877.714286A68.705524,68.705524,0,0,1,121.904762,809.130667L121.904762,214.844952A68.705524,68.705524,0,0,1,190.756571,146.285714L649.679238,146.285714z M443.172571,489.130667L259.584,489.130667 259.584,557.714286 443.172571,557.714286 443.172571,489.130667z M580.85181,351.98781L259.584,351.98781 259.584,420.571429 580.85181,420.571429 580.85181,351.98781z"
+                            Fill="Black"
+                            Stretch="Uniform" />
+                    </Button>
+                    <Button
+                        Margin="0,3,1,3"
+                        Background="Yellow"
+                        Command="{Binding OpenViewCommand}"
+                        CommandParameter="OverView"
+                        Style="{x:Null}">
+                        <Button.Width>
+                            <Binding ElementName="Login" Path="ActualHeight" />
+                        </Button.Width>
+                        <Path
+                            Data="F1 M1024,1024z M0,0z M512,132.479267L65.291029,534.664186 199.312418,534.664186 199.312418,758.329245 199.762673,758.329245 199.762673,846.857511C199.762673,871.488491,219.732493,891.462405,244.367567,891.462405L378.184295,891.462405C402.819368,891.462405,422.789189,871.488491,422.789189,846.857511L422.789189,624.022353 601.210811,624.022353 601.210811,846.857511C601.210811,871.488491,621.180631,891.462405,645.815705,891.462405L779.632433,891.462405C804.267506,891.462405,824.237327,871.488491,824.237327,846.857511L824.237327,758.329245 824.683489,758.329245 824.683489,534.664186 958.708972,534.664186 512,132.479267z"
+                            Fill="Black"
+                            Stretch="Uniform" />
+                    </Button>
+                    <Button
+                        Margin="0,3,1,3"
+                        Background="Yellow"
+                        Command="{Binding OpenViewCommand}"
+                        CommandParameter="FlowRecipe"
+                        IsEnabled="{Binding AuthManager.UserRights, Converter={StaticResource localRightsConverter}, ConverterParameter=2}"
+                        Style="{x:Null}">
+                        <Button.Width>
+                            <Binding ElementName="Login" Path="ActualHeight" />
+                        </Button.Width>
+                        <Path
+                            Data="F1 M1024,1024z M0,0z M833.243429,283.428571C871.277715,283.428571,902.095239,314.148571,902.095238,351.98781L902.095238,809.130667A68.705524,68.705524,0,0,1,833.243429,877.714286L745.837714,877.714286A137.045333,137.045333,0,0,0,764.416,808.594286L764.416,283.428571 833.243429,283.428571z M649.679238,146.285714C687.713524,146.285714,718.531048,177.005714,718.531048,214.844952L718.531048,809.130667A68.705524,68.705524,0,0,1,649.679238,877.714286L190.756571,877.714286A68.705524,68.705524,0,0,1,121.904762,809.130667L121.904762,214.844952A68.705524,68.705524,0,0,1,190.756571,146.285714L649.679238,146.285714z M443.172571,489.130667L259.584,489.130667 259.584,557.714286 443.172571,557.714286 443.172571,489.130667z M580.85181,351.98781L259.584,351.98781 259.584,420.571429 580.85181,420.571429 580.85181,351.98781z"
+                            Fill="Black"
+                            Stretch="Uniform" />
+                    </Button>
+                    <Button
+                        Margin="0,3,1,3"
+                        Background="Yellow"
+                        Style="{x:Null}">
+                        <Path
+                            Data="F1 M1024,1024z M0,0z M100.1,399L100.1,620C100.1,650.5,124.8,675.3,155.4,675.3L238.3,675.3 238.3,343.7 155.4,343.7C124.9,343.7,100.1,368.5,100.1,399z M803,509.5L918.3,394.2C930.7,381.8 931.9,362.7 920.9,351.7 909.9,340.7 890.9,341.8 878.4,354.3L763.1,469.6 647.9,354.3C635.5,341.8 616.4,340.7 605.4,351.7 594.4,362.7 595.5,381.7 608,394.2L723.3,509.5 608,624.8C595.6,637.2 594.4,656.3 605.4,667.3 616.4,678.3 635.4,677.2 647.9,664.7L763.2,549.4 878.5,664.7C890.9,677.1 910,678.3 921,667.3 932,656.3 930.9,637.3 918.4,624.8L803,509.5z M486.9,178L293.5,306.9 293.5,712.1 486.9,841C517.4,841,542.2,816.3,542.2,785.7L542.2,233.2C542.1,202.7,517.4,178,486.9,178z"
+                            Fill="#FF231815"
+                            Stretch="Uniform" />
+                    </Button>
+                </StackPanel>
+                <StackPanel
+                    HorizontalAlignment="Right"
+                    DockPanel.Dock="Right"
+                    Orientation="Horizontal">
+                    <Button
+                        Width="140"
+                        Margin="0,3,5,3"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Background="{DynamicResource FontBrush}"
+                        BorderThickness="0"
+                        FontFamily="Microsoft YaHei"
+                        Template="{StaticResource CustomButtonTemplate}">
+                        <Button.Content>
+                            <TextBlock
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontSize="12"
+                                Foreground="Black"
+                                Style="{x:Null}"
+                                Text="{Binding DateTime, StringFormat={}{0:yyyy-MM-dd HH:mm:ss}}" />
+                        </Button.Content>
+                    </Button>
+                    <Button
+                        Width="140"
+                        Margin="1,3,1,3"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Background="{Binding Btn_1, Converter={StaticResource ConverterBoolToVisibility}}"
+                        BorderThickness="0"
+                        CommandParameter="Y10"
+                        FontFamily="Microsoft YaHei"
+                        Template="{StaticResource CustomButtonTemplate}">
+
+                        <Button.Content>
+                            <TextBlock
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontSize="12"
+                                Foreground="Black"
+                                Text="{Binding AuthManager.UserName, Mode=TwoWay}" />
+                        </Button.Content>
+                    </Button>
+                    <Button
+                        Width="140"
+                        Margin="1,3,1,3"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Background="{Binding Btn_2, Converter={StaticResource ConverterBoolToVisibility}}"
+                        BorderThickness="0"
+                        Command="{Binding WritePLCCommand}"
+                        CommandParameter="M1000"
+                        FontFamily="Microsoft YaHei"
+                        Template="{StaticResource CustomButtonTemplate}">
+                        <Button.Content>
+                            <TextBlock
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontSize="12"
+                                Foreground="Black"
+                                Text="Auto" />
+                        </Button.Content>
+                    </Button>
+                    <Button
+                        Width="140"
+                        Margin="1,3,1,3"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Background="{Binding Btn_3, Converter={StaticResource ConverterBoolToVisibility}}"
+                        BorderThickness="0"
+                        Command="{Binding WritePLCCommand}"
+                        CommandParameter="Manual"
+                        FontFamily="Microsoft YaHei"
+                        Template="{StaticResource CustomButtonTemplate}">
+                        <Button.Content>
+                            <TextBlock
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontSize="12"
+                                Foreground="Black"
+                                Text="Manual" />
+                        </Button.Content>
+                    </Button>
+                    <Button
+                        Width="140"
+                        Margin="1,3,1,3"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Background="{Binding Btn_4, Converter={StaticResource ConverterBoolToVisibility}}"
+                        BorderThickness="0"
+                        FontFamily="Microsoft YaHei"
+                        PreviewMouseLeftButtonDown="MuteButton_PreviewMouseLeftButtonDown"
+                        PreviewMouseLeftButtonUp="MuteButton_PreviewMouseLeftButtonUp"
+                        Template="{StaticResource CustomButtonTemplate}">
+                        <Button.Content>
+                            <TextBlock
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontSize="12"
+                                Foreground="Black"
+                                Text="Mute" />
+                        </Button.Content>
+                    </Button>
+                    <Button
+                        Width="140"
+                        Margin="1,3,1,3"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Background="{Binding Btn_5, Converter={StaticResource ConverterBoolToVisibility}}"
+                        BorderThickness="0"
+                        FontFamily="Microsoft YaHei"
+                        PreviewMouseLeftButtonDown="ResetButton_PreviewMouseLeftButtonDown"
+                        PreviewMouseLeftButtonUp="ResetButton_PreviewMouseLeftButtonUp"
+                        Template="{StaticResource CustomButtonTemplate}">
+                        <Button.Content>
+                            <TextBlock
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontSize="12"
+                                Foreground="Black"
+                                Text="Reset" />
+                        </Button.Content>
+                    </Button>
+                    <Button
+                        Width="140"
+                        Margin="1,3,1,3"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Background="{Binding Btn_6, Converter={StaticResource ConverterBoolToVisibility}}"
+                        BorderThickness="0"
+                        Command="{Binding WritePLCCommand}"
+                        CommandParameter="M3600"
+                        FontFamily="Microsoft YaHei"
+                        Template="{StaticResource CustomButtonTemplate}">
+                        <Button.Content>
+                            <TextBlock
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontSize="12"
+                                Foreground="Black"
+                                Text="Home" />
+                        </Button.Content>
+                    </Button>
+
+                </StackPanel>
+            </DockPanel>
+        </Border>
+        <Border Grid.Row="4">
+            <Border.BorderBrush>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <!--  渐变色模拟 3D 效果  -->
+                    <!--<GradientStop Color="#FFFFFF" Offset="0"/>
+                    <GradientStop Color="#A9A9A9" Offset="0.5"/>-->
+                    <GradientStop Offset="1" Color="#5A5A5A" />
+                </LinearGradientBrush>
+            </Border.BorderBrush>
+            <StackPanel Background="White" Orientation="Horizontal">
+                <Button Width="105" Margin="3,2,2,2">
+                    <Button.Content>
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            FontSize="12"
+                            Foreground="Black"
+                            Text="Machine State" />
+                    </Button.Content>
+                </Button>
+                <TextBox
+                    Width="920"
+                    Margin="2,2,2,2"
+                    IsReadOnly="True"
+                    Text="{Binding MachineState}" />
+                <Button
+                    Width="115"
+                    Command="{Binding EFAMConnectCommand}"
+                    Content="EFEM__Connect" />
+                <Button
+                    x:Name="btn_EFEMAuto"
+                    Width="115"
+                    Background="Silver"
+                    Click="btn_EFAMAuto_Click"
+                    Content="EFEM__Auto" />
+                <TextBox
+                    Width="140"
+                    Margin="68,2,2,2"
+                    IsReadOnly="True"
+                    Text="{Binding ControlState}"
+                    TextAlignment="Center" />
+
+                <Button
+                    Width="120"
+                    Margin="1,3,1,3"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Background="{Binding Btn_7, Converter={StaticResource ConverterBoolToVisibility}}"
+                    BorderThickness="0"
+                    Command="{Binding WritePLCCommand}"
+                    CommandParameter="M5002"
+                    FontFamily="Microsoft YaHei"
+                    Template="{StaticResource CustomButtonTemplate}">
+                    <Button.Content>
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            FontSize="12"
+                            Foreground="Black"
+                            Text="OffLine" />
+                    </Button.Content>
+                </Button>
+
+                <Button
+                    Width="120"
+                    Margin="1,3,1,3"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Background="{Binding Btn_8, Converter={StaticResource ConverterBoolToVisibility}}"
+                    BorderThickness="0"
+                    Command="{Binding WritePLCCommand}"
+                    CommandParameter="M5001"
+                    FontFamily="Microsoft YaHei"
+                    Template="{StaticResource CustomButtonTemplate}">
+                    <Button.Content>
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            FontSize="12"
+                            Foreground="Black"
+                            Text="Local" />
+                    </Button.Content>
+                </Button>
+
+                <Button
+                    Width="120"
+                    Margin="1,3,1,3"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Background="{Binding Btn_9, Converter={StaticResource ConverterBoolToVisibility}}"
+                    BorderThickness="0"
+                    Command="{Binding WritePLCCommand}"
+                    CommandParameter="M5000"
+                    FontFamily="Microsoft YaHei"
+                    Template="{StaticResource CustomButtonTemplate}">
+                    <Button.Content>
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            FontSize="12"
+                            Foreground="Black"
+                            Text="Remote" />
+                    </Button.Content>
+                </Button>
+
+            </StackPanel>
+        </Border>
+        <ContentControl
+            Name="MainContent"
+            Grid.Row="2"
+            prism:RegionManager.RegionName="ContentRegion" />
+    </Grid>
+</Window>

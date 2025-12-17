@@ -1,0 +1,17 @@
+D:\program\BC3100\BC_Control_System\BC_Control_Models\bin\Debug\net8.0-windows\BC_Control_Models.deps.json
+D:\program\BC3100\BC_Control_System\BC_Control_Models\bin\Debug\net8.0-windows\BC_Control_Models.dll
+D:\program\BC3100\BC_Control_System\BC_Control_Models\bin\Debug\net8.0-windows\BC_Control_Models.pdb
+D:\program\BC3100\BC_Control_System\BC_Control_Models\obj\Debug\net8.0-windows\BC_Control_Models.GeneratedMSBuildEditorConfig.editorconfig
+D:\program\BC3100\BC_Control_System\BC_Control_Models\obj\Debug\net8.0-windows\BC_Control_Models.AssemblyInfoInputs.cache
+D:\program\BC3100\BC_Control_System\BC_Control_Models\obj\Debug\net8.0-windows\BC_Control_Models.AssemblyInfo.cs
+D:\program\BC3100\BC_Control_System\BC_Control_Models\obj\Debug\net8.0-windows\BC_Control_Models.csproj.CoreCompileInputs.cache
+D:\program\BC3100\BC_Control_System\BC_Control_Models\obj\Debug\net8.0-windows\BC_Control_Models.dll
+D:\program\BC3100\BC_Control_System\BC_Control_Models\obj\Debug\net8.0-windows\refint\BC_Control_Models.dll
+D:\program\BC3100\BC_Control_System\BC_Control_Models\obj\Debug\net8.0-windows\BC_Control_Models.pdb
+D:\program\BC3100\BC_Control_System\BC_Control_Models\obj\Debug\net8.0-windows\ref\BC_Control_Models.dll
+D:\program\BC3100\BC_Control_System\BC_Control_Models\obj\Debug\net8.0-windows\BC_Control_Models.csproj.AssemblyReference.cache
+D:\program\BC3100\BC_Control_System\BC_Control_Models\bin\Debug\net8.0-windows\thinger.DataConvertLib.dll
+D:\program\BC3100\BC_Control_System\BC_Control_Models\bin\Debug\net8.0-windows\ZCCommunication.dll
+D:\program\BC3100\BC_Control_System\BC_Control_Models\obj\Debug\net8.0-windows\BC_Control_Models.csproj.Fody.CopyLocal.cache
+D:\program\BC3100\BC_Control_System\BC_Control_Models\obj\Debug\net8.0-windows\BC_Control_Models.csproj.Fody.RuntimeCopyLocal.cache
+D:\program\BC3100\BC_Control_System\BC_Control_Models\obj\Debug\net8.0-windows\BC_Contr.12393B04.Up2Date

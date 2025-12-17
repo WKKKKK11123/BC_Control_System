@@ -1,0 +1,77 @@
+﻿<UserControl
+    x:Class="BC_Control_System.View.Parameter.PLCValueView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:BC_Control_System.View.Parameter"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:rule="clr-namespace:BC_Control_System.Rule"
+    d:DesignHeight="230"
+    d:DesignWidth="500"
+    mc:Ignorable="d">
+    <Grid>
+        <StackPanel
+            Width="500"
+            Height="230"
+            Background="#E8E8E8">
+            <StackPanel Margin="10" Orientation="Horizontal">
+                <TextBlock
+                    Margin="130,0,20,0"
+                    FontSize="16"
+                    Foreground="Black"
+                    Text="参数名称:" />
+                <TextBlock
+                    FontSize="16"
+                    Foreground="Black"
+                    Text="{Binding SiteName}" />
+            </StackPanel>
+            <StackPanel Margin="10" Orientation="Horizontal">
+                <TextBlock
+                    Margin="130,0,20,0"
+                    FontSize="16"
+                    Foreground="Black"
+                    Text="当前参数:" />
+                <TextBlock
+                    FontSize="16"
+                    Foreground="Black"
+                    Text="{Binding SiteValue}" />
+            </StackPanel>
+            <StackPanel Margin="10" Orientation="Horizontal">
+                <TextBlock
+                    Margin="130,0,20,0"
+                    VerticalAlignment="Center"
+                    FontSize="16"
+                    Foreground="Black"
+                    Text="修改参数:" />
+                <TextBox
+                    Width="140"
+                    FontSize="16"
+                    Foreground="Black">
+                    <TextBox.Text>
+                        <Binding
+                            Mode="TwoWay"
+                            Path="NewSiteValue"
+                            UpdateSourceTrigger="PropertyChanged" />
+                    </TextBox.Text>
+                </TextBox>
+            </StackPanel>
+            <StackPanel Margin="20" Orientation="Horizontal">
+                <Button
+                    Width="102"
+                    Height="34"
+                    Margin="110,0,10,0"
+                    Command="{Binding ConfirmCommand}"
+                    Content="确定"
+                    FontSize="16" />
+                <Button
+                    Width="98"
+                    Height="38"
+                    Margin="40,0,0,0"
+                    Command="{Binding CancelCommand}"
+                    Content="取消"
+                    Cursor="Hand"
+                    FontSize="16" />
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</UserControl>

@@ -1,0 +1,1352 @@
+﻿<UserControl
+    x:Class="BC_Control_System.View.OverView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Controls="clr-namespace:BC_Control_CustomControl.Controls;assembly=BC_Control_CustomControl"
+    xmlns:ViewModel="clr-namespace:BC_Control_System.ViewModel"
+    xmlns:conv="clr-namespace:ValueConverters;assembly=ValueConverters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:local="clr-namespace:BC_Control_System.View"
+    xmlns:local1="BC_Control_CustomControl;assembly=BC_Control_CustomControl"
+    xmlns:localCommand="clr-namespace:BC_Control_System.Command"
+    xmlns:localConverters="clr-namespace:BC_Control_System.Converters"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DataContext="{d:DesignInstance Type=ViewModel:OverViewModel}"
+    d:DesignHeight="930"
+    d:DesignWidth="1905"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <localConverters:SecondsToMinutesConverter x:Key="SecondsToMinutesConverter" />
+        <localConverters:DoubleToTwoDecimalConverter x:Key="TwoDecimalConverter" />
+        <localConverters:StorageStateToBrushConverter x:Key="StoragShow" />
+        <localConverters:BoolToBrushConverter x:Key="WTSShow" />
+        <conv:StringToBoolConverter x:Key="strtoBoolConv" />
+        <conv:BoolToBrushConverter
+            x:Key="ConverterBoolToBrush"
+            FalseValue="LightGray"
+            TrueValue="Cyan" />
+        <conv:BoolToVisibilityConverter x:Key="ConverterBoolToVisibility" />
+        <conv:ValueConverterGroup x:Key="ConverterTextToBrush">
+            <!--<valueConverters:ValueToBoolConverter/>-->
+            <conv:StringToBoolConverter FalseValue="False" TrueValue="True" />
+            <!--<conv:BoolInverter />-->
+            <conv:BoolToBrushConverter FalseValue="LightGray" TrueValue="Cyan" />
+        </conv:ValueConverterGroup>
+        <localConverters:StringToVisibleConverter x:Key="ConverterTextToVisible" />
+        <conv:ValueConverterGroup x:Key="WaferVisibleConv">
+            <!--<valueConverters:ValueToBoolConverter/>-->
+            <conv:StringToBoolConverter TrueValue="1" />
+            <!--<conv:BoolInverter />-->
+            <conv:BoolToVisibilityConverter />
+        </conv:ValueConverterGroup>
+        <conv:ValueConverterGroup x:Key="LFRVisbleConv">
+            <conv:StringIsNotNullOrEmptyConverter/>
+            <conv:BoolToVisibilityConverter/>
+        </conv:ValueConverterGroup>
+    </UserControl.Resources>
+    <Grid>
+        <!--<Grid.Background>
+            <ImageBrush ImageSource="/Resources/$this.BackgroundImage.jpg" Stretch="Fill"/>
+        </Grid.Background>-->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="3.7*" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Border
+            Margin="20,10,20,0"
+            BorderBrush="Black"
+            BorderThickness="0.5">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="120*" />
+                    <ColumnDefinition Width="46*" />
+                    <ColumnDefinition Width="56*" />
+                    <ColumnDefinition Width="550*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="3*" />
+                </Grid.RowDefinitions>
+                <Border
+                    Grid.RowSpan="2"
+                    Padding="10,30,10,30"
+                    BorderBrush="Black"
+                    BorderThickness="1">
+                    <UniformGrid Columns="4" Rows="6">
+                        <Border
+                            Margin="10,30,10,30"
+                            Background="{Binding StorageStatus[1].Value, Converter={StaticResource StoragShow}}"
+                            CornerRadius="3">
+                            <Border.Effect>
+                                <DropShadowEffect
+                                    BlurRadius="5"
+                                    Direction="320"
+                                    Opacity="0.3"
+                                    ShadowDepth="2"
+                                    Color="Black" />
+                            </Border.Effect>
+                            <TextBlock
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontSize="10"
+                                Text="{Binding StorageStatus[1].ParameterName}" />
+                        </Border>
+                        <!--  ST1  -->
+                        <Border
+                            Margin="10,30,10,30"
+                            Background="{Binding StorageStatus[2].Value, Converter={StaticResource StoragShow}}"
+                            CornerRadius="3">
+                            <Border.Effect>
+                                <DropShadowEffect
+                                    BlurRadius="5"
+                                    Direction="320"
+                                    Opacity="0.3"
+                                    ShadowDepth="2"
+                                    Color="Black" />
+                            </Border.Effect>
+                            <TextBlock
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontSize="10"
+                                Text="{Binding StorageStatus[2].ParameterName}" />
+                        </Border>
+                        <!--  ST2  -->
+                        <Border
+                            Margin="10,30,10,30"
+                            Background="{Binding StorageStatus[3].Value, Converter={StaticResource StoragShow}}"
+                            CornerRadius="3">
+                            <Border.Effect>
+                                <DropShadowEffect
+                                    BlurRadius="5"
+                                    Direction="320"
+                                    Opacity="0.3"
+                                    ShadowDepth="2"
+                                    Color="Black" />
+                            </Border.Effect>
+                            <TextBlock
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontSize="10"
+                                Text="{Binding StorageStatus[3].ParameterName}" />
+                        </Border>
+                        <!--  ST3  -->
+                        <Border
+                            Margin="10,30,10,30"
+                            Background="{Binding StorageStatus[4].Value, Converter={StaticResource StoragShow}}"
+                            CornerRadius="3">
+                            <Border.Effect>
+                                <DropShadowEffect
+                                    BlurRadius="5"
+                                    Direction="320"
+                                    Opacity="0.3"
+                                    ShadowDepth="2"
+                                    Color="Black" />
+                            </Border.Effect>
+                            <TextBlock
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontSize="10"
+                                Text="{Binding StorageStatus[4].ParameterName}" />
+                        </Border>
+                        <!--  ST4  -->
+                        <Border
+                            Margin="10,30,10,30"
+                            Background="{Binding StorageStatus[5].Value, Converter={StaticResource StoragShow}}"
+                            CornerRadius="3">
+                            <Border.Effect>
+                                <DropShadowEffect
+                                    BlurRadius="5"
+                                    Direction="320"
+                                    Opacity="0.3"
+                                    ShadowDepth="2"
+                                    Color="Black" />
+                            </Border.Effect>
+                            <TextBlock
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontSize="10"
+                                Text="{Binding StorageStatus[5].ParameterName}" />
+                        </Border>
+                        <!--  ST5  -->
+                        <Border
+                            Margin="10,30,10,30"
+                            Background="{Binding StorageStatus[6].Value, Converter={StaticResource StoragShow}}"
+                            CornerRadius="3">
+                            <Border.Effect>
+                                <DropShadowEffect
+                                    BlurRadius="5"
+                                    Direction="320"
+                                    Opacity="0.3"
+                                    ShadowDepth="2"
+                                    Color="Black" />
+                            </Border.Effect>
+                            <TextBlock
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontSize="10"
+                                Text="{Binding StorageStatus[6].ParameterName}" />
+                        </Border>
+                        <!--  ST6  -->
+                        <Border
+                            Margin="10,30,10,30"
+                            Background="{Binding StorageStatus[7].Value, Converter={StaticResource StoragShow}}"
+                            CornerRadius="3">
+                            <Border.Effect>
+                                <DropShadowEffect
+                                    BlurRadius="5"
+                                    Direction="320"
+                                    Opacity="0.3"
+                                    ShadowDepth="2"
+                                    Color="Black" />
+                            </Border.Effect>
+                            <TextBlock
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontSize="10"
+                                Text="{Binding StorageStatus[7].ParameterName}" />
+                        </Border>
+                        <!--  ST7  -->
+                        <Border
+                            Margin="10,30,10,30"
+                            Background="{Binding StorageStatus[8].Value, Converter={StaticResource StoragShow}}"
+                            CornerRadius="3">
+                            <Border.Effect>
+                                <DropShadowEffect
+                                    BlurRadius="5"
+                                    Direction="320"
+                                    Opacity="0.3"
+                                    ShadowDepth="2"
+                                    Color="Black" />
+                            </Border.Effect>
+                            <TextBlock
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontSize="10"
+                                Text="{Binding StorageStatus[8].ParameterName}" />
+                        </Border>
+                        <!--  ST8  -->
+                        <Border
+                            Margin="10,30,10,30"
+                            Background="{Binding StorageStatus[9].Value, Converter={StaticResource StoragShow}}"
+                            CornerRadius="3">
+                            <Border.Effect>
+                                <DropShadowEffect
+                                    BlurRadius="5"
+                                    Direction="320"
+                                    Opacity="0.3"
+                                    ShadowDepth="2"
+                                    Color="Black" />
+                            </Border.Effect>
+                            <TextBlock
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontSize="10"
+                                Text="{Binding StorageStatus[9].ParameterName}" />
+                        </Border>
+                        <!--  ST9  -->
+                        <Border
+                            Margin="10,30,10,30"
+                            Background="{Binding StorageStatus[10].Value, Converter={StaticResource StoragShow}}"
+                            CornerRadius="3">
+                            <Border.Effect>
+                                <DropShadowEffect
+                                    BlurRadius="5"
+                                    Direction="320"
+                                    Opacity="0.3"
+                                    ShadowDepth="2"
+                                    Color="Black" />
+                            </Border.Effect>
+                            <TextBlock
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontSize="10"
+                                Text="{Binding StorageStatus[10].ParameterName}" />
+                        </Border>
+                        <!--  ST10  -->
+                        <Border
+                            Margin="10,30,10,30"
+                            Background="{Binding OPStatus[1].Value, Converter={StaticResource StoragShow}}"
+                            CornerRadius="3">
+                            <Border.Effect>
+                                <DropShadowEffect
+                                    BlurRadius="5"
+                                    Direction="320"
+                                    Opacity="0.3"
+                                    ShadowDepth="2"
+                                    Color="Black" />
+                            </Border.Effect>
+                            <TextBlock
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontSize="10"
+                                Text="{Binding OPStatus[1].ParameterName}" />
+                        </Border>
+                        <!--  OP1  -->
+                        <Border
+                            Margin="10,30,10,30"
+                            Background="{Binding OPStatus[2].Value, Converter={StaticResource StoragShow}}"
+                            CornerRadius="3">
+                            <Border.Effect>
+                                <DropShadowEffect
+                                    BlurRadius="5"
+                                    Direction="320"
+                                    Opacity="0.3"
+                                    ShadowDepth="2"
+                                    Color="Black" />
+                            </Border.Effect>
+                            <TextBlock
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontSize="10"
+                                Text="{Binding OPStatus[2].ParameterName}" />
+                        </Border>
+                        <!--  OP2  -->
+                        <Border
+                            Margin="10,30,10,30"
+                            Background="{Binding StorageStatus[11].Value, Converter={StaticResource StoragShow}}"
+                            CornerRadius="3">
+                            <Border.Effect>
+                                <DropShadowEffect
+                                    BlurRadius="5"
+                                    Direction="320"
+                                    Opacity="0.3"
+                                    ShadowDepth="2"
+                                    Color="Black" />
+                            </Border.Effect>
+                            <TextBlock
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontSize="10"
+                                Text="{Binding StorageStatus[11].ParameterName}" />
+                        </Border>
+                        <!--  ST11  -->
+                        <Border
+                            Margin="10,30,10,30"
+                            Background="{Binding StorageStatus[12].Value, Converter={StaticResource StoragShow}}"
+                            CornerRadius="3">
+                            <Border.Effect>
+                                <DropShadowEffect
+                                    BlurRadius="5"
+                                    Direction="320"
+                                    Opacity="0.3"
+                                    ShadowDepth="2"
+                                    Color="Black" />
+                            </Border.Effect>
+                            <TextBlock
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontSize="10"
+                                Text="{Binding StorageStatus[12].ParameterName}" />
+                        </Border>
+                        <!--  ST12  -->
+                        <Border
+                            Margin="10,30,10,30"
+                            Background="{Binding StorageStatus[13].Value, Converter={StaticResource StoragShow}}"
+                            CornerRadius="3">
+                            <Border.Effect>
+                                <DropShadowEffect
+                                    BlurRadius="5"
+                                    Direction="320"
+                                    Opacity="0.3"
+                                    ShadowDepth="2"
+                                    Color="Black" />
+                            </Border.Effect>
+                            <TextBlock
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontSize="10"
+                                Text="{Binding StorageStatus[13].ParameterName}" />
+                        </Border>
+                        <!--  ST13  -->
+                        <Border
+                            Margin="10,30,10,30"
+                            Background="{Binding StorageStatus[14].Value, Converter={StaticResource StoragShow}}"
+                            CornerRadius="3">
+                            <Border.Effect>
+                                <DropShadowEffect
+                                    BlurRadius="5"
+                                    Direction="320"
+                                    Opacity="0.3"
+                                    ShadowDepth="2"
+                                    Color="Black" />
+                            </Border.Effect>
+                            <TextBlock
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontSize="10"
+                                Text="{Binding StorageStatus[14].ParameterName}" />
+                        </Border>
+                        <!--  ST14  -->
+                        <Border
+                            Margin="10,30,10,30"
+                            Background="{Binding StorageStatus[15].Value, Converter={StaticResource StoragShow}}"
+                            CornerRadius="3">
+                            <Border.Effect>
+                                <DropShadowEffect
+                                    BlurRadius="5"
+                                    Direction="320"
+                                    Opacity="0.3"
+                                    ShadowDepth="2"
+                                    Color="Black" />
+                            </Border.Effect>
+                            <TextBlock
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontSize="10"
+                                Text="{Binding StorageStatus[15].ParameterName}" />
+                        </Border>
+                        <!--  ST15  -->
+                        <Border
+                            Margin="10,30,10,30"
+                            Background="{Binding StorageStatus[16].Value, Converter={StaticResource StoragShow}}"
+                            CornerRadius="3">
+                            <Border.Effect>
+                                <DropShadowEffect
+                                    BlurRadius="5"
+                                    Direction="320"
+                                    Opacity="0.3"
+                                    ShadowDepth="2"
+                                    Color="Black" />
+                            </Border.Effect>
+                            <TextBlock
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontSize="10"
+                                Text="{Binding StorageStatus[16].ParameterName}" />
+                        </Border>
+                        <!--  ST16  -->
+                        <Border
+                            Margin="10,30,10,30"
+                            Background="{Binding StorageStatus[17].Value, Converter={StaticResource StoragShow}}"
+                            CornerRadius="3">
+                            <Border.Effect>
+                                <DropShadowEffect
+                                    BlurRadius="5"
+                                    Direction="320"
+                                    Opacity="0.3"
+                                    ShadowDepth="2"
+                                    Color="Black" />
+                            </Border.Effect>
+                            <TextBlock
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontSize="10"
+                                Text="{Binding StorageStatus[17].ParameterName}" />
+                        </Border>
+                        <!--  ST17  -->
+                        <Border
+                            Margin="10,30,10,30"
+                            Background="{Binding StorageStatus[18].Value, Converter={StaticResource StoragShow}}"
+                            CornerRadius="3">
+                            <Border.Effect>
+                                <DropShadowEffect
+                                    BlurRadius="5"
+                                    Direction="320"
+                                    Opacity="0.3"
+                                    ShadowDepth="2"
+                                    Color="Black" />
+                            </Border.Effect>
+                            <TextBlock
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontSize="10"
+                                Text="{Binding StorageStatus[18].ParameterName}" />
+                        </Border>
+                        <!--  ST18  -->
+                        <Border
+                            Margin="10,30,10,30"
+                            Background="{Binding LDStatus[1].Value, Converter={StaticResource StoragShow}}"
+                            CornerRadius="3">
+                            <Border.Effect>
+                                <DropShadowEffect
+                                    BlurRadius="5"
+                                    Direction="320"
+                                    Opacity="0.3"
+                                    ShadowDepth="2"
+                                    Color="Black" />
+                            </Border.Effect>
+                            <TextBlock
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontSize="10"
+                                Text="{Binding LDStatus[1].ParameterName}" />
+                        </Border>
+                        <!--  LD1  -->
+                        <Border
+                            Margin="10,30,10,30"
+                            Background="{Binding LDStatus[2].Value, Converter={StaticResource StoragShow}}"
+                            CornerRadius="3">
+                            <Border.Effect>
+                                <DropShadowEffect
+                                    BlurRadius="5"
+                                    Direction="320"
+                                    Opacity="0.3"
+                                    ShadowDepth="2"
+                                    Color="Black" />
+                            </Border.Effect>
+                            <TextBlock
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontSize="10"
+                                Text="{Binding LDStatus[2].ParameterName}" />
+                        </Border>
+                        <!--  LD2  -->
+                        <Border
+                            Margin="10,30,10,30"
+                            Background="{Binding LDStatus[3].Value, Converter={StaticResource StoragShow}}"
+                            CornerRadius="3">
+                            <Border.Effect>
+                                <DropShadowEffect
+                                    BlurRadius="5"
+                                    Direction="320"
+                                    Opacity="0.3"
+                                    ShadowDepth="2"
+                                    Color="Black" />
+                            </Border.Effect>
+                            <TextBlock
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontSize="10"
+                                Text="{Binding LDStatus[3].ParameterName}" />
+                        </Border>
+                        <!--  LD3  -->
+                        <Border
+                            Margin="10,30,10,30"
+                            Background="{Binding LDStatus[4].Value, Converter={StaticResource StoragShow}}"
+                            CornerRadius="3">
+                            <Border.Effect>
+                                <DropShadowEffect
+                                    BlurRadius="5"
+                                    Direction="320"
+                                    Opacity="0.3"
+                                    ShadowDepth="2"
+                                    Color="Black" />
+                            </Border.Effect>
+                            <TextBlock
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontSize="10"
+                                Text="{Binding LDStatus[4].ParameterName}" />
+                        </Border>
+                        <!--  LD4  -->
+                    </UniformGrid>
+                    <!--<ItemsControl ItemsSource="{Binding StorageStatus}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <UniformGrid Columns="4" Rows="6" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border
+                                    Margin="23"
+                                    Background="{Binding Value, Converter={StaticResource ConverterTextToBrush}}"
+                                    CornerRadius="3">
+                                    <Border.Effect>
+                                        <DropShadowEffect
+                                            BlurRadius="5"
+                                            Direction="320"
+                                            Opacity="0.3"
+                                            ShadowDepth="6"
+                                            Color="Black" />
+                                    </Border.Effect>
+                                    <TextBlock
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        FontSize="10"
+                                        Text="{Binding ParameterName}" />
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>-->
+                </Border>
+                <Grid
+                    x:Name="Shutters"
+                    Grid.Column="3"
+                    Margin="0,20,0,0"
+                    Background="Transparent">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Controls:ShutterControl
+                        x:Name="Shtter7"
+                        Grid.Column="0"
+                        Width="6"
+                        Height="173"
+                        Margin="-3,0,0,0"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        CloseSensor="{Binding ShutterStatus[7].Sensor2.Value, Converter={StaticResource strtoBoolConv}}"
+                        OpenSensor="{Binding ShutterStatus[7].Sensor1.Value, Converter={StaticResource strtoBoolConv}}" />
+                    <Controls:ShutterControl
+                        x:Name="Shtter6"
+                        Grid.Column="1"
+                        Width="6"
+                        Height="173"
+                        Margin="-3,0,0,0"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        CloseSensor="{Binding ShutterStatus[6].Sensor2.Value, Converter={StaticResource strtoBoolConv}}"
+                        OpenSensor="{Binding ShutterStatus[6].Sensor1.Value, Converter={StaticResource strtoBoolConv}}" />
+                    <Controls:ShutterControl
+                        x:Name="Shtter5"
+                        Grid.Column="2"
+                        Width="6"
+                        Height="173"
+                        Margin="-3,0,0,0"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        CloseSensor="{Binding ShutterStatus[5].Sensor2.Value, Converter={StaticResource strtoBoolConv}}"
+                        OpenSensor="{Binding ShutterStatus[5].Sensor1.Value, Converter={StaticResource strtoBoolConv}}" />
+                    <Controls:ShutterControl
+                        x:Name="Shtter4"
+                        Grid.Column="4"
+                        Width="6"
+                        Height="173"
+                        Margin="-3,0,0,0"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        CloseSensor="{Binding ShutterStatus[4].Sensor2.Value, Converter={StaticResource strtoBoolConv}}"
+                        OpenSensor="{Binding ShutterStatus[4].Sensor1.Value, Converter={StaticResource strtoBoolConv}}" />
+                    <Controls:ShutterControl
+                        x:Name="Shtter3"
+                        Grid.Column="6"
+                        Width="6"
+                        Height="173"
+                        Margin="-3,0,0,0"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        CloseSensor="{Binding ShutterStatus[3].Sensor2.Value, Converter={StaticResource strtoBoolConv}}"
+                        OpenSensor="{Binding ShutterStatus[3].Sensor1.Value, Converter={StaticResource strtoBoolConv}}" />
+                    <Controls:ShutterControl
+                        x:Name="Shtter2"
+                        Grid.Column="8"
+                        Width="6"
+                        Height="173"
+                        Margin="-3,0,0,0"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        CloseSensor="{Binding ShutterStatus[2].Sensor2.Value, Converter={StaticResource strtoBoolConv}}"
+                        OpenSensor="{Binding ShutterStatus[2].Sensor1.Value, Converter={StaticResource strtoBoolConv}}" />
+                    <Controls:ShutterControl
+                        x:Name="Shtter1"
+                        Grid.Column="10"
+                        Width="6"
+                        Height="173"
+                        Margin="-3,0,0,0"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        CloseSensor="{Binding ShutterStatus[1].Sensor2.Value, Converter={StaticResource strtoBoolConv}}"
+                        OpenSensor="{Binding ShutterStatus[1].Sensor1.Value, Converter={StaticResource strtoBoolConv}}" />
+
+                </Grid>
+                <Border
+                    Grid.Column="1"
+                    Grid.ColumnSpan="3"
+                    BorderBrush="Black"
+                    BorderThickness="1">
+                    <Grid>
+
+                        <Canvas Name="WTRCanvs">
+                            <Controls:WTRRobotControl
+                                x:Name="WTRRobot"
+                                Canvas.Top="1"
+                                Width="{Binding ElementName=WTRCanvs, Path=ActualWidth}"
+                                Height="178"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Top"
+                                ActPosition="{Binding WTRActPos}"
+                                SetPosition="8"
+                                Status="{Binding WTRActStatus}" />
+                            <!--<local1:WTRRobot
+                            x:Name="WTRRobot" Width="400"/>-->
+                        </Canvas>
+                    </Grid>
+                </Border>
+                <ItemsControl
+                    x:Name="TankLid"
+                    Grid.Column="3"
+                    ItemsSource="{Binding TankLidStatus}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <UniformGrid Columns="12" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Controls:CondenserLidControl
+                                Margin="1,175,0,0"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Top"
+                                AnimationDuration="0.5"
+                                CloseSignal="{Binding Sensor2.Value, Mode=OneWay, Converter={StaticResource strtoBoolConv}}"
+                                OpenAngle="90"
+                                OpenSignal="{Binding Sensor1.Value, Mode=OneWay, Converter={StaticResource strtoBoolConv}}"
+                                Visibility="{Binding Enable, Converter={StaticResource ConverterBoolToVisibility}}" />
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+                <Border
+                    Grid.Row="1"
+                    Grid.Column="2"
+                    Margin="0,0,0,136"
+                    Background="Transparent"
+                    BorderBrush="Black">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="4.5*" />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Border
+                            Background="Transparent"
+                            BorderBrush="Black"
+                            BorderThickness="0.5">
+                            <StackPanel>
+                                <TextBlock
+                                    Margin="4"
+                                    FontSize="18"
+                                    Text="Buffer" />
+                                <Controls:TankWaferControl
+                                    x:Name="BufferWafer"
+                                    Canvas.Top="42"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Top"
+                                    Status2="{Binding BufferWafer}" />
+                                <Image
+                                    Width="70"
+                                    Margin="0,-10,0,4"
+                                    Source="/Resources/Pusher.png" />
+                            </StackPanel>
+                        </Border>
+                        <Border
+                            Grid.Row="1"
+                            Background="Transparent"
+                            BorderBrush="Black"
+                            BorderThickness="0.5">
+
+                            <TextBlock
+                                Margin="4"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontSize="12"
+                                Text="BatchID:" />
+                        </Border>
+                        <Border
+                            Grid.Row="2"
+                            Background="Transparent"
+                            BorderBrush="Black"
+                            BorderThickness="0.5">
+
+                            <TextBlock
+                                Margin="4"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontSize="12"
+                                Text="Flow Recipe Name:" />
+
+                        </Border>
+                        <Border
+                            Grid.Row="3"
+                            Background="Transparent"
+                            BorderBrush="Black"
+                            BorderThickness="0.5">
+
+                            <TextBlock
+                                Margin="4"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontSize="12"
+                                Text="Flow Recipe Step:" />
+
+                        </Border>
+                        <Border
+                            Grid.Row="4"
+                            Background="Transparent"
+                            BorderBrush="Black"
+                            BorderThickness="0.5">
+
+                            <TextBlock
+                                Margin="4"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontSize="12"
+                                Text="Unit Recipe Name:" />
+
+
+                        </Border>
+                        <Border
+                            Grid.Row="5"
+                            Background="Transparent"
+                            BorderBrush="Black"
+                            BorderThickness="0.5">
+
+                            <TextBlock
+                                Margin="4"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontSize="12"
+                                Text="Unit Recipe All Time:" />
+
+
+                        </Border>
+                        <Border
+                            Grid.Row="6"
+                            Background="Transparent"
+                            BorderBrush="Black"
+                            BorderThickness="0.5">
+                            <TextBlock
+                                Margin="4"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontSize="12"
+                                Text="Unit Recipe Residue Time:" />
+                        </Border>
+                        <Border
+                            Grid.Row="7"
+                            Background="Transparent"
+                            BorderBrush="Black"
+                            BorderThickness="0.5">
+                            <TextBlock
+                                Margin="4"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontSize="12"
+                                Text="Unit Recipe Over Time:" />
+                        </Border>
+                        <Border
+                            Grid.Row="8"
+                            Background="Transparent"
+                            BorderBrush="Black"
+                            BorderThickness="0.5">
+                            <TextBlock
+                                Margin="4"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontSize="12"
+                                Text="Unit Recipe Step:" />
+                        </Border>
+                        <Border
+                            Grid.Row="9"
+                            Background="Transparent"
+                            BorderBrush="Black"
+                            BorderThickness="0.5">
+                            <TextBlock
+                                Margin="4"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontSize="12"
+                                Text="Unit Recipe Step Time:" />
+                        </Border>
+                    </Grid>
+                </Border>
+                <Border
+                    x:Name="CTC"
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    BorderBrush="Black"
+                    BorderThickness="1">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*" />
+                            <RowDefinition Height="1*" />
+                            <RowDefinition Height="1*" />
+                            <RowDefinition Height="135" />
+
+                        </Grid.RowDefinitions>
+                        <!--<Border
+                            Background="Transparent"
+                            BorderBrush="Black"
+                            BorderThickness="0.5">
+                            <StackPanel>
+                                <TextBlock
+                                    Margin="4"
+                                    FontSize="18"
+                                    Text="Buffer" />
+                                <Controls:TankWaferControl
+                                    x:Name="BufferWafer"
+                                    Canvas.Top="42"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Top"
+                                    Status2="{Binding BufferWafer}" />
+                                <Image
+                                    Width="70"
+                                    Margin="0,-10,0,4"
+                                    Source="/Resources/Pusher.png" />
+                            </StackPanel>
+                        </Border>-->
+                        <Border
+                            Grid.Row="0"
+                            Background="Transparent"
+                            BorderBrush="Black"
+                            BorderThickness="0.5">
+                            <StackPanel>
+                                <TextBlock
+                                    Margin="4"
+                                    FontSize="18"
+                                    Text="Pusher" />
+                                <Controls:TankWaferControl
+                                    x:Name="PusherWafer"
+                                    Canvas.Top="42"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Top"
+                                    Status2="{Binding PusherWafer}" />
+
+                                <Image
+                                    Width="70"
+                                    Margin="0,-10,0,4"
+                                    Source="/Resources/Pusher.png" />
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </StackPanel>
+                        </Border>
+                        <Border
+                            Grid.Row="1"
+                            Background="Transparent"
+                            BorderBrush="Black"
+                            BorderThickness="0.5">
+                            <StackPanel>
+                                <TextBlock
+                                    Margin="4"
+                                    FontSize="18"
+                                    Text="HVC" />
+                                <Image
+                                    Width="60"
+                                    Margin="0,10,0,4"
+                                    Source="/Resources/HVC.png" />
+
+                            </StackPanel>
+                        </Border>
+                        <Border
+                            Grid.Row="2"
+                            Background="Transparent"
+                            BorderBrush="Black"
+                            BorderThickness="0.5">
+                            <!--<i:Interaction.Triggers>
+                                <i:EventTrigger EventName="MouseLeftButtonDown">
+                                    <i:InvokeCommandAction Command="{Binding NavigateCommand}" CommandParameter="LFR_8" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>-->
+                            <StackPanel>
+                                <TextBlock
+                                    Margin="4"
+                                    FontSize="18"
+                                    Text="HTR" />
+                                <Image
+                                    Width="60"
+                                    Margin="0,10,0,4"
+                                    Source="/Resources/HTR.png" />
+
+                            </StackPanel>
+                        </Border>
+                    </Grid>
+                </Border>
+                <Grid
+                    Grid.Row="1"
+                    Grid.Column="3"
+                    Background="Transparent">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="3*" />
+                        <RowDefinition Height="1*" />
+                    </Grid.RowDefinitions>
+
+                    <Border BorderBrush="Black" BorderThickness="1">
+                        <Grid>
+                            <ItemsControl Grid.Column="1" ItemsSource="{Binding ModuleStatus}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <UniformGrid Columns="12" />
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="4.5*" />
+                                                <RowDefinition />
+                                                <RowDefinition />
+                                                <RowDefinition />
+                                                <RowDefinition />
+                                                <RowDefinition />
+                                                <RowDefinition />
+                                                <RowDefinition />
+                                                <RowDefinition />
+                                                <RowDefinition />
+
+                                            </Grid.RowDefinitions>
+                                            <Border
+                                                Grid.Row="0"
+                                                BorderBrush="Black"
+                                                BorderThickness="0.5">
+                                                <i:Interaction.Triggers>
+                                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                                        <i:InvokeCommandAction Command="{Binding DataContext.OpenStatusViewCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}" CommandParameter="{Binding}" />
+                                                    </i:EventTrigger>
+                                                </i:Interaction.Triggers>
+                                                <Grid Background="Transparent">
+                                                    <!--<TextBlock FontSize="16" Text="{Binding ModuleName}" />-->
+                                                    <!--<Controls:TankWaferControl
+                                                        x:Name="TankWafer"
+                                                        Canvas.Top="42"
+                                                        HorizontalAlignment="Center"
+                                                        VerticalAlignment="Top"
+                                                        Status2="{Binding TankWaferStatus}"/>-->
+
+                                                    <!--  Status2="{Binding TankWaferStatus}"  -->
+                                                    <StackPanel Orientation="Vertical">
+                                                        <TextBlock
+                                                            Margin="4"
+                                                            FontSize="14"
+                                                            Text="{Binding ModuleName}" />
+                                                        <Border
+                                                            Width="80"
+                                                            Height="80"
+                                                            Margin="10,10"
+                                                            Background="Cyan"
+                                                            BorderBrush="Black"
+                                                            BorderThickness="1"
+                                                            CornerRadius="50"
+                                                            Visibility="{Binding IsWafer.Value, Converter={StaticResource WaferVisibleConv}}" />
+                                                    </StackPanel>
+                                                </Grid>
+
+                                            </Border>
+                                            <Border
+                                                Grid.Row="1"
+                                                BorderBrush="Black"
+                                                BorderThickness="0.5">
+                                                <TextBlock
+                                                    HorizontalAlignment="Center"
+                                                    VerticalAlignment="Center"
+                                                    Text="{Binding BatchID.Value}" />
+                                            </Border>
+                                            <Border
+                                                Grid.Row="2"
+                                                BorderBrush="Black"
+                                                BorderThickness="0.5">
+                                                <TextBlock
+                                                    HorizontalAlignment="Center"
+                                                    VerticalAlignment="Center"
+                                                    Text="{Binding FlowRecipeName.Value}"
+                                                    Visibility="{Binding HasRecipe, Converter={StaticResource ConverterBoolToVisibility}}" />
+                                            </Border>
+                                            <Border
+                                                Grid.Row="3"
+                                                BorderBrush="Black"
+                                                BorderThickness="0.5">
+                                                <TextBlock
+                                                    HorizontalAlignment="Center"
+                                                    VerticalAlignment="Center"
+                                                    Text="{Binding FlowRecipeStep.Value}"
+                                                    Visibility="{Binding HasRecipe, Converter={StaticResource ConverterBoolToVisibility}}" />
+                                            </Border>
+                                            <Border
+                                                Grid.Row="4"
+                                                BorderBrush="Black"
+                                                BorderThickness="0.5">
+                                                <TextBlock
+                                                    HorizontalAlignment="Center"
+                                                    VerticalAlignment="Center"
+                                                    Text="{Binding UnitRecipeName.Value}"
+                                                    Visibility="{Binding HasRecipe, Converter={StaticResource ConverterBoolToVisibility}}" />
+                                            </Border>
+                                            <Border
+                                                Grid.Row="5"
+                                                BorderBrush="Black"
+                                                BorderThickness="0.5">
+                                                <TextBlock
+                                                    HorizontalAlignment="Center"
+                                                    VerticalAlignment="Center"
+                                                    Text="{Binding UnitRecipeAllTime.Value, Converter={StaticResource SecondsToMinutesConverter}}"
+                                                    Visibility="{Binding HasRecipe, Converter={StaticResource ConverterBoolToVisibility}}" />
+                                            </Border>
+                                            <Border
+                                                Grid.Row="6"
+                                                BorderBrush="Black"
+                                                BorderThickness="0.5">
+                                                <TextBlock
+                                                    HorizontalAlignment="Center"
+                                                    VerticalAlignment="Center"
+                                                    Text="{Binding UnitRecipeResidueTime.Value, Converter={StaticResource SecondsToMinutesConverter}}"
+                                                    Visibility="{Binding HasRecipe, Converter={StaticResource ConverterBoolToVisibility}}" />
+                                            </Border>
+                                            <Border
+                                                Grid.Row="7"
+                                                BorderBrush="Black"
+                                                BorderThickness="0.5">
+                                                <TextBlock
+                                                    HorizontalAlignment="Center"
+                                                    VerticalAlignment="Center"
+                                                    Text="{Binding UnitRecipeOverTime.Value, Converter={StaticResource SecondsToMinutesConverter}}"
+                                                    Visibility="{Binding HasRecipe, Converter={StaticResource ConverterBoolToVisibility}}" />
+                                            </Border>
+                                            <Border
+                                                Grid.Row="8"
+                                                BorderBrush="Black"
+                                                BorderThickness="0.5">
+                                                <TextBlock
+                                                    HorizontalAlignment="Center"
+                                                    VerticalAlignment="Center"
+                                                    Text="{Binding UnitRecipeStep.Value}"
+                                                    Visibility="{Binding HasRecipe, Converter={StaticResource ConverterBoolToVisibility}}" />
+                                            </Border>
+                                            <Border
+                                                Grid.Row="9"
+                                                BorderBrush="Black"
+                                                BorderThickness="0.5">
+                                                <TextBlock
+                                                    HorizontalAlignment="Center"
+                                                    VerticalAlignment="Center"
+                                                    Text="{Binding UnitRecipeStepTime.Value}"
+                                                    Visibility="{Binding HasRecipe, Converter={StaticResource ConverterBoolToVisibility}}" />
+                                            </Border>
+
+                                        </Grid>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </Grid>
+                    </Border>
+                    <ItemsControl FlowDirection="RightToLeft" ItemsSource="{Binding  LiftCollections}" x:Name="LiftCollection" Grid.Row="1">
+                        <!--  你的数据模板  -->
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <UniformGrid Columns="12" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border
+                                    Grid.Column="0"
+                                    Background="Transparent"
+                                    BorderBrush="Black"
+                                    BorderThickness="0.5">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="MouseLeftButtonDown">
+                                            <i:InvokeCommandAction Command="{Binding DataContext.OpenStatusViewCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}" CommandParameter="{Binding}" />
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                    <StackPanel>
+                                        <TextBlock
+                                            Margin="4"
+                                            FontSize="16"
+                                            Text="{Binding StationName}"
+                                            HorizontalAlignment="Right"/>
+                                        <Image Width="60" Source="pack://application:,,,/Resources/Lift.png" Visibility="{Binding StationName, Converter={StaticResource LFRVisbleConv}}" />
+                                    </StackPanel>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </Grid>
+            </Grid>
+        </Border>
+        <Canvas Grid.Row="1">
+            <Border
+                Grid.Column="1"
+                Canvas.Left="466"
+                Canvas.Top="9"
+                Width="130"
+                Height="178"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                BorderBrush="Black">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1.5*" />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Border
+                        Background="Transparent"
+                        BorderBrush="Black"
+                        BorderThickness="0.5">
+
+                        <TextBlock
+                            Margin="4"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            FontSize="14" />
+                    </Border>
+                    <Border
+                        Grid.Row="1"
+                        Background="Transparent"
+                        BorderBrush="Black"
+                        BorderThickness="0.5">
+
+                        <TextBlock
+                            Margin="4"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            FontSize="12"
+                            Text="Current:" />
+
+                    </Border>
+                    <Border
+                        Grid.Row="2"
+                        Background="Transparent"
+                        BorderBrush="Black"
+                        BorderThickness="0.5">
+
+                        <TextBlock
+                            Margin="4"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            FontSize="12"
+                            Text="Setting Up Lime:" />
+
+                    </Border>
+                    <Border
+                        Grid.Row="3"
+                        Background="Transparent"
+                        BorderBrush="Black"
+                        BorderThickness="0.5">
+
+                        <TextBlock
+                            Margin="4"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            FontSize="12 "
+                            Text="Setting Down Lime:" />
+
+
+                    </Border>
+                    <Border
+                        Grid.Row="4"
+                        Background="Transparent"
+                        BorderBrush="Black"
+                        BorderThickness="0.5">
+
+                        <TextBlock
+                            Margin="4"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            FontSize="12"
+                            Text="Setting Delay Time:" />
+
+
+                    </Border>
+
+                </Grid>
+            </Border>
+            <Border
+                Canvas.Left="595"
+                Canvas.Top="9"
+                Width="1290"
+                Height="178"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Top"
+                BorderBrush="Black"
+                BorderThickness="0.5">
+                <Grid>
+                    <ItemsControl Grid.Column="1" ItemsSource="{Binding ModuleStatus2}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <UniformGrid Columns="10" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="1.5*" />
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                    </Grid.RowDefinitions>
+                                    <Border
+                                        Grid.Row="0"
+                                        BorderBrush="Black"
+                                        BorderThickness="0.5">
+                                        <!--<i:Interaction.Triggers>
+                                            <i:EventTrigger>
+                                                <i:InvokeCommandAction Command="{Binding DataContext.NavigateCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}" CommandParameter="{Binding ModuleName2}" />
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>-->
+                                        <TextBlock
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            FontSize="12"
+                                            Text="{Binding ModuleName2}" />
+                                    </Border>
+                                    <Border
+                                        Grid.Row="1"
+                                        BorderBrush="Black"
+                                        BorderThickness="0.5">
+                                        <TextBlock
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            Text="{Binding Current.Value, Converter={StaticResource TwoDecimalConverter}}" />
+                                    </Border>
+                                    <Border
+                                        Grid.Row="2"
+                                        BorderBrush="Black"
+                                        BorderThickness="0.5">
+                                        <TextBlock
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            Text="{Binding SettingUpLime.Value}" />
+                                    </Border>
+                                    <Border
+                                        Grid.Row="3"
+                                        BorderBrush="Black"
+                                        BorderThickness="0.5">
+                                        <TextBlock
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            Text="{Binding SettingDownLime.Value}" />
+                                    </Border>
+                                    <Border
+                                        Grid.Row="4"
+                                        BorderBrush="Black"
+                                        BorderThickness="0.5">
+                                        <TextBlock
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            Text="{Binding SettingDelayTime.Value}" />
+                                    </Border>
+
+
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </Grid>
+            </Border>
+            <Image
+                Canvas.Left="25"
+                Canvas.Top="130"
+                Width="222"
+                Height="57"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Top"
+                Source="/Resources/ZC logo.png" />
+
+        </Canvas>
+    </Grid>
+</UserControl>
