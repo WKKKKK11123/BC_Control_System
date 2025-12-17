@@ -60,7 +60,7 @@
             },
             "NPOI": {
               "target": "Package",
-              "version": "[2.7.5, )"
+              "version": "[2.7.3, )"
             },
             "PropertyChanged.Fody": {
               "target": "Package",

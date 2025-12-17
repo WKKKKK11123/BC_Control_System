@@ -19,3 +19,4 @@ D:\program\BC3100\BC_Control_System\BC_Control_DAL\obj\Debug\net8.0-windows\BC_C
 D:\program\BC3100\BC_Control_System\BC_Control_DAL\obj\Debug\net8.0-windows\refint\BC_Control_DAL.dll
 D:\program\BC3100\BC_Control_System\BC_Control_DAL\obj\Debug\net8.0-windows\BC_Control_DAL.pdb
 D:\program\BC3100\BC_Control_System\BC_Control_DAL\obj\Debug\net8.0-windows\ref\BC_Control_DAL.dll
+D:\program\BC3100\BC_Control_System\BC_Control_DAL\obj\Debug\net8.0-windows\BC_Control_DAL.sourcelink.json

@@ -39,3 +39,4 @@ D:\program\BC3100\BC_Control_System\BC_Control_CustomControl\obj\Debug\net8.0-wi
 D:\program\BC3100\BC_Control_System\BC_Control_CustomControl\obj\Debug\net8.0-windows\refint\BC_Control_CustomControl.dll
 D:\program\BC3100\BC_Control_System\BC_Control_CustomControl\obj\Debug\net8.0-windows\BC_Control_CustomControl.pdb
 D:\program\BC3100\BC_Control_System\BC_Control_CustomControl\obj\Debug\net8.0-windows\ref\BC_Control_CustomControl.dll
+D:\program\BC3100\BC_Control_System\BC_Control_CustomControl\obj\Debug\net8.0-windows\BC_Control_CustomControl.sourcelink.json

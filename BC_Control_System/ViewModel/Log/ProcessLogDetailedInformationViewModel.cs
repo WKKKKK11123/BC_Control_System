@@ -106,7 +106,7 @@ namespace BC_Control_System.ViewModel.Log
                 keyValuePairs.Add("Param1", type);
                 keyValuePairs.Add("Param2", list);
                 _dialogService.ShowDialog(nameof(ChartView), keyValuePairs, result => r = result);
-
+                
             }
             catch (Exception)
             {

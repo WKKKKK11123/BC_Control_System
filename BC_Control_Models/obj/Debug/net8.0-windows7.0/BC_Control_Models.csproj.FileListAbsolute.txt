@@ -15,3 +15,4 @@ D:\program\BC3100\BC_Control_System\BC_Control_Models\obj\Debug\net8.0-windows7.
 D:\program\BC3100\BC_Control_System\BC_Control_Models\obj\Debug\net8.0-windows7.0\refint\BC_Control_Models.dll
 D:\program\BC3100\BC_Control_System\BC_Control_Models\obj\Debug\net8.0-windows7.0\BC_Control_Models.pdb
 D:\program\BC3100\BC_Control_System\BC_Control_Models\obj\Debug\net8.0-windows7.0\ref\BC_Control_Models.dll
+D:\program\BC3100\BC_Control_System\BC_Control_Models\obj\Debug\net8.0-windows7.0\BC_Control_Models.sourcelink.json

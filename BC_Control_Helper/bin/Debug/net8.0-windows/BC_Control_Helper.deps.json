@@ -63,19 +63,19 @@
           }
         }
       },
-      "BouncyCastle.Cryptography/2.4.0": {
+      "BouncyCastle.Cryptography/2.3.1": {
         "runtime": {
           "lib/net6.0/BouncyCastle.Cryptography.dll": {
             "assemblyVersion": "2.0.0.0",
-            "fileVersion": "2.4.0.33771"
+            "fileVersion": "2.3.1.17862"
           }
         }
       },
-      "Enums.NET/5.0.0": {
+      "Enums.NET/4.0.1": {
         "runtime": {
-          "lib/net7.0/Enums.NET.dll": {
-            "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.0.0"
+          "lib/netcoreapp3.0/Enums.NET.dll": {
+            "assemblyVersion": "4.0.0.0",
+            "fileVersion": "4.0.1.0"
           }
         }
       },
@@ -305,11 +305,11 @@
           }
         }
       },
-      "Microsoft.IO.RecyclableMemoryStream/3.0.1": {
+      "Microsoft.IO.RecyclableMemoryStream/3.0.0": {
         "runtime": {
           "lib/net6.0/Microsoft.IO.RecyclableMemoryStream.dll": {
-            "assemblyVersion": "3.0.1.0",
-            "fileVersion": "3.0.1.0"
+            "assemblyVersion": "3.0.0.0",
+            "fileVersion": "3.0.0.0"
           }
         }
       },
@@ -358,44 +358,35 @@
           }
         }
       },
-      "NPOI/2.7.5": {
+      "NPOI/2.7.3": {
         "dependencies": {
-          "BouncyCastle.Cryptography": "2.4.0",
-          "Enums.NET": "5.0.0",
+          "BouncyCastle.Cryptography": "2.3.1",
+          "Enums.NET": "4.0.1",
           "ExtendedNumerics.BigDecimal": "2025.1001.2.129",
           "MathNet.Numerics.Signed": "5.0.0",
-          "Microsoft.IO.RecyclableMemoryStream": "3.0.1",
-          "NSax": "1.0.2",
+          "Microsoft.IO.RecyclableMemoryStream": "3.0.0",
           "SharpZipLib": "1.4.2",
           "SixLabors.Fonts": "1.0.1",
-          "SixLabors.ImageSharp": "2.1.11",
-          "System.Security.Cryptography.Xml": "8.0.2",
-          "ZString": "2.6.0"
+          "SixLabors.ImageSharp": "2.1.10",
+          "System.Security.Cryptography.Pkcs": "8.0.1",
+          "System.Security.Cryptography.Xml": "8.0.2"
         },
         "runtime": {
           "lib/net8.0/NPOI.Core.dll": {
-            "assemblyVersion": "2.7.5.0",
-            "fileVersion": "2.7.5.0"
+            "assemblyVersion": "2.7.3.0",
+            "fileVersion": "2.7.3.0"
           },
           "lib/net8.0/NPOI.OOXML.dll": {
-            "assemblyVersion": "2.7.5.0",
-            "fileVersion": "2.7.5.0"
+            "assemblyVersion": "2.7.3.0",
+            "fileVersion": "2.7.3.0"
           },
           "lib/net8.0/NPOI.OpenXml4Net.dll": {
-            "assemblyVersion": "2.7.5.0",
-            "fileVersion": "2.7.5.0"
+            "assemblyVersion": "2.7.3.0",
+            "fileVersion": "2.7.3.0"
           },
           "lib/net8.0/NPOI.OpenXmlFormats.dll": {
-            "assemblyVersion": "2.7.5.0",
-            "fileVersion": "2.7.5.0"
-          }
-        }
-      },
-      "NSax/1.0.2": {
-        "runtime": {
-          "lib/net6.0/NSax.dll": {
-            "assemblyVersion": "1.0.2.0",
-            "fileVersion": "1.0.2.0"
+            "assemblyVersion": "2.7.3.0",
+            "fileVersion": "2.7.3.0"
           }
         }
       },
@@ -452,7 +443,7 @@
           }
         }
       },
-      "SixLabors.ImageSharp/2.1.11": {
+      "SixLabors.ImageSharp/2.1.10": {
         "dependencies": {
           "System.Runtime.CompilerServices.Unsafe": "6.0.0",
           "System.Text.Encoding.CodePages": "5.0.0"
@@ -460,7 +451,7 @@
         "runtime": {
           "lib/netcoreapp3.1/SixLabors.ImageSharp.dll": {
             "assemblyVersion": "2.0.0.0",
-            "fileVersion": "2.1.11.0"
+            "fileVersion": "2.1.10.0"
           }
         }
       },
@@ -897,19 +888,11 @@
         }
       },
       "System.Threading.Tasks.Extensions/4.5.4": {},
-      "ZString/2.6.0": {
-        "runtime": {
-          "lib/net7.0/ZString.dll": {
-            "assemblyVersion": "2.6.0.0",
-            "fileVersion": "2.6.0.0"
-          }
-        }
-      },
       "BC_Control_Models/1.0.0": {
         "dependencies": {
           "AutoMapper": "10.0.0",
           "MiniExcel": "1.41.1",
-          "NPOI": "2.7.5",
+          "NPOI": "2.7.3",
           "PropertyChanged.Fody": "4.1.0",
           "SqlSugarCore": "5.1.4.209-preview01"
         },
@@ -965,19 +948,19 @@
       "path": "azure.identity/1.11.4",
       "hashPath": "azure.identity.1.11.4.nupkg.sha512"
     },
-    "BouncyCastle.Cryptography/2.4.0": {
+    "BouncyCastle.Cryptography/2.3.1": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-SwXsAV3sMvAU/Nn31pbjhWurYSjJ+/giI/0n6tCrYoupEK34iIHCuk3STAd9fx8yudM85KkLSVdn951vTng/vQ==",
-      "path": "bouncycastle.cryptography/2.4.0",
-      "hashPath": "bouncycastle.cryptography.2.4.0.nupkg.sha512"
+      "sha512": "sha512-buwoISwecYke3CmgG1AQSg+sNZjJeIb93vTAtJiHZX35hP/teYMxsfg0NDXGUKjGx6BKBTNKc77O2M3vKvlXZQ==",
+      "path": "bouncycastle.cryptography/2.3.1",
+      "hashPath": "bouncycastle.cryptography.2.3.1.nupkg.sha512"
     },
-    "Enums.NET/5.0.0": {
+    "Enums.NET/4.0.1": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-NfGq1iLJZ15XZPgBhjk4Ns1XZ+beaGk6cog6B4LxcROdGoSMdgCJqYXF70P6VTd3dz/vFRY4h1u1lAMqW/DC2w==",
-      "path": "enums.net/5.0.0",
-      "hashPath": "enums.net.5.0.0.nupkg.sha512"
+      "sha512": "sha512-OUGCd5L8zHZ61GAf436G0gf/H6yrSUkEpV5vm2CbCUuz9Rx7iLFLP5iHSSfmOtqNpuyo4vYte0CvYEmPZXRmRQ==",
+      "path": "enums.net/4.0.1",
+      "hashPath": "enums.net.4.0.1.nupkg.sha512"
     },
     "ExtendedNumerics.BigDecimal/2025.1001.2.129": {
       "type": "package",
@@ -1098,12 +1081,12 @@
       "path": "microsoft.identitymodel.tokens/6.35.0",
       "hashPath": "microsoft.identitymodel.tokens.6.35.0.nupkg.sha512"
     },
-    "Microsoft.IO.RecyclableMemoryStream/3.0.1": {
+    "Microsoft.IO.RecyclableMemoryStream/3.0.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-s/s20YTVY9r9TPfTrN5g8zPF1YhwxyqO6PxUkrYTGI2B+OGPe9AdajWZrLhFqXIvqIW23fnUE4+ztrUWNU1+9g==",
-      "path": "microsoft.io.recyclablememorystream/3.0.1",
-      "hashPath": "microsoft.io.recyclablememorystream.3.0.1.nupkg.sha512"
+      "sha512": "sha512-irv0HuqoH8Ig5i2fO+8dmDNdFdsrO+DoQcedwIlb810qpZHBNQHZLW7C/AHBQDgLLpw2T96vmMAy/aE4Yj55Sg==",
+      "path": "microsoft.io.recyclablememorystream/3.0.0",
+      "hashPath": "microsoft.io.recyclablememorystream.3.0.0.nupkg.sha512"
     },
     "Microsoft.NETCore.Platforms/5.0.0": {
       "type": "package",
@@ -1154,19 +1137,12 @@
       "path": "npgsql/5.0.18",
       "hashPath": "npgsql.5.0.18.nupkg.sha512"
     },
-    "NPOI/2.7.5": {
+    "NPOI/2.7.3": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-KmEHqThmfAdq/Q3LLTahpvFKHQMQJrzJNAFIoSZCGIZWUmYBtvxDArmpLF+Zyw1tzCem/rZsefCqJgqfIz2l4w==",
-      "path": "npoi/2.7.5",
-      "hashPath": "npoi.2.7.5.nupkg.sha512"
-    },
-    "NSax/1.0.2": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-7txlId2RJTQBL3YdSGO7x70+r3HUOCw725lu0OoBgThRl/e3RhAZ2QKYxW2y9dPRtqbFZYHVa8siIeB8+L//Cg==",
-      "path": "nsax/1.0.2",
-      "hashPath": "nsax.1.0.2.nupkg.sha512"
+      "sha512": "sha512-iCZx3DSwUSwaV61E8tXgPlPuxYmcYV/Zi405nGlxQvWaGTAbuc0KvSBjsLucQUJ92iMeetT8iK9makLfF4uZ3g==",
+      "path": "npoi/2.7.3",
+      "hashPath": "npoi.2.7.3.nupkg.sha512"
     },
     "Oracle.ManagedDataAccess.Core/23.8.0": {
       "type": "package",
@@ -1203,12 +1179,12 @@
       "path": "sixlabors.fonts/1.0.1",
       "hashPath": "sixlabors.fonts.1.0.1.nupkg.sha512"
     },
-    "SixLabors.ImageSharp/2.1.11": {
+    "SixLabors.ImageSharp/2.1.10": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-tUvsejgzUmEbES114yLseRxmFiYlQbH5RyaYXUQsEL7ksDo1/kW+ZL1EfD6iSUfxj7LHU8p110oFvSrRfsaWSQ==",
-      "path": "sixlabors.imagesharp/2.1.11",
-      "hashPath": "sixlabors.imagesharp.2.1.11.nupkg.sha512"
+      "sha512": "sha512-hk1E7U3RSlxrBVo6Gb6OjeM52fChpFYH+SZvyT/M2vzSGlzAaKE33hc3V/Pvnjcnn1opT8/Z+0QfqdM5HsIaeA==",
+      "path": "sixlabors.imagesharp/2.1.10",
+      "hashPath": "sixlabors.imagesharp.2.1.10.nupkg.sha512"
     },
     "SQLitePCLRaw.bundle_e_sqlite3/2.1.10": {
       "type": "package",
@@ -1510,13 +1486,6 @@
       "sha512": "sha512-zteT+G8xuGu6mS+mzDzYXbzS7rd3K6Fjb9RiZlYlJPam2/hU7JCBZBVEcywNuR+oZ1ncTvc/cq0faRr3P01OVg==",
       "path": "system.threading.tasks.extensions/4.5.4",
       "hashPath": "system.threading.tasks.extensions.4.5.4.nupkg.sha512"
-    },
-    "ZString/2.6.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-XE8a+11nZg0LRaf+RGABEWaHIf8yGd5w8v/Ra1iWxMBmAVzwuKbW7G21mS0U7w7sh1lYcgckInWGgnz4qyET8A==",
-      "path": "zstring/2.6.0",
-      "hashPath": "zstring.2.6.0.nupkg.sha512"
     },
     "BC_Control_Models/1.0.0": {
       "type": "project",

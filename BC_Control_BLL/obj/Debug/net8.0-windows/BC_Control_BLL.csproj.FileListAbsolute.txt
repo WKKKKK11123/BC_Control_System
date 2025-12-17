@@ -21,3 +21,4 @@ D:\program\BC3100\BC_Control_System\BC_Control_BLL\obj\Debug\net8.0-windows\BC_C
 D:\program\BC3100\BC_Control_System\BC_Control_BLL\obj\Debug\net8.0-windows\refint\BC_Control_BLL.dll
 D:\program\BC3100\BC_Control_System\BC_Control_BLL\obj\Debug\net8.0-windows\BC_Control_BLL.pdb
 D:\program\BC3100\BC_Control_System\BC_Control_BLL\obj\Debug\net8.0-windows\ref\BC_Control_BLL.dll
+D:\program\BC3100\BC_Control_System\BC_Control_BLL\obj\Debug\net8.0-windows\BC_Control_BLL.sourcelink.json

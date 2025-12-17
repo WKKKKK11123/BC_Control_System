@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyCopyrightAttribute("Copyright ©  2025")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f7675496a9c1186c1581a066e13a88a594da2b93")]
 [assembly: System.Reflection.AssemblyProductAttribute("ZC_Control_EFAM")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ZC_Control_EFAM")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
