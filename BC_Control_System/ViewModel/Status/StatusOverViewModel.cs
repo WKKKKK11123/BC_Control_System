@@ -15,24 +15,43 @@ using CommunityToolkit.Mvvm.Input;
 using System.Diagnostics;
 using System.IO;
 using Microsoft.Win32;
+using Prism.Services.Dialogs;
+using BC_Control_System.View;
+using DryIoc;
 
 namespace BC_Control_System.ViewModel
 {
     public partial class StatusOverViewModel : ObservableObject, INavigationAware
     {
+        private readonly IDialogService _dialogService;
         private readonly IRegionManager _regionManager;
         private readonly IBenchStationEntity _benchStationEntity;
         private IStationConfig _stationCollection;
         [ObservableProperty]
         private string? moduleName = "";
-        public StatusOverViewModel(IRegionManager regionManager, IBenchStationEntity benchStationEntity)
+        public StatusOverViewModel(IRegionManager regionManager, IBenchStationEntity benchStationEntity,IDialogService dialogService)
         {
+            _dialogService = dialogService;
             _regionManager = regionManager;
             _benchStationEntity = benchStationEntity;
             _stationCollection = new StationCollection();
 
         }
-        #region 
+        #region  视图命令
+        [RelayCommand]
+        private void OpenStationValueView()
+        {
+            try
+            {
+                DialogParameters parameter=new DialogParameters();
+                parameter.Add("Module", _benchStationEntity.Stations.FirstOrDefault(filter => filter.StationNo == _stationCollection.StationNo && filter.StationName == _stationCollection.StationName));
+                _dialogService.ShowDialog(nameof(StationValueView), parameter, r => { });
+            }
+            catch (Exception)
+            {
+
+            }
+        }
         [RelayCommand]
         private void OpenFolder()
         {

@@ -28,13 +28,13 @@
                     CanUserResizeColumns="False"
                     CanUserResizeRows="False"
                     ColumnHeaderHeight="35"
-                    ScrollViewer.HorizontalScrollBarVisibility="Visible"
-                    ScrollViewer.VerticalScrollBarVisibility="Visible"
                     FontSize="16"
                     GridLinesVisibility="All"
                     HeadersVisibility="Column"
                     HorizontalGridLinesBrush="LightGray"
-                    ItemsSource="{Binding ParameterCollections}"
+                    ItemsSource="{Binding ModuleStatusClasseCollection}"
+                    ScrollViewer.HorizontalScrollBarVisibility="Visible"
+                    ScrollViewer.VerticalScrollBarVisibility="Visible"
                     SelectionMode="Single"
                     Style="{x:Null}"
                     VerticalGridLinesBrush="LightGray">
@@ -118,7 +118,7 @@
                                         VerticalAlignment="Center"
                                         FontFamily="Microsoft YaHei"
                                         FontSize="14"
-                                        Text="{Binding PLC }" />
+                                        Text="{Binding PLC}" />
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
@@ -351,19 +351,17 @@
                     GridLinesVisibility="All"
                     HeadersVisibility="Column"
                     HorizontalGridLinesBrush="LightGray"
-                    ItemsSource="{Binding ParameterCollections}"
+                    ItemsSource="{Binding BatchDataClasseCollection}"
+                    ScrollViewer.HorizontalScrollBarVisibility="Visible"
+                    ScrollViewer.VerticalScrollBarVisibility="Visible"
                     SelectionMode="Single"
                     Style="{x:Null}"
                     VerticalGridLinesBrush="LightGray">
-
-
-
                     <DataGrid.Columns>
-
                         <!--  设置列的样式  -->
                         <DataGridTemplateColumn
-                            Width="50"
-                            Header="No"
+                            Width="150"
+                            Header="状态名称"
                             IsReadOnly="True">
                             <DataGridTemplateColumn.HeaderStyle>
                                 <Style TargetType="DataGridColumnHeader">
@@ -378,13 +376,13 @@
                                         VerticalAlignment="Center"
                                         FontFamily="Microsoft YaHei"
                                         FontSize="14"
-                                        Text="{Binding No}" />
+                                        Text="{Binding ParameterName}" />
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
                         <DataGridTemplateColumn
-                            Width="230"
-                            Header="Code"
+                            Width="100"
+                            Header="单位"
                             IsReadOnly="True">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
@@ -394,13 +392,13 @@
                                         VerticalAlignment="Center"
                                         FontFamily="Microsoft YaHei"
                                         FontSize="14"
-                                        Text="{Binding Code}" />
+                                        Text="{Binding ValueAddress}" />
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
                         <DataGridTemplateColumn
-                            Width="560"
-                            Header="Parameter Name"
+                            Width="100"
+                            Header="地址"
                             IsReadOnly="True">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
@@ -414,41 +412,9 @@
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
-                        <!--<DataGridTemplateColumn
-    Width="120"
-    Header="Editable"
-    IsReadOnly="True">
-    <DataGridTemplateColumn.CellTemplate>
-        <DataTemplate>
-            <TextBlock
-                Margin="5,0,0,0"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Center"
-                FontFamily="Microsoft YaHei"
-                FontSize="14"
-                Text="{Binding Editable}" />
-        </DataTemplate>
-    </DataGridTemplateColumn.CellTemplate>
-</DataGridTemplateColumn>-->
-                        <!--<DataGridTemplateColumn
-    Width="120"
-    Header="Apply"
-    IsReadOnly="True">
-    <DataGridTemplateColumn.CellTemplate>
-        <DataTemplate>
-            <TextBlock
-                Margin="5,0,0,0"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Center"
-                FontFamily="Microsoft YaHei"
-                FontSize="14"
-                Text="{Binding Apply}" />
-        </DataTemplate>
-    </DataGridTemplateColumn.CellTemplate>
-</DataGridTemplateColumn>-->
                         <DataGridTemplateColumn
                             Width="220"
-                            Header="Unit"
+                            Header="特性值"
                             IsReadOnly="True">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
@@ -458,11 +424,76 @@
                                         VerticalAlignment="Center"
                                         FontFamily="Microsoft YaHei"
                                         FontSize="14"
-                                        Text="{Binding Unit}" />
+                                        Text="{Binding StatusArributeString}" />
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
-                        <DataGridTemplateColumn Width="*" Header="Value">
+                        <DataGridTemplateColumn Width="100" Header="PLC选择">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock
+                                        Margin="5,0,0,0"
+                                        HorizontalAlignment="Stretch"
+                                        VerticalAlignment="Center"
+                                        FontFamily="Microsoft YaHei"
+                                        FontSize="14"
+                                        Text="{Binding PLC}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Width="100" Header="Type">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock
+                                        Margin="5,0,0,0"
+                                        HorizontalAlignment="Stretch"
+                                        VerticalAlignment="Center"
+                                        FontFamily="Microsoft YaHei"
+                                        FontSize="14"
+                                        Text="{Binding DataType}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Width="100" Header="Scale">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock
+                                        Margin="5,0,0,0"
+                                        HorizontalAlignment="Stretch"
+                                        VerticalAlignment="Center"
+                                        FontFamily="Microsoft YaHei"
+                                        FontSize="14"
+                                        Text="{Binding Scale}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Width="150" Header="OffsetOrLength">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock
+                                        Margin="5,0,0,0"
+                                        HorizontalAlignment="Stretch"
+                                        VerticalAlignment="Center"
+                                        FontFamily="Microsoft YaHei"
+                                        FontSize="14"
+                                        Text="{Binding OffsetOrLength}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Width="100" Header="Visible">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock
+                                        Margin="5,0,0,0"
+                                        HorizontalAlignment="Stretch"
+                                        VerticalAlignment="Center"
+                                        FontFamily="Microsoft YaHei"
+                                        FontSize="14"
+                                        Text="{Binding Visible}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Width="100" Header="Value">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock

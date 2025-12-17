@@ -130,10 +130,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="ContentControl">
                     <Viewbox Stretch="Fill">
-                        <Canvas
-                            Width="60"
-                            Height="60"
-                            >
+                        <Canvas Width="60" Height="60">
                             <!--  修复第一个Path  -->
                             <Path
                                 x:Name="SwitchPath"
@@ -143,9 +140,7 @@
                                 Height="57"
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
-                               Fill="{Binding Background, 
-                                    RelativeSource={RelativeSource TemplatedParent}}"
-                         
+                                Fill="{Binding Background, RelativeSource={RelativeSource TemplatedParent}}"
                                 Stretch="Fill"
                                 Stroke="Black">
                                 <!--  移除或调整有问题的变换  -->
@@ -169,8 +164,7 @@
                                 Height="40"
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
-                                Fill="{Binding Background, 
-                                    RelativeSource={RelativeSource TemplatedParent}}"
+                                Fill="{Binding Background, RelativeSource={RelativeSource TemplatedParent}}"
                                 Stretch="Fill"
                                 Stroke="Black"
                                 StrokeThickness="1">

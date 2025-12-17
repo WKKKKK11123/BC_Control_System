@@ -27,7 +27,7 @@
                 Text="{Binding ModuleName, Mode=TwoWay}" >
                 <TextBlock.ContextMenu>
                     <ContextMenu>
-                        <MenuItem Header="Open Actual Value View" Command="{Binding OpenValueCommand}"/>
+                        <MenuItem Header="Open Actual Value View" Command="{Binding OpenStationValueViewCommand}"/>
                         <MenuItem Header="Open Folder" Command="{Binding OpenFolderCommand}"/>
                     </ContextMenu>
                 </TextBlock.ContextMenu>

@@ -668,7 +668,7 @@
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Top"
                                 ActPosition="{Binding WTRActPos}"
-                                SetPosition="8"
+                                SetPosition="14"
                                 Status="{Binding WTRActStatus}" />
                             <!--<local1:WTRRobot
                             x:Name="WTRRobot" Width="400"/>-->

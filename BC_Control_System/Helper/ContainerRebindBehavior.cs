@@ -200,8 +200,8 @@ namespace ZCControlSystem.Controls.Behaviors
             var info = ValveInfos?.Where(v => v.ParameterName == valve.Name).FirstOrDefault();
             if (info == null)
                 info = ValveInfos?.Where(v => v.ParameterName == valve.Tag.ToString()).FirstOrDefault();
-            if (info == null) return;
-            if (valve.Name.Contains("加热器"))
+            if (info == null) return;          
+            if (valve.Style == (Style)Application.Current.Resources["HeaterStyle"])
             {
                 ValueConverterGroup var1 = new ValueConverterGroup();
                 var1.Converters.Add(new StringToBoolConverter()

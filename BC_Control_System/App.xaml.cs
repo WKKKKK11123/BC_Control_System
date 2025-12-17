@@ -249,8 +249,8 @@ namespace BC_Control_System
             containerRegistry.RegisterForNavigation<GraphView, GraphViewModel>();
             containerRegistry.RegisterForNavigation<OprationLogView, OprationLogViewModel>();
             containerRegistry.RegisterForNavigation<WaferRecordView, WaferRecordViewModel>();
-            
 
+            containerRegistry.RegisterForNavigation<StationValueView, StationValueViewModel>();
             containerRegistry.RegisterForNavigation<LFR_1IOView, LFR_1IOViewModel>();
             containerRegistry.RegisterForNavigation<LFR_2IOView, LFR_2IOViewModel>();
             containerRegistry.RegisterForNavigation<LFR_3IOView, LFR_3IOViewModel>();

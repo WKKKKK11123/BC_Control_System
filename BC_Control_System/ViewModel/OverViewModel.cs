@@ -87,6 +87,14 @@ namespace BC_Control_System.ViewModel
                     {
                         try
                         {
+                            bool tempbool = false;
+                            int tempWTRPos = 0;
+                            var wtrPos = _benchStationEntity.Stations?.FirstOrDefault(filter=>filter.StationName=="WTR_1")?.ModuleStatus;
+                            if (wtrPos != null)
+                            {
+                                tempbool=int.TryParse(wtrPos.FirstOrDefault(filter => filter.ParameterName == "Vertical Target Station")?.Value, out tempWTRPos);
+                            }
+                            WTRActPos = tempWTRPos;
                             _batchDataService.UpdateBatchData();
                             tankLidCollections.UpdateStatus();
                             shutterCollections.UpdateStatus();
