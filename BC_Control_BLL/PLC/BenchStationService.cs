@@ -147,6 +147,8 @@ namespace BC_Control_Helper
                 tKClass.ModuleStatus = GetStatusClassCollectionEntity(fileFullName, "TemperatureControlOffList");
                 ChangeData(tKClass.ModuleStatus.Select(src => (IPLCValue)src).ToList());
                 tKClass.ModuleStatus.AnalysisStatusAttribute();
+
+                tKClass.ControlDataCollection = GetDataClassCollectionEntity(fileFullName, "ControlList");
             }
             catch (Exception ex)
             {
