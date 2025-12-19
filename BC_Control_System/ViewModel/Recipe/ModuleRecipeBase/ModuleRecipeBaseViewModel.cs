@@ -167,7 +167,7 @@ namespace BC_Control_System.ViewModel.Recipe.ModuleRecipeBase
         {
             try
             {
-                if (!CanAddStep(SelectStepEntity.StepType))
+                if (!CanAddStep(processStepEnum))
                 {
                     MessageBox.Show("禁止进行当前操作");
                     return;

@@ -12,6 +12,7 @@ D:\program\BC3100\BC_Control_System\BC_Control_DAL\obj\Debug\net8.0-windows\BC_C
 D:\program\BC3100\BC_Control_System\BC_Control_DAL\obj\Debug\net8.0-windows\BC_Control_DAL.AssemblyInfoInputs.cache
 D:\program\BC3100\BC_Control_System\BC_Control_DAL\obj\Debug\net8.0-windows\BC_Control_DAL.AssemblyInfo.cs
 D:\program\BC3100\BC_Control_System\BC_Control_DAL\obj\Debug\net8.0-windows\BC_Control_DAL.csproj.CoreCompileInputs.cache
+D:\program\BC3100\BC_Control_System\BC_Control_DAL\obj\Debug\net8.0-windows\BC_Control_DAL.sourcelink.json
 D:\program\BC3100\BC_Control_System\BC_Control_DAL\obj\Debug\net8.0-windows\BC_Control_DAL.csproj.Fody.CopyLocal.cache
 D:\program\BC3100\BC_Control_System\BC_Control_DAL\obj\Debug\net8.0-windows\BC_Control_DAL.csproj.Fody.RuntimeCopyLocal.cache
 D:\program\BC3100\BC_Control_System\BC_Control_DAL\obj\Debug\net8.0-windows\BC_Contr.91D24990.Up2Date
@@ -19,4 +20,3 @@ D:\program\BC3100\BC_Control_System\BC_Control_DAL\obj\Debug\net8.0-windows\BC_C
 D:\program\BC3100\BC_Control_System\BC_Control_DAL\obj\Debug\net8.0-windows\refint\BC_Control_DAL.dll
 D:\program\BC3100\BC_Control_System\BC_Control_DAL\obj\Debug\net8.0-windows\BC_Control_DAL.pdb
 D:\program\BC3100\BC_Control_System\BC_Control_DAL\obj\Debug\net8.0-windows\ref\BC_Control_DAL.dll
-D:\program\BC3100\BC_Control_System\BC_Control_DAL\obj\Debug\net8.0-windows\BC_Control_DAL.sourcelink.json

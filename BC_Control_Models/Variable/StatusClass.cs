@@ -10,7 +10,7 @@ using thinger.DataConvertLib;
 namespace BC_Control_Models
 {
     [AddINotifyPropertyChangedInterface]
-    public class StatusClass:IPLCValue
+    public class StatusClass : IPLCValue
     {
         [ExcelIgnore]
         public int No { get; set; }
@@ -26,9 +26,11 @@ namespace BC_Control_Models
         [ExcelColumnName("PLC选择")]
         public PlcEnum PLC { get; set; } = PlcEnum.PLC1;
         [ExcelIgnore]
-        public string Value { get; set; }
+        public string Value { get; set; } = "";
+        [ExcelIgnore]
+        public string ActualValue { get; set; } = "";
         [ExcelColumnName("Type")]
-        public DataType DataType { get; set ; }
+        public DataType DataType { get; set; }
         [ExcelColumnName("Scale")]
         public float Scale { get; set; }
         [ExcelColumnName("OffsetOrLength")]
@@ -36,7 +38,7 @@ namespace BC_Control_Models
         public bool Visible { get; set; }
 
         [ExcelIgnore]
-        public Dictionary<int, string> StatusArribute=new Dictionary<int, string>();
-       
+        public Dictionary<int, string> StatusArribute = new Dictionary<int, string>();
+
     }
 }

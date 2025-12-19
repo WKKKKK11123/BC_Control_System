@@ -10,9 +10,9 @@ D:\program\BC3100\BC_Control_System\BC_Control_Helper\obj\Debug\net8.0-windows\B
 D:\program\BC3100\BC_Control_System\BC_Control_Helper\obj\Debug\net8.0-windows\BC_Control_Helper.AssemblyInfoInputs.cache
 D:\program\BC3100\BC_Control_System\BC_Control_Helper\obj\Debug\net8.0-windows\BC_Control_Helper.AssemblyInfo.cs
 D:\program\BC3100\BC_Control_System\BC_Control_Helper\obj\Debug\net8.0-windows\BC_Control_Helper.csproj.CoreCompileInputs.cache
+D:\program\BC3100\BC_Control_System\BC_Control_Helper\obj\Debug\net8.0-windows\BC_Control_Helper.sourcelink.json
 D:\program\BC3100\BC_Control_System\BC_Control_Helper\obj\Debug\net8.0-windows\BC_Contr.362617FA.Up2Date
 D:\program\BC3100\BC_Control_System\BC_Control_Helper\obj\Debug\net8.0-windows\BC_Control_Helper.dll
 D:\program\BC3100\BC_Control_System\BC_Control_Helper\obj\Debug\net8.0-windows\refint\BC_Control_Helper.dll
 D:\program\BC3100\BC_Control_System\BC_Control_Helper\obj\Debug\net8.0-windows\BC_Control_Helper.pdb
 D:\program\BC3100\BC_Control_System\BC_Control_Helper\obj\Debug\net8.0-windows\ref\BC_Control_Helper.dll
-D:\program\BC3100\BC_Control_System\BC_Control_Helper\obj\Debug\net8.0-windows\BC_Control_Helper.sourcelink.json

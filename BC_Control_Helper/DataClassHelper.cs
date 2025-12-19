@@ -79,8 +79,10 @@ namespace BC_Control_Helper
                 var variable = _plcHelper.FindVariable(item.ValueAddress, item.PLC);
                 if (variable == default(Variable)) return;
 
+
                 var dataType = (DataType)Enum.Parse(typeof(DataType), variable.DataType, true);
                 string falseValue = GetDefaultValue(dataType);
+
 
                 if (!tempDevice.IsConnected)
                 {
@@ -133,8 +135,14 @@ namespace BC_Control_Helper
 
                 if (!string.IsNullOrEmpty(item.SettingValueAddress))
                 {
+                    var SettingValue = _plcHelper.FindVariable(item.SettingValueAddress, item.PLC);
+                    if (SettingValue == null)
+                    {
+                        item.SettingValue = "";
+                        return;
+                    }
                     item.SettingValue = dataType == DataType.Float
-                        ? Convert.ToDouble(variable.VarValue).ToString("F2")
+                        ? Convert.ToDouble(SettingValue.VarValue).ToString("F2")
                         : variable.VarValue.ToString()!;
                 }
             }

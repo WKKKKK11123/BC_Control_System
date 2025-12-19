@@ -22,5 +22,6 @@ namespace BC_Control_Models.Log
         public string FFUDiffPressure1 { get; set; }
         [Description("SYS9070FlowRate1")]
         public string SYS9070FlowRate1 { get; set; }
+        public string Step { get; set; }
     }
 }

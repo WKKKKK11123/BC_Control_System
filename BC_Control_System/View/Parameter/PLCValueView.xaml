@@ -51,7 +51,7 @@
                         <Binding
                             Mode="TwoWay"
                             Path="NewSiteValue"
-                            UpdateSourceTrigger="PropertyChanged" />
+                            UpdateSourceTrigger="LostFocus" />
                     </TextBox.Text>
                 </TextBox>
             </StackPanel>

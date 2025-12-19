@@ -8,6 +8,7 @@ D:\program\BC3100\BC_Control_System\BC_Control_Models\obj\Debug\net8.0-windows7.
 D:\program\BC3100\BC_Control_System\BC_Control_Models\obj\Debug\net8.0-windows7.0\BC_Control_Models.AssemblyInfoInputs.cache
 D:\program\BC3100\BC_Control_System\BC_Control_Models\obj\Debug\net8.0-windows7.0\BC_Control_Models.AssemblyInfo.cs
 D:\program\BC3100\BC_Control_System\BC_Control_Models\obj\Debug\net8.0-windows7.0\BC_Control_Models.csproj.CoreCompileInputs.cache
+D:\program\BC3100\BC_Control_System\BC_Control_Models\obj\Debug\net8.0-windows7.0\BC_Control_Models.sourcelink.json
 D:\program\BC3100\BC_Control_System\BC_Control_Models\obj\Debug\net8.0-windows7.0\BC_Control_Models.csproj.Fody.CopyLocal.cache
 D:\program\BC3100\BC_Control_System\BC_Control_Models\obj\Debug\net8.0-windows7.0\BC_Control_Models.csproj.Fody.RuntimeCopyLocal.cache
 D:\program\BC3100\BC_Control_System\BC_Control_Models\obj\Debug\net8.0-windows7.0\BC_Contr.12393B04.Up2Date
@@ -15,4 +16,3 @@ D:\program\BC3100\BC_Control_System\BC_Control_Models\obj\Debug\net8.0-windows7.
 D:\program\BC3100\BC_Control_System\BC_Control_Models\obj\Debug\net8.0-windows7.0\refint\BC_Control_Models.dll
 D:\program\BC3100\BC_Control_System\BC_Control_Models\obj\Debug\net8.0-windows7.0\BC_Control_Models.pdb
 D:\program\BC3100\BC_Control_System\BC_Control_Models\obj\Debug\net8.0-windows7.0\ref\BC_Control_Models.dll
-D:\program\BC3100\BC_Control_System\BC_Control_Models\obj\Debug\net8.0-windows7.0\BC_Control_Models.sourcelink.json

@@ -9,6 +9,7 @@ using ZCCommunication.Core.Address;
 using Microsoft.IdentityModel.Tokens;
 using Dm;
 using Dm.util;
+using BC_Control_BLL.Services;
 
 namespace BC_Control_Helper
 {
@@ -396,7 +397,7 @@ namespace BC_Control_Helper
         public void LoadInfo()
         {
             try
-            {             
+            {
                 CommonMethods.Device = LoadDevice(GetFile(1, "Device.ini"), GetFile(1, "Group.xlsx"), GetFile(1, "Variable.xlsx"));
                 if (CommonMethods.Device != null)
                 {
@@ -910,19 +911,24 @@ namespace BC_Control_Helper
                                                 );
                                                 break;
                                             case DataType.Float:
-                                                variable.VarValue = variable.OffsetOrLength != 0 ?
-                                                    Math.Round(FloatLib.GetFloatFromByteArray(
-                                                    result.Content,
-                                                    start,
-                                                    dataFormat
-                                                ), variable.OffsetOrLength) //如果 OffsetOrLength <>0 则保留对应位数的 小数
-                                                    :
-                                                    FloatLib.GetFloatFromByteArray(
-                                                    result.Content,
-                                                    start,
-                                                    dataFormat
-                                                )//如果 OffsetOrLength ==0 则直接输出浮点数
-                                                    ;
+                                                if (variable.OffsetOrLength != 0)
+                                                {
+                                                    variable.VarValue =
+                                                   Math.Round(FloatLib.GetFloatFromByteArray(
+                                                   result.Content,
+                                                   start,
+                                                   dataFormat
+                                               ), variable.OffsetOrLength);
+
+                                                }
+                                                else
+                                                {
+                                                    variable.VarValue = FloatLib.GetFloatFromByteArray(
+                                                        result.Content,
+                                                        start,
+                                                        dataFormat);//如果 OffsetOrLength ==0 则直接输出浮点数
+                                                }
+
                                                 break;
                                             case DataType.Double:
                                                 variable.VarValue =

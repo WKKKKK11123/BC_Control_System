@@ -26,5 +26,6 @@ namespace BC_Control_Models.Log
         public string FFUDiffPressure1 { get; set; }
         [Description("FFUDiffPressure2")]
         public string FFUDiffPressure2 { get; set; }
+        public string Step { get; set; }
     }
 }

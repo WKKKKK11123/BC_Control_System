@@ -16,7 +16,7 @@
             <!--<valueConverters:ValueToBoolConverter/>-->
             <conv:StringToBoolConverter FalseValue="0" />
             <!--<conv:BoolInverter />-->
-            <conv:BoolToBrushConverter FalseValue="Red" TrueValue="Blue" />
+            <conv:BoolToBrushConverter FalseValue="Blue" TrueValue="Blue" />
         </conv:ValueConverterGroup>
         <conv:ValueConverterGroup x:Key="ConverterStringToBool">
             <!--<valueConverters:ValueToBoolConverter/>-->

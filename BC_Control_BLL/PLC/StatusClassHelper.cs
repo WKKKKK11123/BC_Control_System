@@ -142,6 +142,7 @@ namespace BC_Control_Helper
                     return;
                 }
                 item.Value = item.StatusArribute[value1];
+                
 
             }
             catch (Exception ex)
@@ -174,6 +175,7 @@ namespace BC_Control_Helper
                     item.Value = dataType == DataType.Float
                         ? Convert.ToDouble(variable.VarValue).ToString("F2")
                         : variable.VarValue.ToString()!;
+                    item.ActualValue = item.Value;
                 }
             }
             catch (Exception ex)
