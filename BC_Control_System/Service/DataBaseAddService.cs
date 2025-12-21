@@ -227,10 +227,9 @@ namespace BC_Control_System.Service
                     {
                         var alarmLog = new AlarmLog()
                         {
-                            Date = DateTime.Now.Date,
                             Code = variable.VarName,
                             //Controller = "",
-                            ReceivedTime = variable.PosAlarmTime,
+                            InsertTime = variable.PosAlarmTime,
                             //ClearedTime = "",
                             //AcknowledgeTime = "",
                             Controller = plcEnum.ToString(),
@@ -268,7 +267,6 @@ namespace BC_Control_System.Service
                     {
                         var alarmLog = new AlarmLog()
                         {
-                            Date = DateTime.Now.Date,
                             //Code = "",
                             Controller = plcEnum.ToString(),
                             //ReceivedTime = variable.PosAlarmTime,
@@ -295,8 +293,8 @@ namespace BC_Control_System.Service
 
                         // 报警存储
                         await alarmLogManage.UpdateEntity(setExpression: a => new AlarmLog() { ClearedTime = variable.NegAlarmTime, }
-                            , whereExpression: p => (p.Date == alarmLogTemp.Date
-                            && p.ReceivedTime == alarmLogTemp.ReceivedTime
+                            , whereExpression: p => (
+                            p.InsertTime == alarmLogTemp.InsertTime
                             && alarmLogTemp.VarName == p.VarName
                             && alarmLogTemp.Controller == p.Controller));
 

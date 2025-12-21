@@ -8,45 +8,30 @@ using System.Windows;
 using BC_Control_BLL.Services;
 using BC_Control_Models;
 using CommunityToolkit.Mvvm.ComponentModel;
+using BC_Control_BLL.services.TraceLogService;
+using BC_Control_Models.Log;
+using BC_Control_System.BaseModel;
+using Prism.Regions;
+using CommunityToolkit.Mvvm.Input;
 
 namespace BC_Control_System.ViewModels
 {
     
-    public partial class AlarmLogViewModel : ObservableObject
+    public partial class AlarmLogViewModel : InsertTimeLogViewModelBase<AlarmLog, AlarmLogService>
     {
-        private AlarmLogService _sqlSugarHelper;
-        private IDialogService _dialogService;
-        [ObservableProperty]
-        private List<AlarmLog> alarmLogs;
-        public DelegateCommand ExportCommand { get; set; }
-        public DelegateCommand SelectByTime { get; set; }
-        public DelegateCommand SortViewCommand { get; set; }
-        public DelegateCommand SaveFileCommand { get; set; }
-        public AlarmLogViewModel(AlarmLogService sqlSugarHelper, IDialogService dialogService)
+        private readonly IDialogService _dialogService;
+        public AlarmLogViewModel(
+           ILogCommandService commandService,
+           AlarmLogService dataBaseService,
+           IExcelOperation excelOperation,
+           IDialogService dialogService)
+           : base(commandService, dataBaseService)
         {
-            AlarmLogs = new List<AlarmLog>();
             _dialogService = dialogService;
-            _sqlSugarHelper = sqlSugarHelper;
-            SelectByTime = new DelegateCommand(SelectTime);
-            SortViewCommand = new DelegateCommand(SortViewOpen);
-            SaveFileCommand = new DelegateCommand(SaveFile);
-            ExportCommand = new DelegateCommand(ExportData);
         }
-        public void SortViewOpen()
-        {
-            try
-            {
-                IDialogResult r = null;
-                _dialogService.ShowDialog(nameof(SortView), result => r = result);
-            }
-
-            catch (Exception ee)
-            {
-
-            }
-
-        }
-        public async void SelectTime()
+        #region 视图命令
+        [RelayCommand]
+        private void SelectTime()
         {
             try
             {
@@ -56,56 +41,30 @@ namespace BC_Control_System.ViewModels
                 {
                     var StartTime = r.Parameters.GetValue<DateTime>("Time1");
                     var EndTime = r.Parameters.GetValue<DateTime>("Time2");
-                    AlarmLogs = await _sqlSugarHelper.Query(filter => (Convert.ToDateTime(filter.Date) >= StartTime) && (Convert.ToDateTime(filter.Date) <= EndTime));
+                    OnSelectTime(StartTime, EndTime);
                 }
-
             }
-
             catch (Exception ee)
             {
 
             }
-            
-        }
-        public void SaveFile()
-        {
-            _dialogService.ShowDialog(nameof(SaveFileView));
-        }
 
-        public void ExportData()
+        }
+        [RelayCommand]
+        private void Export()
         {
-            if (AlarmLogs == null || !AlarmLogs.Any())
+            try
             {
-                MessageBox.Show("没有数据可导出");
-                return;
+                string path = "";
+                var list=GetInsertTimeData();               
+            }
+            catch (Exception)
+            {
+
+                throw;
             }
 
-            string pageName = "AlarmLog";
-            string defaultFileName = $"{pageName}_{DateTime.Now:yyyyMMdd_HHmmss}.xlsx";
-
-            var saveFileDialog = new Microsoft.Win32.SaveFileDialog()
-            {
-                FileName = defaultFileName,
-                Filter = "Excel 文件 (*.xlsx)|*.xlsx"
-            };
-
-            bool? result = saveFileDialog.ShowDialog();
-
-            if (result == true)
-            {
-                string path = saveFileDialog.FileName;
-
-                try
-                {
-                    // 使用 MiniExcel 保存
-                    MiniExcel.SaveAs(path, AlarmLogs);
-                    MessageBox.Show("导出成功");
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("导出失败: " + ex.Message);
-                }
-            }
         }
+        #endregion
     }
 }

@@ -143,12 +143,12 @@ namespace BC_Control_Models
 
             if (!preValue && currentValue)
             {
-                variable.PosAlarmTime = DateTime.Now.ToString("HH:mm:ss");
+                variable.PosAlarmTime = DateTime.Now;
             }
 
             if (preValue && !currentValue)
             {
-                variable.NegAlarmTime = DateTime.Now.ToString("HH:mm:ss");
+                variable.NegAlarmTime = DateTime.Now;
             }
 
             // 上升沿报警检测
@@ -198,12 +198,12 @@ namespace BC_Control_Models
 
             if (!preValue && currentValue)
             {
-                variable.PosAlarmTime = DateTime.Now.ToString("HH:mm:ss");
+                variable.PosAlarmTime = DateTime.Now;
             }
              
             if (preValue && !currentValue)
             {
-                variable.NegAlarmTime = DateTime.Now.ToString("HH:mm:ss");
+                variable.NegAlarmTime = DateTime.Now;
             }
             if (variable.Event)
             {

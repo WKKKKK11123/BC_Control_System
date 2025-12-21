@@ -320,6 +320,7 @@ namespace BC_Control_System
             // 处理非UI线程异常
             if (e.ExceptionObject is Exception ex)
             {
+               
                 HandleException(ex);
             }
         }
@@ -328,6 +329,7 @@ namespace BC_Control_System
         {
             // 处理Task异常
             HandleException(e.Exception);
+            
             e.SetObserved(); // 标记为已观察
         }
 

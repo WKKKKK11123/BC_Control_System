@@ -31,7 +31,7 @@
                 <Button
                     Width="140"
                     Margin="3,5,3,1"
-                    Command="{Binding SelectByTime}"
+                    Command="{Binding SelectTimeCommand}"
                     Content="Search" />
                 <Button
                     Width="140"
@@ -61,13 +61,13 @@
                     GridLinesVisibility="Horizontal"
                     HeadersVisibility="Column"
                     IsReadOnly="True"
-                    ItemsSource="{Binding CollectionView}"
+                    ItemsSource="{Binding InsertTimeCollections}"
                     RowHeight="35"
                     Style="{x:Null}">
                     <DataGrid.Columns>
                         <DataGridTextColumn
                             Width="150"
-                            Binding="{Binding InsertTime}"
+                            Binding="{Binding InsertTime, StringFormat={}{0:yyyy-MM-dd HH:mm:ss}}"
                             Header="Insert Time" />
                         <DataGridTextColumn
                             Width="150"

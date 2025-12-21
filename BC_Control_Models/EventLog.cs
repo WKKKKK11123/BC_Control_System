@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace BC_Control_Models.Personal
 {
     [SugarTable("EventLog")]
-    public class EventLog
+    public class EventLog:IInsertTime
     {
         public DateTime InsertTime { get; set; }
         public string Comment { get; set; }

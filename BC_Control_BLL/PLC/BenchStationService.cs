@@ -149,6 +149,7 @@ namespace BC_Control_Helper
                 tKClass.ModuleStatus.AnalysisStatusAttribute();
 
                 tKClass.ControlDataCollection = GetDataClassCollectionEntity(fileFullName, "ControlList");
+                ChangeData(tKClass.ControlDataCollection.Select(src => (IPLCValue)src).ToList());
             }
             catch (Exception ex)
             {

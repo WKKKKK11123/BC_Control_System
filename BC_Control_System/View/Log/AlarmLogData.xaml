@@ -32,7 +32,7 @@
                 <Button
                     Width="140"
                     Margin="3,5,3,1"
-                    Command="{Binding SelectByTime}"
+                    Command="{Binding SelectTimeCommand}"
                     Content="Select" />
                 <Button
                     Width="140"
@@ -67,21 +67,17 @@
                 GridLinesVisibility="Horizontal"
                 HeadersVisibility="Column"
                 IsReadOnly="True"
-                ItemsSource="{Binding AlarmLogs}"
+                ItemsSource="{Binding InsertTimeCollections}"
                 RowHeight="35"
                 Style="{x:Null}">
                 <DataGrid.Columns>
                     <DataGridTextColumn
                         Width="150"
-                        Binding="{Binding Date, StringFormat={}{0:yyyy年MM月dd日}}"
-                        Header="Date" />
-                    <DataGridTextColumn
-                        Width="150"
-                        Binding="{Binding ReceivedTime, Mode=TwoWay}"
+                        Binding="{Binding InsertTime, StringFormat={}{0:yyyy-MM-dd HH:mm:ss}}"
                         Header="Received Time" />
                     <DataGridTextColumn
-                        Width="100"
-                        Binding="{Binding ClearedTime, Mode=TwoWay}"
+                        Width="150"
+                        Binding="{Binding ClearedTime, StringFormat={}{0:yyyy-MM-dd HH:mm:ss}}"
                         Header="Cleared Time" />
                     <DataGridTextColumn
                         Width="150"

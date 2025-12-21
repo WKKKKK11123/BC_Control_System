@@ -123,7 +123,10 @@ namespace BC_Control_System.ViewModel.Log
             if (navigationContext.Parameters["ModuleName"] is StationCollection)
             {
                 var stationtemp = navigationContext.Parameters["ModuleName"] as StationCollection;
-                
+                if (stationtemp==null)
+                {
+                    return;
+                }
                 OpenModuleView(stationtemp);
             }
         }

@@ -42,7 +42,11 @@ namespace BC_Control_System.ViewModel.Status
                 }
                 await Task.Run(() =>
                 {
-                    _plcControl.InvetralVarible(dataClass.SettingValueAddress, dataClass.PLC);
+                     var oprate=_plcControl.InvetralVarible(dataClass.SettingValueAddress, dataClass.PLC);
+                    if (oprate.IsSuccess==false)
+                    {
+                        MessageBox.Show("操作失败");
+                    }
                 });
             }
             catch (Exception ex)

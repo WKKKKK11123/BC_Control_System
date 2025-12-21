@@ -155,7 +155,6 @@
                         Command="{Binding OpenViewCommand}"
                         CommandParameter="FlowRecipe"
                         Header="Flow Recipe"
-                        
                         IsEnabled="{Binding AuthManager.UserRights, Converter={StaticResource localRightsConverter}, ConverterParameter=2}" />
                     <MenuItem Header="Unit Recipe" ItemsSource="{Binding ProcessTankCollections}">
                         <MenuItem.ItemContainerStyle>
@@ -219,23 +218,19 @@
                     <MenuItem
                         Command="{Binding OpenViewCommand}"
                         CommandParameter="AlarmLogData"
-                        Header="Alarm Log "
-                         />
+                        Header="Alarm Log " />
                     <MenuItem
                         Command="{Binding OpenViewCommand}"
                         CommandParameter="OprationLogView"
-                        Header="Opration Log "
-                        />
+                        Header="Opration Log " />
                     <MenuItem
                         Command="{Binding OpenViewCommand}"
                         CommandParameter="EventLogView"
-                        Header="Event Log "
-                        />
+                        Header="Event Log " />
                     <MenuItem
                         Command="{Binding OpenViewCommand}"
                         CommandParameter="EndofRunLogView"
-                        Header="Process Log "
-                         />
+                        Header="Process Log " />
                     <!--<MenuItem
                         Command="{Binding OpenViewCommand}"
                         CommandParameter="WaferRecordView"
@@ -260,8 +255,7 @@
                     <MenuItem
                         Command="{Binding OpenDialogViewCommand}"
                         CommandParameter="UseRegView"
-                        Header="User Reg "
-                        />
+                        Header="User Reg " />
                 </MenuItem>
                 <MenuItem Margin="2,0,2,0" Header="Maintenance">
                     <MenuItem Header="IO View ">
@@ -299,7 +293,7 @@
                             <StaticResource ResourceKey="RecipeDownloadMenuItemStyle" />
                         </MenuItem.ItemContainerStyle>
                     </MenuItem>
-
+                    <MenuItem Command="{Binding WriteToolRecipeCommand}" Header="Tool Recipe DownLoad" />
                 </MenuItem>
                 <MenuItem
                     Margin="2,0,2,0"
@@ -619,8 +613,8 @@
                 <TextBox
                     Width="1518"
                     Margin="2,2,2,2"
-                    IsReadOnly="True"
                     FontSize="12"
+                    IsReadOnly="True"
                     Text="{Binding MachineState}" />
                 <Button
                     Width="115"

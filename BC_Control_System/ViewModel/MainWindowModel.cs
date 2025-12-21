@@ -38,6 +38,8 @@ using System.Collections.ObjectModel;
 using BC_Control_BLL.services;
 using BC_Control_BLL.recipedownload;
 using CommunityToolkit.Mvvm.ComponentModel;
+using ScottPlot.Interactivity;
+using System.Windows.Shapes;
 
 namespace BC_Control_System.ViewModel
 {
@@ -59,7 +61,7 @@ namespace BC_Control_System.ViewModel
 		private readonly ILogOpration logOpration;
 		private readonly IContainerProvider _containerProvider;
 		private readonly SysAdmin _userAdmin;
-		string filepath = "D:\\Recipe\\Tool";
+		string filepath = "C:\\212Recipe\\Tool";
 		private ProcessControl _processControl;
 		#endregion
 		private Thread BackThread;
@@ -98,6 +100,7 @@ namespace BC_Control_System.ViewModel
 		public ICommand EFAMConnectCommand { get; set; }
 		public ICommand OpenTraceLogViewCommand { get; set; }
 		public ICommand WritePLCCommand { get; set; }
+		public ICommand WriteToolRecipeCommand { get; set; }
 		public ICommand CloseCommand =>
 			new RelayCommand(() =>
 			{
@@ -165,7 +168,8 @@ namespace BC_Control_System.ViewModel
 					(
 					src => _viewTransitionNavigator.MainVeiwNavigation(nameof(InsertTimeLogMainView), new NavigationParameters { { "ModuleName", src } })
 					);
-				OpenStatusViewCommand = new DelegateCommand<object>(OpenStatusView);
+				WriteToolRecipeCommand = new DelegateCommand(WriteToolRecipe);
+                OpenStatusViewCommand = new DelegateCommand<object>(OpenStatusView);
 				OpenIOViewCommand = new DelegateCommand<string>(OpenIOView);
 				EFAMConnectCommand = new DelegateCommand<string>(EFAMConnect);
 				WritePLCCommand = new DelegateCommand<string>(WritePLC);
@@ -703,6 +707,34 @@ namespace BC_Control_System.ViewModel
 		private void OpenDialogView(string module)
 		{
 			_dialogService.ShowDialog(module);
+        }
+        private void WriteToolRecipe()
+        {
+            try
+			{
+                DialogParameters key = new DialogParameters();
+                IDialogResult r = new DialogResult();
+                string path = System.IO.Path.Combine(@"C:\212Recipe", "Tool");
+                key.Add("FilePath", path);
+                _dialogService.ShowDialog(nameof(OpenFileView), key, result => r = result);
+                if (r.Result == ButtonResult.OK)
+                {
+                    string path1 = r.Parameters.GetValue<string>("Result1");
+                    if (DownLoadRecipe("Tool", path1))
+                    {
+                        MessageBox.Show("下载完成");
+                    }
+                    else
+                    {
+                        MessageBox.Show("下载失败");
+                    }
+                }
+            }
+			catch (Exception ee)
+			{
+
+				
+			}
 		}
 		private void OpenFolderDialogView(object module)
 		{
@@ -773,7 +805,7 @@ namespace BC_Control_System.ViewModel
                         db = _containerProvider.Resolve<QDRRecipeControl>();
                         db.path = PATH;
                         return db.DownLoad("D6000", PlcEnum.PLC6);
-                    case "LPD":
+                    case "LPD_1":
 						db = _containerProvider.Resolve<LPDRecipeControl>();
 						db.path = PATH;
 						return db.DownLoad("D5000", PlcEnum.PLC7);

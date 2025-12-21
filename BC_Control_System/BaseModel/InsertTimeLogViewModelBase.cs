@@ -12,10 +12,11 @@ using BC_Control_Models;
 using BC_Control_Models.Log;
 using System.Windows.Controls;
 using System.Collections.ObjectModel;
+using Prism.Regions;
 
 namespace BC_Control_System.BaseModel
 {
-    public partial class InsertTimeLogViewModelBase<T, TService> : ObservableObject, IDisposable
+    public partial class InsertTimeLogViewModelBase<T, TService> : ObservableObject, IDisposable,INavigationAware
         where T : class, IInsertTime, new()
         where TService : BaseService<T>
     {
@@ -74,6 +75,21 @@ namespace BC_Control_System.BaseModel
             _commandService.GetListCommandExecuted -= GetInsertTimeData;
             _commandService.GetTypeCommandExecuted -= GetTypeFunc;
 
+        }
+
+        public virtual void OnNavigatedTo(NavigationContext navigationContext)
+        {
+            Dispose();
+        }
+
+        public virtual bool IsNavigationTarget(NavigationContext navigationContext)
+        {
+            return false;
+        }
+
+        public void OnNavigatedFrom(NavigationContext navigationContext)
+        {
+            
         }
     }
 }

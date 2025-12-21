@@ -10,16 +10,8 @@ namespace BC_Control_Models
 {
     [AddINotifyPropertyChangedInterface]
     [SugarTable("AlarmLog")]
-    public class AlarmLog
-    {
-        /// <summary>
-        /// 日期
-        /// </summary>
-        public DateTime Date
-        {
-            get; set;
-        }
-
+    public class AlarmLog:IInsertTime
+    {   
         /// <summary>
         /// 报错代码
         /// </summary>
@@ -39,7 +31,7 @@ namespace BC_Control_Models
         /// <summary>
         /// 报错触发时间
         /// </summary>
-        public string ReceivedTime
+        public DateTime InsertTime
         {
             get; set;
         }
@@ -47,7 +39,7 @@ namespace BC_Control_Models
         /// <summary>
         /// 报错清除时间
         /// </summary>
-        public string ClearedTime
+        public DateTime ClearedTime
         {
             get; set;
         }

@@ -18,7 +18,7 @@ namespace BC_Control_System.ViewModel.Recipe
     public partial class FlowRecipeViewModel : ObservableObject
     {
         private IDialogService _dialogService;
-        private string filepath = @"D:\Recipe\Tool";
+        private string filepath = @"C:\212Recipe\Tool";
         [ObservableProperty]
         private FlowRecipeClass _FlowRecipeModel=new FlowRecipeClass();
         [ObservableProperty]

@@ -17,7 +17,7 @@ namespace BC_Control_System.View.Recipe
 {
     public partial class FlowRecipeStepViewModel :ObservableObject, IDialogAware
     {
-        private string path= @"D:\Recipe";
+        private string path= @"C:\212Recipe";
         #region 视图属性
         [ObservableProperty]
         private FlowStepClass _FlowStep=new FlowStepClass();

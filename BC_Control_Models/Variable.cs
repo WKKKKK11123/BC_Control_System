@@ -149,7 +149,7 @@ namespace BC_Control_Models
         /// 触发上升沿时间
         /// </summary>
         [ExcelIgnore]
-        public string PosAlarmTime
+        public DateTime PosAlarmTime
         {
             get; set;
         }
@@ -157,7 +157,7 @@ namespace BC_Control_Models
         /// 触发下降沿时间
         /// </summary>
         [ExcelIgnore]
-        public string NegAlarmTime
+        public DateTime NegAlarmTime
         {
             get; set;
         }
