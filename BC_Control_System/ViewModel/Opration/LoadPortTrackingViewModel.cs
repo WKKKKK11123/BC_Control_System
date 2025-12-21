@@ -1,4 +1,5 @@
-﻿using Prism.Commands;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using Prism.Commands;
 using Prism.Mvvm;
 using PropertyChanged;
 using System;
@@ -14,13 +15,13 @@ using ZC_Control_EFAM.ProcessControl;
 
 namespace BC_Control_System.ViewModel.Opration
 {
-    [AddINotifyPropertyChangedInterface]
-    public class LoadPortTrackingViewModel : BindableBase
+    public partial class LoadPortTrackingViewModel : ObservableObject
     {
-        public List<StationStateBase> loadPortStates { get; set; }
+        [ObservableProperty]
+        private List<StationStateBase> _loadPortStates;
         public LoadPortTrackingViewModel( ProcessControl processControl)
         {   
-            loadPortStates = processControl.eFAM_Data.Loadport_Data.Select(src => (StationStateBase)src).ToList();
+            LoadPortStates = processControl.eFAM_Data.Loadport_Data.Select(src => (StationStateBase)src).ToList();
         }
     }
 }

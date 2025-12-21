@@ -11,16 +11,19 @@ using System.Windows;
 using BC_Control_Helper;
 using BC_Control_Models;
 using BC_Control_Models.RecipeModel;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace BC_Control_System.ViewModel.Recipe
 {
-    [AddINotifyPropertyChangedInterface]
-    public class FlowRecipeViewModel : BindableBase
+    public partial class FlowRecipeViewModel : ObservableObject
     {
         private IDialogService _dialogService;
         private string filepath = @"D:\Recipe\Tool";
-        public FlowRecipeClass FlowRecipeModel { get; set; }
-        public BindingList<FlowStepClass> FlowSteps { get; set; }
+        [ObservableProperty]
+        private FlowRecipeClass _FlowRecipeModel=new FlowRecipeClass();
+        [ObservableProperty]
+        private BindingList<FlowStepClass> _FlowSteps = new BindingList<FlowStepClass>();
+
         public DelegateCommand OpenFileCommand { get; set; }
         public DelegateCommand DeleteFileCommand { get; set; }
         public DelegateCommand SaveFileCommand { get; set; }
@@ -33,8 +36,7 @@ namespace BC_Control_System.ViewModel.Recipe
 
 
         public FlowRecipeViewModel(IDialogService dialogService)
-        {
-            FlowRecipeModel = new FlowRecipeClass();
+        {            
             _dialogService = dialogService;
             OpenFileCommand = new DelegateCommand(OpenFile);
             DeleteFileCommand = new DelegateCommand(DeleteFile);
@@ -116,13 +118,12 @@ namespace BC_Control_System.ViewModel.Recipe
         }
         private void SaveFile()
         {
-            bool hasMGD9 = FlowSteps.Any(step => step.BathName == BathNameEnum.LPD);
-            bool hasQDR7 = FlowSteps.Any(step => step.BathName == BathNameEnum.QDR_4);
+            bool hasMGD9 = FlowSteps.Any(step => step.BathName == BathNameEnum.LPD_1);
 
 
-            if (!hasMGD9||!hasQDR7)
+            if (!hasMGD9)
             {
-                MessageBox.Show("保存失败：必须至少包含一个MGD和一个QDR的步骤", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("保存失败：必须至少包含一个MGD的步骤", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
@@ -140,7 +141,7 @@ namespace BC_Control_System.ViewModel.Recipe
             var temp = new FlowStepClass()
             {
                 FlowStep = FlowSteps.Count() + 1,
-                BathName = BathNameEnum.EKC_1,
+                BathName = BathNameEnum.Ag_1,
             };
             DialogParameters keyValuePairs = new DialogParameters();
             IDialogResult dialogResult = new DialogResult();

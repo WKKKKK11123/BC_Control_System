@@ -1,68 +1,62 @@
-﻿using BC_Control_System.Command;
+﻿using BC_Control_BLL.Abstract;
+using BC_Control_BLL.PLC;
+using BC_Control_BLL.recipedownload;
+using BC_Control_BLL.services.TraceLogService;
+using BC_Control_BLL.Services;
+using BC_Control_DAL;
+using BC_Control_Helper;
+using BC_Control_Helper.FILE;
+using BC_Control_Helper.interfaceHelper;
+using BC_Control_Models;
+using BC_Control_Models.BenchConfig;
+using BC_Control_System.Abstract;
+using BC_Control_System.Command;
+using BC_Control_System.Service;
+using BC_Control_System.Theme;
+using BC_Control_System.view.Log.TraceLogViews;
+using BC_Control_System.view.Status.IOView;
+using BC_Control_System.View;
 using BC_Control_System.View.Alarm;
-using BC_Control_System.View.Dialogs;
 using BC_Control_System.View.Help;
 using BC_Control_System.View.Log;
+using BC_Control_System.View.Log.TraceLogViews;
 using BC_Control_System.View.Maintenance;
 using BC_Control_System.View.Opration;
 using BC_Control_System.View.Parameter;
-using BC_Control_System.View.Recipe.ModelRecipe;
 using BC_Control_System.View.Recipe;
-using BC_Control_System.View.Status.IOView;
+using BC_Control_System.View.Recipe.ModelRecipe;
 using BC_Control_System.View.Status;
-using BC_Control_System.View;
+using BC_Control_System.View.Status.IOView;
+using BC_Control_System.View.Status.IOView.Machine;
+using BC_Control_System.View.Status.IOView.MixTank;
+using BC_Control_System.View.Status.IOView.Tank;
+using BC_Control_System.ViewModel;
 using BC_Control_System.ViewModel.Alarm;
-using BC_Control_System.ViewModel.Dialogs;
 using BC_Control_System.ViewModel.Help;
 using BC_Control_System.ViewModel.Log;
+using BC_Control_System.ViewModel.Log.TankTraceLog;
 using BC_Control_System.ViewModel.Maintenance;
 using BC_Control_System.ViewModel.Opration;
 using BC_Control_System.ViewModel.Parameter;
-using BC_Control_System.ViewModel.Recipe.ModuleRecipe;
 using BC_Control_System.ViewModel.Recipe;
-using BC_Control_System.ViewModel.Status.IOViewModel;
+using BC_Control_System.ViewModel.Recipe.ModuleRecipe;
 using BC_Control_System.ViewModel.Status;
-using BC_Control_System.ViewModel;
-using BC_Control_System.ViewModels.LogDataModel;
-using BC_Control_System.ViewModels;
-using BC_Control_System.Views.IO;
-using BC_Control_System.Views.LogData;
-using BC_Control_System.Views;
-using DryIoc;
-using Prism.Ioc;
-using Prism.Regions;
-using System.Configuration;
-using System.Data;
-using System.Windows;
-using BC_Control_BLL.Services;
-using BC_Control_DAL;
-using BC_Control_Helper.FILE;
-using BC_Control_Helper;
-using BC_Control_Models.BenchConfig;
-using BC_Control_Models;
-using ZC_Control_System.EFAMAction;
-using Prism.DryIoc;
-using System.IO;
-using BC_Control_System.Theme;
-using BC_Control_System.view.Log.TraceLogViews;
-using BC_Control_System.ViewModel.Log;
-using BC_Control_System.ViewModel.Log.TankTraceLog;
-using BC_Control_System.Service;
-using BC_Control_System.ViewModel;
-using BC_Control_System.view.Status.IOView;
 using BC_Control_System.ViewModel.Status.IOViewModel;
-using BC_Control_System.View.Log.TraceLogViews;
-using BC_Control_BLL.services.TraceLogService;
-using BC_Control_System.View.Status.IOView.Tank;
-using BC_Control_System.View.Status.IOView.Machine;
 using BC_Control_System.ViewModel.Status.IOViewModel.Machine;
-using BC_Control_System.Abstract;
-using BC_Control_BLL.recipedownload;
-using BC_Control_System.Model;
-using BC_Control_BLL.PLC;
-using BC_Control_System.View.Status.IOView.MixTank;
 using BC_Control_System.ViewModel.Status.IOViewModel.MixTank;
 using BC_Control_System.ViewModel.Status.IOViewModel.Tank;
+using BC_Control_System.ViewModels;
+using BC_Control_System.ViewModels.LogDataModel;
+using BC_Control_System.Views;
+using BC_Control_System.Views.IO;
+using BC_Control_System.Views.LogData;
+using DryIoc;
+using Prism.DryIoc;
+using Prism.Ioc;
+using Prism.Regions;
+using System.IO;
+using System.Windows;
+using ZC_Control_System.EFAMAction;
 
 namespace BC_Control_System
 {
@@ -172,6 +166,7 @@ namespace BC_Control_System
             containerRegistry.RegisterSingleton<EAPService>();
             containerRegistry.RegisterSingleton<ViewTransitionNavigator>();
             containerRegistry.Register<IPLCHelper, PLCSelect>();
+            containerRegistry.Register<IPLCControl, PLCControl>();
             containerRegistry.RegisterSingleton<TK2LogDataService>();
             containerRegistry.RegisterSingleton<TK3LogDataService>();
             containerRegistry.RegisterSingleton<TK4LogDataService>();
@@ -191,9 +186,7 @@ namespace BC_Control_System
             //containerRegistry.RegisterForNavigation<LFR_2IOView>("LFR_2");
             containerRegistry.RegisterForNavigation<LoginView>("LoginView");
             // 新增对话框注册
-            containerRegistry.RegisterDialog<NotificationDialog, NotificationDialogViewModel>(
-                "NotificationDialog"
-            );
+            
 
             containerRegistry.RegisterSingleton<OpenRecipeEditorViewCommand>();
             containerRegistry.RegisterDialog<ChartView, ChartViewModel>();
@@ -250,6 +243,7 @@ namespace BC_Control_System
             containerRegistry.RegisterForNavigation<OprationLogView, OprationLogViewModel>();
             containerRegistry.RegisterForNavigation<WaferRecordView, WaferRecordViewModel>();
 
+            containerRegistry.RegisterForNavigation<ControlPanelView,ControlPanelViewModel>();
             containerRegistry.RegisterForNavigation<StationValueView, StationValueViewModel>();
             containerRegistry.RegisterForNavigation<LFR_1IOView, LFR_1IOViewModel>();
             containerRegistry.RegisterForNavigation<LFR_2IOView, LFR_2IOViewModel>();

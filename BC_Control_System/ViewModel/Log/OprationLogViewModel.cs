@@ -13,30 +13,28 @@ using BC_Control_Models;
 using BC_Control_System.Comand;
 using BC_Control_System.Command;
 using BC_Control_System.View.Log;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace BC_Control_System.ViewModels
 {
-    [AddINotifyPropertyChangedInterface]
-    public class OprationLogViewModel : BindableBase
+    
+    public partial class OprationLogViewModel : ObservableObject
     {
-        public OprationLogViewModel(OperatorLogService oprationLogService,IDialogService dialogService)
+        
+        private IDialogService _dialogService;
+        private OperatorLogService _operatorLogService;
+        public DelegateCommand ExportCommand { get; set; }
+        public DelegateCommand SelectByTime { get; set; }
+        [ObservableProperty]
+        private List<OperatorLog> _Logs;
+        public OprationLogViewModel(OperatorLogService oprationLogService, IDialogService dialogService)
         {
-           _operatorLogService = oprationLogService;
+            _Logs = new List<OperatorLog>();
+            _operatorLogService = oprationLogService;
             _dialogService = dialogService;
             SelectByTime = new DelegateCommand(SelectTime);
             ExportCommand = new DelegateCommand(ExportData);
         }
-        private IDialogService _dialogService;
-        private OperatorLogService _operatorLogService;
-        public DelegateCommand ExportCommand { get; set; }
-        public DateTime FromTime { get; set; } = DateTime.Now;
-
-        public DateTime ToTime { get; set; } = DateTime.Now;
-
-        public DelegateCommand SelectByTime { get; set; }
-
-        public List<OperatorLog> Logs { get; set; }
-       
         public async void SelectTime()
         {
             try

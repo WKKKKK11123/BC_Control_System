@@ -16,12 +16,11 @@ using BC_Control_BLL.PLC;
 using BC_Control_Models.BenchConfig;
 using System.Windows.Input;
 using BC_Control_System.Service;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace BC_Control_System.ViewModel
 {
-    [AddINotifyPropertyChangedInterface]
-
-    public class OverViewModel : BindableBase
+    public partial class OverViewModel : ObservableObject
     {
         private readonly ViewTransitionNavigator _viewTransitionNavigator;
         private ProcessControl _processControl;
@@ -31,15 +30,24 @@ namespace BC_Control_System.ViewModel
         private readonly IExcelOperation _excelOpration;
         private List<StatusClass> tankLidCollections;
         private List<StatusClass> shutterCollections;
-        public ObservableCollection<StatusClass> StorageStatus { get; set; }
-        public ObservableCollection<StatusClass> LDStatus { get; set; }
-        public ObservableCollection<StatusClass> OPStatus { get; set; }
-        public ObservableCollection<StationCollection> LiftCollections { get; set; }
-        public int WTRActPos { get; set; }
-        public BindingList<ModuleStatus> ModuleStatus { get; set; }
-        public ObservableCollection<DoubleSensor> TankLidStatus { get; set; }
-        public ObservableCollection<DoubleSensor> ShutterStatus { get; set; }
-        public ObservableCollection<ModuleStatus2> ModuleStatus2 { get; set; }
+        [ObservableProperty]
+        private ObservableCollection<StatusClass> _StorageStatus;
+        [ObservableProperty]
+        private ObservableCollection<StatusClass> _LDStatus;
+        [ObservableProperty]
+        private ObservableCollection<StatusClass> _OPStatus;
+        [ObservableProperty]
+        private ObservableCollection<StationCollection> _LiftCollections;
+        [ObservableProperty]
+        private int _WTRActPos;
+        [ObservableProperty]
+        private BindingList<ModuleStatus> _ModuleStatus;
+        [ObservableProperty]
+        private ObservableCollection<DoubleSensor> _TankLidStatus;
+        [ObservableProperty]
+        private ObservableCollection<DoubleSensor> _ShutterStatus;
+        [ObservableProperty]
+        private ObservableCollection<ModuleStatus2> _ModuleStatus2;
         public ICommand OpenStatusViewCommand { get; set; }
         public OverViewModel(DataBaseAddService dataBaseAddService, IBenchStationEntity benchStationEntity, BatchDataService batchDataService, ProcessControl processControl, IRegionManager regionManager, IExcelOperation excelOperation, ViewTransitionNavigator viewTransitionNavigator)
         {
@@ -87,17 +95,7 @@ namespace BC_Control_System.ViewModel
                     {
                         try
                         {
-                            bool tempbool = false;
-                            int tempWTRPos = 0;
-                            var wtrPos = _benchStationEntity.Stations?.FirstOrDefault(filter=>filter.StationName=="WTR_1")?.ModuleStatus;
-                            if (wtrPos != null)
-                            {
-                                tempbool=int.TryParse(wtrPos.FirstOrDefault(filter => filter.ParameterName == "Vertical Target Station")?.Value, out tempWTRPos);
-                            }
-                            WTRActPos = tempWTRPos;
-                            _batchDataService.UpdateBatchData();
-                            tankLidCollections.UpdateStatus();
-                            shutterCollections.UpdateStatus();
+                            
                             StorageStatus[1].Value = _processControl.StoragePlaceSenser[0] ? "1" : "0";
                             StorageStatus[2].Value = _processControl.StoragePlaceSenser[1] ? "1" : "0";
                             StorageStatus[3].Value = _processControl.StoragePlaceSenser[2] ? "1" : "0";
@@ -122,9 +120,18 @@ namespace BC_Control_System.ViewModel
 
                             LDStatus[1].Value = _processControl.Lp1PlaceSenser ? "1" : "0";
                             LDStatus[2].Value = _processControl.Lp2PlaceSenser ? "1" : "0";
-                            //LDStatus[3].Value = _processControl.Lp3PlaceSenser ? "1" : "0";
-                            //LDStatus[4].Value = _processControl.Lp4PlaceSenser ? "1" : "0";
-
+                            Thread.Sleep(500);
+                            bool tempbool = false;
+                            int tempWTRPos = 0;
+                            var wtrPos = _benchStationEntity.Stations?.FirstOrDefault(filter => filter.StationName == "WTR_1")?.ModuleStatus;
+                            if (wtrPos != null)
+                            {
+                                tempbool = int.TryParse(wtrPos.FirstOrDefault(filter => filter.ParameterName == "Vertical Target Station")?.Value, out tempWTRPos);
+                            }
+                            WTRActPos = tempWTRPos;
+                            _batchDataService.UpdateBatchData();
+                            tankLidCollections.UpdateStatus();
+                            shutterCollections.UpdateStatus();
                             Thread.Sleep(500);
                         }
                         catch (System.Exception e)

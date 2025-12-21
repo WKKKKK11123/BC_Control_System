@@ -69,43 +69,17 @@ namespace BC_Control_Helper
             string path = Path.Combine(@"D:\Recipe",Enum.GetName(typeof(BathNameEnum),flowStepClass.BathName),flowStepClass.UnitRecipeName);
             switch (flowStepClass.BathName)
             {
-                case BathNameEnum.EKC_1:
+                case BathNameEnum.Ag_1:
                     recipeDownLoad = new ETCHRecipeControl(_plcHelper);
                     recipeDownLoad.path = File.ReadAllText(path);
                     return recipeDownLoad.DownLoad(startAddress, PlcEnum.PLC1);
                     break;
-                case BathNameEnum.EKC_2:
-                    recipeDownLoad = new ETCHRecipeControl(_plcHelper);
-                    recipeDownLoad.path = File.ReadAllText(path);
-                    return recipeDownLoad.DownLoad(startAddress, PlcEnum.PLC1);
-                    break;
-                case BathNameEnum.NMP_3:
-                    recipeDownLoad = new ETCHRecipeControl(_plcHelper);
-                    recipeDownLoad.path = File.ReadAllText(path);
-                    return recipeDownLoad.DownLoad(startAddress, PlcEnum.PLC1);
-                    break;
-                //case BathNameEnum.NMP_4:
-                //    recipeDownLoad = new ETCHRecipeControl();
-                //    recipeDownLoad.path = File.ReadAllText(path); recipeDownLoad.path = File.ReadAllText(path);
-                //    return recipeDownLoad.DownLoad(startAddress, PlcEnum.PLC1);
-                //    break;
-                //case BathNameEnum.IPA_5:
-                //    recipeDownLoad = new ETCHRecipeControl();
-                //    recipeDownLoad.path = File.ReadAllText(path);
-                //    return recipeDownLoad.DownLoad(startAddress, PlcEnum.PLC1);
-                //    break;
-                //case BathNameEnum.IPA_6:
-                //    recipeDownLoad = new ETCHRecipeControl();
-                //    recipeDownLoad.path = File.ReadAllText(path);
-                //    return recipeDownLoad.DownLoad(startAddress, PlcEnum.PLC1);
-                //    break;
-                case BathNameEnum.QDR_4:
+                case BathNameEnum.QDR_1:
                     recipeDownLoad = new QDRRecipeControl(_plcHelper);
                     recipeDownLoad.path = File.ReadAllText(path);
                     return recipeDownLoad.DownLoad(startAddress, PlcEnum.PLC1);
-                    break;
-                    return false;
-                case BathNameEnum.LPD:
+                    break;                
+                case BathNameEnum.LPD_1:
                     recipeDownLoad = new LPDRecipeControl(_plcHelper);
                     recipeDownLoad.path = File.ReadAllText(path);
                     return recipeDownLoad.DownLoad(startAddress, PlcEnum.PLC1);

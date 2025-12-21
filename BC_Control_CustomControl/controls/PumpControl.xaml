@@ -11,10 +11,10 @@
     <Grid>
         <Viewbox>
             <Canvas
-            Name="myRectangle"
-            Width="30"
-            Height="30"
-            RenderTransformOrigin="0.5 0.5">
+                Name="myRectangle"
+                Width="30"
+                Height="30"
+                RenderTransformOrigin="0.5 0.5">
                 <Canvas.RenderTransform>
                     <TransformGroup>
                         <RotateTransform x:Name="rectRotateTransform" Angle="0" />
@@ -23,26 +23,26 @@
                     </TransformGroup>
                 </Canvas.RenderTransform>
                 <Ellipse
-                x:Name="SwitchEllipse"
-                Width="30"
-                Height="30"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Top"
-                Fill="LightGray"
-                RenderTransformOrigin="0.5,0.5"
-                Stretch="Fill"
-                Stroke="Black" />
+                    x:Name="SwitchEllipse"
+                    Width="30"
+                    Height="30"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Top"
+                    Fill="LightGray"
+                    RenderTransformOrigin="0.5,0.5"
+                    Stretch="Fill"
+                    Stroke="Black" />
                 <Path
-                Canvas.Left="10"
-                Canvas.Top="17.162"
-                Width="10"
-                Height="9"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Top"
-                Fill="White"
-                Stretch="Fill"
-                Stroke="Black"
-                StrokeThickness="0.5">
+                    Canvas.Left="10"
+                    Canvas.Top="17.162"
+                    Width="10"
+                    Height="9"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Top"
+                    Fill="White"
+                    Stretch="Fill"
+                    Stroke="Black"
+                    StrokeThickness="0.5">
                     <Path.Data>
                         <PathGeometry Figures="M9.8853868,19.598854 L18.669441,19.598854 14.267654,27.843604 z" />
                     </Path.Data>

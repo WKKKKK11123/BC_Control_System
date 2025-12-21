@@ -12,29 +12,32 @@ using System.Runtime.Serialization;
 using BC_Control_Models;
 using System.Text.Json.Serialization;
 using System.Text.Json;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace BC_Control_System.ViewModel.Parameter
 {
-    public class ParameterViewModel : BindableBase, INavigationAware
+    public partial class ParameterViewModel : ObservableObject, INavigationAware
     {
         #region 传递字段
 
         private IDialogService _dialogService;
-        private string moduleName;
-        private string filePath;
+        private string moduleName="";
+        private string filePath = "";
         private List<ParameterModel> historyValues = new List<ParameterModel>();
         private List<ParameterModel> parameterModels = new List<ParameterModel>();
         private IPLCHelper _plcHelper;
         #endregion
 
         #region
-        public string ModuleName { get; set; }
-
-        [OnChangedMethod(nameof(OnGroupChangeValue))]
-        public ParameterModel SelelctGroup { get; set; }
-        public BindingList<ParameterModel> Parameters { get; set; }
-
-        public BindingList<ParameterModel> ParameterGroup { get; set; }
+        [ObservableProperty]
+        private string _ModuleName="";
+        
+        [ObservableProperty]
+        private ParameterModel _SelelctGroup=new ParameterModel();
+        [ObservableProperty]
+        private BindingList<ParameterModel> _Parameters=new BindingList<ParameterModel>();
+        [ObservableProperty]
+        private BindingList<ParameterModel> _ParameterGroup=new BindingList<ParameterModel>();
         public DelegateCommand<object> ChangeValueCommand { get; set; }
         public DelegateCommand WriteParameterWithChangeCommand { get; set; }
         public DelegateCommand LoadParameterWithCommand { get; set; }
@@ -48,7 +51,10 @@ namespace BC_Control_System.ViewModel.Parameter
             WriteParameterWithChangeCommand = new DelegateCommand(WriteParameterWithChange);
             LoadParameterWithCommand = new DelegateCommand(UploadParameters);
         }
-
+        partial void OnSelelctGroupChanged(ParameterModel value)
+        {
+            OnGroupChangeValue();
+        }
         private void OnGroupChangeValue()
         {
             if (SelelctGroup == null)

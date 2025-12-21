@@ -52,7 +52,7 @@
             </GroupBox.Header>
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="8*" />
+                    <RowDefinition Height="6*" />
                     <RowDefinition />
                 </Grid.RowDefinitions>
                 <ContentControl Name="IOContent" prism:RegionManager.RegionName="IOContentRegion" />

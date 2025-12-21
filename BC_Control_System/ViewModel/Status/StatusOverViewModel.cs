@@ -101,7 +101,8 @@ namespace BC_Control_System.ViewModel
                     ModuleName = $"{_stationCollection.StationType}{_stationCollection.StationNo}#{_stationCollection.StationName}";
                 }
                 OpenModuleView();
-                OpenIOView();
+                OpenIOView(); 
+                OpenControlView();
             }
             catch (Exception ex)
             {
@@ -144,6 +145,13 @@ namespace BC_Control_System.ViewModel
                 throw;
             }
 
+        }
+        private void OpenControlView()
+        {
+            NavigationParameters keys = new NavigationParameters();
+            var station = _benchStationEntity.Stations.FirstOrDefault(filter => filter.StationNo == _stationCollection.StationNo && filter.StationName == _stationCollection.StationName);
+            keys.Add("Param1", station);
+            _regionManager.Regions["IOControllerContent"].RequestNavigate($"ControlPanelView", keys);
         }
         #endregion
     }

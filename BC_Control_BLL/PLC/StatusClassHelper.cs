@@ -130,10 +130,10 @@ namespace BC_Control_Helper
                 }
 
                 UpdateItemValues(item, variable, dataType);
-                string value=item.Value;
+                string value=item.ActualValue;
                 int value1 = 0;
                 if (
-                    !int.TryParse(value, out value1)
+                    !int.TryParse(item.ActualValue, out value1)
                     || item.StatusArribute.Count() == 0
                     || !item.StatusArribute.ContainsKey(value1)
                 ) //如果无特性或者不是数字则可直接跳出
@@ -172,10 +172,10 @@ namespace BC_Control_Helper
                 }
                 if (!string.IsNullOrEmpty(item.ValueAddress))
                 {
-                    item.Value = dataType == DataType.Float
+                    item.ActualValue = dataType == DataType.Float
                         ? Convert.ToDouble(variable.VarValue).ToString("F2")
                         : variable.VarValue.ToString()!;
-                    item.ActualValue = item.Value;
+                    
                 }
             }
             catch (Exception ex)

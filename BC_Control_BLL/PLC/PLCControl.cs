@@ -1,9 +1,10 @@
-﻿using BC_Control_Models;
+﻿using BC_Control_BLL.Abstract;
+using BC_Control_Models;
 using ZCCommunication;
 
 namespace BC_Control_Helper.interfaceHelper
 {
-    public class PLCControl
+    public class PLCControl : IPLCControl
     {
         private readonly OperateResult TrueoperateResult;
         private readonly OperateResult DataTypeErrorResult;
@@ -88,7 +89,7 @@ namespace BC_Control_Helper.interfaceHelper
             try
             {
                 bool b;
-                if (_plcHelper.FindVariable(Address, plcEnum).DataType == "Bool")
+                if (_plcHelper.FindVariable(Address, plcEnum)?.DataType == "Bool")
                 {
                     b = (bool)_plcHelper.FindVariable(Address, plcEnum).VarValue;
                     _plcHelper.CommonWrite(Address, (!b).ToString(), plcEnum);

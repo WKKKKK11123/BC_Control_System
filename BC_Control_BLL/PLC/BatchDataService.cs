@@ -16,7 +16,7 @@ namespace BC_Control_BLL.PLC
     public class BatchDataService
     {
         private readonly IBenchStationEntity _stations;
-        private List<string> TankInProcessPre;
+        private List<int> TankInProcessPre;
         public event Action<ModuleStatus> UpdateModuleState;
         public List<ModuleStatus> BatchDataCollection { get; set; }
         public BatchDataService(IBenchStationEntity stations)
@@ -24,7 +24,7 @@ namespace BC_Control_BLL.PLC
             _stations = stations;
             UpdateModuleState = delegate { };
             BatchDataCollection = new List<ModuleStatus>();
-            TankInProcessPre = new List<string>();
+            TankInProcessPre = new List<int>();          
             GetBatchData();
         }
         public void UpdateBatchData()
@@ -33,12 +33,16 @@ namespace BC_Control_BLL.PLC
             {
                 for (int i = 0; i < BatchDataCollection.Count(); i++)
                 {
-                    if (BatchDataCollection[i].IsWafer.Value != TankInProcessPre[i])
+                    if (int.TryParse(BatchDataCollection[i].IsWafer.Value,out int valueResult))
                     {
-                        UpdateModuleState?.Invoke(BatchDataCollection[i]);
+                        continue;
+                    }
+                    if (valueResult != TankInProcessPre[i])
+                    {
+                        //UpdateModuleState?.Invoke(BatchDataCollection[i]);
                     }
                 }
-                TankInProcessPre = BatchDataCollection.Select(src => src.IsWafer.Value).ToList();                
+                ///TankInProcessPre = BatchDataCollection.Select(src => int.Parse(src.IsWafer.Value)).ToList();                
             }
             catch (Exception)
             {
@@ -80,11 +84,9 @@ namespace BC_Control_BLL.PLC
                         DataID = module.BatchDataCollection.Find(para => para.ParameterName == "DataID") ?? new StatusClass(),
                     });
                 }
-
             }
             BatchDataCollection.Reverse();
-            TankInProcessPre = BatchDataCollection.Select(src => src.IsWafer.Value).ToList();
+            ///TankInProcessPre = BatchDataCollection.Select(src => int.Parse(src.IsWafer.Value)).ToList();
         }
-
     }
 }

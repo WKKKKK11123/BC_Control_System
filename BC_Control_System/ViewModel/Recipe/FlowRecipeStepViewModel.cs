@@ -11,29 +11,38 @@ using System.Text;
 using System.Threading.Tasks;
 using BC_Control_Models;
 using BC_Control_Models.RecipeModel;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace BC_Control_System.View.Recipe
 {
-    [AddINotifyPropertyChangedInterface]
-    public class FlowRecipeStepViewModel : BindableBase, IDialogAware
+    public partial class FlowRecipeStepViewModel :ObservableObject, IDialogAware
     {
         private string path= @"D:\Recipe";
-        private FlowStepClass FlowStep { get; set; }
-        [OnChangedMethod(nameof(UnitRecipeSelectChanged))]
-        public BathNameEnum BathName { get; set; } = BathNameEnum.EKC_1;
-        public string RecipeName { get; set; }
+        #region 视图属性
+        [ObservableProperty]
+        private FlowStepClass _FlowStep=new FlowStepClass();
+        [ObservableProperty]
+        public BathNameEnum _BathName=BathNameEnum.Ag_1;
+        [ObservableProperty]
+        private string _RecipeName="";
+        [ObservableProperty]
+        private BindingList<string> _OpenFiles=new BindingList<string>();
+        #endregion
         public DelegateCommand CancelCommand { get; set; }
-        public DelegateCommand ConfirmCommand { get; set; }
-        public DelegateCommand ModuleSelectChangedCommand { get; set; }
-        public BindingList<string> OpenFiles { get; set; }
+        public DelegateCommand ConfirmCommand { get; set; }       
         public string Title { get; set; } = "";
 
         public event Action<IDialogResult> RequestClose;
         public FlowRecipeStepViewModel()
         {
+            RequestClose=new Action<IDialogResult>(item => { });
             CancelCommand = new DelegateCommand(Cancel);
             ConfirmCommand = new DelegateCommand(Confirm);
             OpenFiles = new BindingList<string>();
+            UnitRecipeSelectChanged();
+        }
+        partial void OnBathNameChanged(BathNameEnum oldValue, BathNameEnum newValue)
+        {
             UnitRecipeSelectChanged();
         }
         private void UnitRecipeSelectChanged()

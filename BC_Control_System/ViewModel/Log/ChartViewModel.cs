@@ -1,4 +1,5 @@
-﻿using Prism.Mvvm;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using Prism.Mvvm;
 using Prism.Services.Dialogs;
 using PropertyChanged;
 using System;
@@ -10,17 +11,24 @@ using System.Threading.Tasks;
 
 namespace BC_Control_System.ViewModel.Log
 {
-    [AddINotifyPropertyChangedInterface]
-    public class ChartViewModel : BindableBase, IDialogAware
+   
+    public partial class ChartViewModel : ObservableObject, IDialogAware
     {
         public string Title { get; set; } = "Chart View";
 
         public event Action<IDialogResult> RequestClose;
         #region 视图属性
-        public Type ValueType { get; set; }
-        public List<object> CurveValues { get; set; }
+        [ObservableProperty]
+        private Type valueType;
+        [ObservableProperty]
+        private List<object> _CurveValues;
         #endregion
-
+        public ChartViewModel()
+        {
+            ValueType = typeof(bool);
+            CurveValues=new List<object>();
+            RequestClose = new Action<IDialogResult>(item => { });
+        }
         public bool CanCloseDialog()
         {
             return true;

@@ -6,7 +6,6 @@ using System.Reflection;
 using BC_Control_Helper;
 using BC_Control_Models;
 using BC_Control_Models.Personal;
-using BC_Control_System.model;
 
 namespace BC_Control_System.ViewModel.Status.IOViewModel
 {

@@ -22,32 +22,35 @@ using BC_Control_System.Command;
 using MiniExcelLibs;
 using BC_Control_Models.Log;
 using System.Windows;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace BC_Control_System.ViewModels.LogDataModel
 {
-    [AddINotifyPropertyChangedInterface]
-    public class EndofRunLogViewModel : BindableBase, INavigationAware
+    //20251219
+    public partial class EndofRunLogViewModel : ObservableObject, INavigationAware
     {
         private EndofRunLogService _sqlSugarHelper;
-        public DataTable EndofRunLogTable { get; set; }  
-        public List<EndofRunData> EndofRunLogList { get; set; }
+        [ObservableProperty]
+        private DataTable _EndofRunLogTable;
+        [ObservableProperty]
+        private List<EndofRunData> _EndofRunLogList;
+        [ObservableProperty]
+        private EndofRunData _selectedEndofRunLog;
         public DelegateCommand SelectByTime { get; set; }
         IDialogService _dialogService;
 
         private readonly IRegionManager _regionManager;
         public DelegateCommand ExportCommand { get; set; }
         public DelegateCommand OpenDetailCommand { get; }
-
-        private EndofRunData _selectedEndofRunLog;
-        public EndofRunData SelectedEndofRunLog
-        {
-            get => _selectedEndofRunLog;
-            set => SetProperty(ref _selectedEndofRunLog, value);
-        }
+        
+        
 
         public EndofRunLogViewModel(IRegionManager regionManager,EndofRunLogService sqlSugarHelper, IDialogService dialogService)
         {
-            _dialogService= dialogService;
+            EndofRunLogTable = new DataTable();
+            SelectedEndofRunLog = new EndofRunData();
+            EndofRunLogList = new List<EndofRunData>();
+            _dialogService = dialogService;
             _sqlSugarHelper = sqlSugarHelper;
             SelectByTime = new DelegateCommand(SelectTime);
 

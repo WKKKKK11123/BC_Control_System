@@ -11,7 +11,6 @@ using BC_Control_Models;
 
 namespace BC_Control_System.ViewModel.Opration
 {
-    [AddINotifyPropertyChangedInterface]
     public class ChangeStorageMessageViewModel : BindableBase, IDialogAware
     {
         public string Title { get; set; }="Storage Message";

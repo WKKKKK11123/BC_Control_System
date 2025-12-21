@@ -37,11 +37,12 @@ using Path = System.IO.Path;
 using System.Collections.ObjectModel;
 using BC_Control_BLL.services;
 using BC_Control_BLL.recipedownload;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace BC_Control_System.ViewModel
 {
 	[AddINotifyPropertyChangedInterface]
-	public class MainWindowModel : BindableBase, IConfigureService
+	public class MainWindowModel : ObservableObject, IConfigureService
 	{
 		#region MyRegion
 		private readonly IRegionManager _regionManager;
@@ -826,7 +827,6 @@ namespace BC_Control_System.ViewModel
 			{
 				try
 				{
-
 					if (CommonMethods.Device.IsConnected)
 					{
 						Btn_1 = (bool)CommonMethods.Device["Y11"];
@@ -838,6 +838,7 @@ namespace BC_Control_System.ViewModel
 						Btn_7 = (bool)CommonMethods.Device["Y10"];
 						Btn_8 = (bool)CommonMethods.Device["Y10"];
 						Btn_9 = (bool)CommonMethods.Device["Y10"];
+						
 					}
 
 					var zr1000Value = Convert.ToInt32(CommonMethods.Device["ZR44000"]);
@@ -857,25 +858,6 @@ namespace BC_Control_System.ViewModel
 							ControlState = $"Unknow";
 							break;
 					}
-
-					//PLCState = _plcHelper.ConnectState(PlcEnum.PLC1) ? "Connection" : "UnConnection";
-					//PLC2State = _plcHelper.ConnectState(PlcEnum.PLC2)
-					//                   ? "Connection"
-					//	: "UnConnection";
-					//PLC3State = _plcHelper.ConnectState(PlcEnum.PLC3)
-					//                   ? "Connection"
-					//	: "UnConnection";
-					//PLC4State = _plcHelper.ConnectState(PlcEnum.PLC4)
-					//                   ? "Connection"
-					//	: "UnConnection";
-					//PLC5State = PLC3CommonMethods.Device.IsConnected
-					//	? "Connection"
-					//	: "UnConnection";
-					//PLC6State = PLC3CommonMethods.Device.IsConnected
-					//	? "Connection"
-					//	: "UnConnection";
-					//MachineState =
-					//	$"PLC1 State :{CommonMethods.Device.IsConnected}     PLC2 State :{PLC2CommonMethods.Device.IsConnected}     PLC3 State :{PLC3CommonMethods.Device.IsConnected}     PLC4 State :{PLC4CommonMethods.Device.IsConnected}     PLC5 State :{PLC5CommonMethods.Device.IsConnected}     EFAM State :{_processControl.eFAM_Data.IsConnected}";
 					MachineState = "";
 
                     for (int i = 1; i < 13; i++)
@@ -883,14 +865,7 @@ namespace BC_Control_System.ViewModel
                         MachineState=string.Concat(MachineState,$"PLC{i} State {_plcHelper.ConnectState((PlcEnum)(i-1))}  ");
                     }
                     MachineState=string.Concat(MachineState,$"EFAM State :{_processControl.eFAM_Data.IsConnected}");
-
-                    //ActAdmin = ActAdmin;
-
-                    //var t = PLC2CommonMethods.Device["D7999"].ToString();
-                    //var t1 = PLC2CommonMethods.Device["R10000"].ToString();
-                    //var t2 = CommonMethods.Device["W0E4.1"].ToString();
-                    //var t3 = CommonMethods.Device["W0E4.4"].ToString();
-
+                    
                     Thread.Sleep(300);
 				}
 				catch (Exception EE) { }

@@ -10,17 +10,18 @@ using System.Threading.Tasks;
 using BC_Control_Helper;
 using BC_Control_Models;
 using PropertyChanged;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace BC_Control_System.ViewModel.Parameter
 {
-    [AddINotifyPropertyChangedInterface]
-    public class PLCValueViewModel : BindableBase, IDialogAware
+
+    public partial class PLCValueViewModel : ObservableObject, IDialogAware
     {
         public PLCValueViewModel()
         {
             ConfirmCommand = new DelegateCommand(Confirm);
             CancelCommand = new DelegateCommand(Cancel);
-            value=new PLCValue();   
+            value = new PLCValue();
         }
         private IPLCValue value;
         #region 命令属性
@@ -29,12 +30,12 @@ namespace BC_Control_System.ViewModel.Parameter
         #endregion
 
         #region 视图属性
-        public string SiteName { get; set; } = "";
-       
-        public string SiteValue { get; set; } = "";
-
-        public float NewSiteValue { get; set; } = 0.0f;
-       
+        [ObservableProperty]
+        private string _SiteName = "";
+        [ObservableProperty]
+        private string _SiteValue = "";
+        [ObservableProperty]
+        private float _NewSiteValue = 0.0f;
         public float UpLimit { get; set; } = 0.0f;
         public float LowLimit { get; set; } = 0.0f;
 
@@ -98,7 +99,7 @@ namespace BC_Control_System.ViewModel.Parameter
 
         private void ValidActValue()
         {
-            if (NewSiteValue> UpLimit)
+            if (NewSiteValue > UpLimit)
             {
                 NewSiteValue = UpLimit;
             }

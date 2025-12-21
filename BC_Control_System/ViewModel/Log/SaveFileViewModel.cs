@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 
 namespace BC_Control_System.ViewModel.Log
 {
-    [AddINotifyPropertyChangedInterface]
     public class SaveFileViewModel : BindableBase, IDialogAware
     {
         public string Title { get; set; }="Save File";

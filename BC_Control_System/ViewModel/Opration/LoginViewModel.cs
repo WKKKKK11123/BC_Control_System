@@ -12,11 +12,9 @@ using System.Windows;
 using BC_Control_BLL.Services;
 using BC_Control_DAL;
 using BC_Control_Models;
-using BC_Control_System.Model;
 
 namespace BC_Control_System.ViewModel.Opration
 {
-    [AddINotifyPropertyChangedInterface]
     public class LoginViewModel : BindableBase, IDialogAware
     {
         private readonly AuthService _authManager;

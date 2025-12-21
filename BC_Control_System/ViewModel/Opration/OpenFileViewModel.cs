@@ -1,18 +1,11 @@
 ﻿using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Services.Dialogs;
-using PropertyChanged;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace BC_Control_System.ViewModel.Opration
 {
-    [AddINotifyPropertyChangedInterface]
     public class OpenFileViewModel : BindableBase, IDialogAware
     {
         private string filepath;

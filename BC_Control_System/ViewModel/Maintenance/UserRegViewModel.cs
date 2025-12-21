@@ -11,11 +11,11 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using BC_Control_BLL.Services;
 using BC_Control_Models;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace BC_Control_System.ViewModel.Maintenance
 {
-    [AddINotifyPropertyChangedInterface]
-    public class UseRegViewModel : BindableBase, IDialogAware
+    public partial class UseRegViewModel : ObservableObject, IDialogAware
     {
         public string Title { get; set; } = "User Reg";
 
@@ -26,12 +26,12 @@ namespace BC_Control_System.ViewModel.Maintenance
 
         public void OnDialogOpened(IDialogParameters parameters) { }
         private readonly SysAdminService _adminService;
-
-        public ObservableCollection<SysAdmin> AdminList { get; set; } = new ObservableCollection<SysAdmin>();
-
-        public SysAdmin CurrentAdmin { get; set; } = new SysAdmin();
-        [OnChangedMethod(nameof(SelectChange))]
-        public SysAdmin SelectAdmin { get; set; }
+        [ObservableProperty]
+        private ObservableCollection<SysAdmin> _AdminList = new ObservableCollection<SysAdmin>();
+        [ObservableProperty]
+        private SysAdmin _CurrentAdmin;
+        [ObservableProperty]
+        private SysAdmin _SelectAdmin;
 
         public DelegateCommand AddCommand => new DelegateCommand(async () => await AddAsync());
         public DelegateCommand UpdateCommand => new DelegateCommand(async () => await UpdateAsync());
@@ -42,13 +42,15 @@ namespace BC_Control_System.ViewModel.Maintenance
             _adminService = adminService ?? throw new ArgumentNullException(nameof(adminService));
             _ = LoadAdmins();
         }
-        private void SelectChange()
+
+        partial void OnSelectAdminChanged(SysAdmin? oldValue, SysAdmin newValue)
         {
             if (SelectAdmin != null)
             {
                 CurrentAdmin = SelectAdmin;
             }
         }
+
         public async Task LoadAdmins()
         {
             try

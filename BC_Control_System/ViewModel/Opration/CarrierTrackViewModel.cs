@@ -9,21 +9,18 @@ using System.Windows;
 using ZC_Control_EFAM;
 using ZC_Control_EFAM.ProcessControl;
 using BC_Control_Models;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace BC_Control_System.ViewModel.Opration
 {
-    [AddINotifyPropertyChangedInterface]
-    public class CarrierTrackViewModel : BindableBase
+    public partial class CarrierTrackViewModel : ObservableObject
     {
-
-        public List<StorageStation> StorageStations { get; set; }
+        [ObservableProperty]
+        private List<StorageStation> _StorageStations;
         private IDialogService _dialogService;
 
         private ProcessControl _processControl;
-        public bool ControlMode { get; set; }
-
-        [OnChangedMethod(nameof(OnCarrierCountChang))]
-        public int CarrierCount { get; set; }
+        public bool ControlMode { get; set; }       
         public DelegateCommand<IList> ProcessStartCommand { get; set; }
         public DelegateCommand<StorageStation> CarrierOutCommand { get; set; }
         public DelegateCommand<StorageCollection> ChangeDataCommand { get; set; }
@@ -48,16 +45,7 @@ namespace BC_Control_System.ViewModel.Opration
             ProcessStartCommand = new DelegateCommand<IList>(ProcessStart);
             CarrierOutCommand = new DelegateCommand<StorageStation>(CarrierOutFunc);
             ChangeDataCommand = new DelegateCommand<StorageCollection>(ChangeData);
-            RemoveCarrierCommand = new DelegateCommand<StorageCollection>(RemoveCarrier);
-            //ChangeWaferThickness = new AsyncRelayCommand(ChangeWaferThicklessFunc);
-            //Task.Run(() =>
-            //{
-            //    while (true)
-            //    {
-            //        StorageCollections = eFAMMessage.StorageCollectionList;
-            //    }
-
-            //});
+            RemoveCarrierCommand = new DelegateCommand<StorageCollection>(RemoveCarrier);           
         }
 
 

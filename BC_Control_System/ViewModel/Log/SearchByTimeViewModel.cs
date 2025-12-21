@@ -12,11 +12,11 @@ using System.Windows;
 using BC_Control_BLL.Services;
 using BC_Control_DAL;
 using BC_Control_Models;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace BC_Control_System.ViewModel.Log
 {
-    [AddINotifyPropertyChangedInterface]
-    public class SearchByTimeViewModel : BindableBase, IDialogAware
+    public partial class SearchByTimeViewModel :ObservableObject, IDialogAware
     {
         public SearchByTimeViewModel() 
         {

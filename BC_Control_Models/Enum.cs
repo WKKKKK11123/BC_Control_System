@@ -55,19 +55,17 @@ namespace BC_Control_Models
     }
     public enum BathNameEnum
     {
-        //SYS9070_1 = 1,
-        //SYS9070_2 = 2,
-        //NMP_3 = 3,
-        //NMP_4 = 4,
-        //IPA_5 = 5,
-        //IPA_6 = 6,
-        //QDR_7 = 7,
-        //MGD_9 = 8,
-        EKC_1 = 1,
-        EKC_2 = 2,
-        NMP_3 = 3,
-        QDR_4 = 4,
-        LPD = 5
+        Ag_1 = 1,
+        QDR_1 = 2,
+        Ag_2 = 3,
+        QDR_2 = 4,
+        Ni_1 = 5,
+        QDR_3 = 6,
+        Ni_2 = 7,
+        QDR_4 = 8,
+        Ti_1 = 9,
+        QDR_5 = 10,
+        LPD_1 = 11,
     }
     public enum DIWEnum
     {
@@ -97,7 +95,7 @@ namespace BC_Control_Models
         Mechanical
     }
     public enum ProcessStepEnum
-    { 
+    {
         PreStep,
         Step,
         PostStep
