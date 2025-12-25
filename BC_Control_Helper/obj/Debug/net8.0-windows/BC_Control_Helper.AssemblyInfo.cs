@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BC_Control_Helper")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+96ad182eb010d69548cb343c971e027326c7a223")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+825de1f48f08e057a2eedc79b3d15ad372ad6d8a")]
 [assembly: System.Reflection.AssemblyProductAttribute("BC_Control_Helper")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BC_Control_Helper")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

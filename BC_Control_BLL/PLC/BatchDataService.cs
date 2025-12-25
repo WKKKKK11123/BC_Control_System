@@ -4,6 +4,7 @@ using BC_Control_Models;
 using BC_Control_Models.BenchConfig;
 using BC_Control_Models.Log;
 using Dm.util;
+using Microsoft.IdentityModel.Tokens;
 using Org.BouncyCastle.Security;
 using System;
 using System.Collections.Generic;
@@ -16,7 +17,7 @@ namespace BC_Control_BLL.PLC
     public class BatchDataService
     {
         private readonly IBenchStationEntity _stations;
-        private List<int> TankInProcessPre;
+        private List<string> TankInProcessPre;
         public event Action<ModuleStatus> UpdateModuleState;
         public List<ModuleStatus> BatchDataCollection { get; set; }
         public BatchDataService(IBenchStationEntity stations)
@@ -24,7 +25,7 @@ namespace BC_Control_BLL.PLC
             _stations = stations;
             UpdateModuleState = delegate { };
             BatchDataCollection = new List<ModuleStatus>();
-            TankInProcessPre = new List<int>();          
+            TankInProcessPre = new List<string>();
             GetBatchData();
         }
         public void UpdateBatchData()
@@ -35,19 +36,40 @@ namespace BC_Control_BLL.PLC
                 for (int i = 0; i < BatchDataCollection.Count(); i++)
                 {
                     ModuleStatus module = BatchDataCollection[i];
-                    if (module.HasRecipe==false)
+                    if (module.HasRecipe == false)
                     {
                         continue;
                     }
+                    if (module.IsWafer.ActualValue == TankInProcessPre[i])
+                    {
+                        continue;
+                    }
+                    if (string.IsNullOrEmpty(TankInProcessPre[i]))
+                    {
+                        continue;
+                    }
+                    if (module.DataID.ActualValue!="0")
+                    {
+                        continue;
+                    }
+                    if (module.IsWafer.ActualValue=="1" 
+                        && !string.IsNullOrWhiteSpace(module.FlowRecipeName.ActualValue))
+                    {
+                        UpdateModuleState?.Invoke(module);
+                    }
+                    if (module.IsWafer.ActualValue == "0")
+                    {
+                        UpdateModuleState?.Invoke(module);
+                    }
                 }
-                TankInProcessPre = BatchDataCollection.Select(src => int.Parse(src.IsWafer.ActualValue)).ToList();                
+                TankInProcessPre = BatchDataCollection.Select(src => src.IsWafer.ActualValue).ToList();
             }
             catch (Exception)
             {
 
                 throw;
             }
-            
+
         }
         /// <summary>
         /// 加载Batch Data 实体数据提供给外部使用
@@ -59,7 +81,7 @@ namespace BC_Control_BLL.PLC
             {
                 if (module.StationNo != 0 && (module.StationType == StationEnum.ProcessTank || module.StationType == StationEnum.BufferTank))
                 {
-                   
+
                     BatchDataCollection.Add(new ModuleStatus()
                     {
                         StationNo = module.StationNo,
@@ -84,8 +106,7 @@ namespace BC_Control_BLL.PLC
                 }
             }
             BatchDataCollection.Reverse();
-            
-            TankInProcessPre = BatchDataCollection.Select(src => int.Parse(src.IsWafer.ActualValue)).ToList();
+            TankInProcessPre = BatchDataCollection.Select(src => src.IsWafer.ActualValue).ToList();
         }
     }
 }
