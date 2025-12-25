@@ -218,34 +218,33 @@ namespace BC_Control_System.ViewModel
             }
 
         }
-        private async void ExecuteLogout()
+        private void ExecuteLogout()
         {
             // 显示确认弹窗
-            var result = await ShowLogoutConfirmationDialogAsync();
-
-            if (result == ButtonResult.OK)
+            var result = MessageBox.Show("Are you sure you want to logout?", "Message", MessageBoxButton.OKCancel);
+            if (result == MessageBoxResult.OK)
             {
                 // 清除登录状态
                 _authManager.Logout();
             }
         }
-        private Task<ButtonResult> ShowLogoutConfirmationDialogAsync()
-        {
-            var tcs = new TaskCompletionSource<ButtonResult>();
+        //private Task<ButtonResult> ShowLogoutConfirmationDialogAsync()
+        //{
+        //    var tcs = new TaskCompletionSource<ButtonResult>();
 
-            _dialogService.ShowDialog(
-                "NotificationDialog",
-                new DialogParameters
-                {
-            { "Message", "Are you sure you want to logout?" },
-            { "ConfirmButtonText", "Yes" },
-            { "CancelButtonText", "No" }
-                },
-                result => tcs.SetResult(result.Result)
-            );
+        //    _dialogService.ShowDialog(
+        //        "NotificationDialog",
+        //        new DialogParameters
+        //        {
+        //    { "Message", "Are you sure you want to logout?" },
+        //    { "ConfirmButtonText", "Yes" },
+        //    { "CancelButtonText", "No" }
+        //        },
+        //        result => tcs.SetResult(result.Result)
+        //    );
 
-            return tcs.Task;
-        }
+        //    return tcs.Task;
+        //}
         private void PusherCommunicateWithPLC()
         {
             Task.Run(() =>
