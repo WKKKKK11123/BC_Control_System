@@ -12,8 +12,6 @@ namespace BC_Control_Models
     [AddINotifyPropertyChangedInterface]
     public class StatusClass : IPLCValue
     {
-        [ExcelIgnore]
-        public int No { get; set; }
         [ExcelColumnName("状态名称")]
         public string ParameterName { get; set; } = "";
         [ExcelColumnName("单位")]
@@ -26,16 +24,16 @@ namespace BC_Control_Models
         [ExcelColumnName("PLC选择")]
         public PlcEnum PLC { get; set; } = PlcEnum.PLC1;
         [ExcelIgnore]
-        public string Value { get; set; } = "";
+        public string Value { get; set; } = "0";
         [ExcelIgnore]
-        public string ActualValue { get; set; } = "";
+        public string ActualValue { get; set; } = "0";
         [ExcelColumnName("Type")]
         public DataType DataType { get; set; }
         [ExcelColumnName("Scale")]
         public float Scale { get; set; }
         [ExcelColumnName("OffsetOrLength")]
         public int OffsetOrLength { get; set; }
-        public bool Visible { get; set; }
+        public bool Visible { get; set; } = true;
 
         [ExcelIgnore]
         public Dictionary<int, string> StatusArribute = new Dictionary<int, string>();

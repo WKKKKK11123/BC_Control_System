@@ -369,7 +369,6 @@ namespace BC_Control_System.ViewModel
             {
                 StorageStatus.Add(new StatusClass()
                 {
-                    No = i,
                     ParameterName = $"{i}",
                     Value = "0"
                 });
@@ -379,7 +378,6 @@ namespace BC_Control_System.ViewModel
 
                 LDStatus.Add(new StatusClass()
                 {
-                    No = i,
                     ParameterName = $"LP{i}",
                     Value = "0"
                 });
@@ -388,7 +386,6 @@ namespace BC_Control_System.ViewModel
             {
                 OPStatus.Add(new StatusClass()
                 {
-                    No = i,
                     ParameterName = $"OP{i}",
                     Value = "0"
                 });

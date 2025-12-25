@@ -12,14 +12,11 @@
           "BouncyCastle.Cryptography": "2.3.1",
           "Enums.NET": "4.0.1",
           "ExtendedNumerics.BigDecimal": "2025.1001.2.129",
-          "Fody": "6.9.2",
           "MathNet.Numerics.Signed": "5.0.0",
           "Microsoft.CSharp": "4.7.0",
           "Microsoft.IO.RecyclableMemoryStream": "3.0.0",
-          "NETStandard.Library": "2.0.3",
           "NPOI": "2.7.3",
           "Newtonsoft.Json": "13.0.4",
-          "PropertyChanged.Fody": "4.1.0",
           "SharpZipLib": "1.4.2",
           "SixLabors.Fonts": "1.0.1",
           "SixLabors.ImageSharp": "2.1.10",
@@ -68,7 +65,6 @@
           }
         }
       },
-      "Fody/6.9.2": {},
       "MathNet.Numerics.Signed/5.0.0": {
         "runtime": {
           "lib/netstandard2.0/MathNet.Numerics.dll": {
@@ -94,12 +90,6 @@
             "assemblyVersion": "3.0.0.0",
             "fileVersion": "3.0.0.0"
           }
-        }
-      },
-      "Microsoft.NETCore.Platforms/1.1.0": {},
-      "NETStandard.Library/2.0.3": {
-        "dependencies": {
-          "Microsoft.NETCore.Platforms": "1.1.0"
         }
       },
       "Newtonsoft.Json/13.0.4": {
@@ -140,11 +130,6 @@
             "assemblyVersion": "2.7.3.0",
             "fileVersion": "2.7.3.0"
           }
-        }
-      },
-      "PropertyChanged.Fody/4.1.0": {
-        "dependencies": {
-          "Fody": "6.9.2"
         }
       },
       "SharpZipLib/1.4.2": {
@@ -395,13 +380,6 @@
       "path": "extendednumerics.bigdecimal/2025.1001.2.129",
       "hashPath": "extendednumerics.bigdecimal.2025.1001.2.129.nupkg.sha512"
     },
-    "Fody/6.9.2": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-YBHobPGogb0vYhGYIxn/ndWqTjNWZveDi5jdjrcshL2vjwU3gQGyDeI7vGgye+2rAM5fGRvlLgNWLW3DpviS/w==",
-      "path": "fody/6.9.2",
-      "hashPath": "fody.6.9.2.nupkg.sha512"
-    },
     "MathNet.Numerics.Signed/5.0.0": {
       "type": "package",
       "serviceable": true,
@@ -423,20 +401,6 @@
       "path": "microsoft.io.recyclablememorystream/3.0.0",
       "hashPath": "microsoft.io.recyclablememorystream.3.0.0.nupkg.sha512"
     },
-    "Microsoft.NETCore.Platforms/1.1.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-kz0PEW2lhqygehI/d6XsPCQzD7ff7gUJaVGPVETX611eadGsA3A877GdSlU0LRVMCTH/+P3o2iDTak+S08V2+A==",
-      "path": "microsoft.netcore.platforms/1.1.0",
-      "hashPath": "microsoft.netcore.platforms.1.1.0.nupkg.sha512"
-    },
-    "NETStandard.Library/2.0.3": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-st47PosZSHrjECdjeIzZQbzivYBJFv6P2nv4cj2ypdI204DO+vZ7l5raGMiX4eXMJ53RfOIg+/s4DHVZ54Nu2A==",
-      "path": "netstandard.library/2.0.3",
-      "hashPath": "netstandard.library.2.0.3.nupkg.sha512"
-    },
     "Newtonsoft.Json/13.0.4": {
       "type": "package",
       "serviceable": true,
@@ -450,13 +414,6 @@
       "sha512": "sha512-iCZx3DSwUSwaV61E8tXgPlPuxYmcYV/Zi405nGlxQvWaGTAbuc0KvSBjsLucQUJ92iMeetT8iK9makLfF4uZ3g==",
       "path": "npoi/2.7.3",
       "hashPath": "npoi.2.7.3.nupkg.sha512"
-    },
-    "PropertyChanged.Fody/4.1.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-6v+f9cI8YjnZH2WBHuOqWEAo8DFFNGFIdU8xD3AsL6fhV6Y8oAmVWd7XKk49t8DpeUBwhR/X+97+6Epvek0Y3A==",
-      "path": "propertychanged.fody/4.1.0",
-      "hashPath": "propertychanged.fody.4.1.0.nupkg.sha512"
     },
     "SharpZipLib/1.4.2": {
       "type": "package",

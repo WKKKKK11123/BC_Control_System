@@ -110,6 +110,7 @@ namespace BC_Control_System.Service
                     tempDataLogKeyValue.Add("tk9", _excelOperation.ReadExcelToObjects<StatusClass>(temppath, "tk9").ToList());
                     tempDataLogKeyValue.Add("tk10", _excelOperation.ReadExcelToObjects<StatusClass>(temppath, "tk10").ToList());
                     tempDataLogKeyValue.Add("tk11", _excelOperation.ReadExcelToObjects<StatusClass>(temppath, "tk11").ToList());
+                    await Task.Delay(5000);
                     while (!tocken.IsCancellationRequested)
                     {
                         tasks.Clear();

@@ -18,13 +18,12 @@
             <!--<conv:BoolInverter />-->
             <conv:BoolToBrushConverter FalseValue="Blue" TrueValue="Blue" />
         </conv:ValueConverterGroup>
-        <conv:ValueConverterGroup x:Key="ConverterStringToBool">
-            <!--<valueConverters:ValueToBoolConverter/>-->
-            <conv:StringIsNullOrEmptyConverter />
-            <conv:BoolToStringConverter TrueValue="-------" />
-        </conv:ValueConverterGroup>
-        <com:StateToColorAttibute x:Key="StateColorConverter" />
-        <conv:BoolToVisibilityConverter x:Key="BoolToVisibleConv" />
+
+
+        <conv:BoolToVisibilityConverter
+            x:Key="BoolToVisibleConv"
+            FalseValue="Hidden"
+            TrueValue="Visible" />
         <conv:ValueConverterGroup x:Key="CountToVisibility">
             <com:ListCountToBoolConverter />
             <conv:BoolToVisibilityConverter />
@@ -63,16 +62,15 @@
                         </ItemsControl.ItemsPanel>
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                                <StackPanel
+                                    VerticalAlignment="Center"
+                                    Orientation="Horizontal"
+                                    Visibility="{Binding Visible, Converter={StaticResource BoolToVisibleConv}}">
                                     <TextBlock Width="310" Text="{Binding ParameterName}" />
-                                    <TextBlock Width="200" Text="{Binding Value}">
-                                        <TextBlock.Foreground>
-                                            <MultiBinding Converter="{StaticResource StateColorConverter}">
-                                                <Binding Path="Value" />
-                                                <Binding Path="StatusArributeString" />
-                                            </MultiBinding>
-                                        </TextBlock.Foreground>
-                                    </TextBlock>
+                                    <TextBlock
+                                        Width="200"
+                                        Foreground="Blue"
+                                        Text="{Binding Value}" />
                                     <TextBlock Width="50" Text="{Binding Unit}" />
                                 </StackPanel>
                             </DataTemplate>
@@ -103,7 +101,7 @@
                             </ItemsControl.ItemsPanel>
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
-                                    <StackPanel Orientation="Horizontal">
+                                    <StackPanel Orientation="Horizontal" Visibility="{Binding Visible, Converter={StaticResource BoolToVisibleConv}}">
                                         <TextBlock Width="200" Text="{Binding ParameterName}" />
                                         <TextBlock
                                             Width="120"
@@ -146,7 +144,10 @@
                         </ItemsControl.ItemsPanel>
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                                <StackPanel
+                                    VerticalAlignment="Center"
+                                    Orientation="Horizontal"
+                                    Visibility="{Binding Visible, Converter={StaticResource BoolToVisibleConv}}">
                                     <TextBlock Width="260" Text="{Binding ParameterName}" />
                                     <TextBlock
                                         Width="150"

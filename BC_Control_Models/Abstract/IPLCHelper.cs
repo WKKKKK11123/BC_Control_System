@@ -16,6 +16,7 @@ namespace BC_Control_Models
         event Action<bool, Variable, PlcEnum> Device_TrigEvent;
         void LoadInfo();
         bool ConnectAll();
+        void CloseAll();
         string GetValue(IPLCValue t);
         bool ConnectState(PlcEnum plcEnum = PlcEnum.PLC1);
         Device SelectDevice(PlcEnum plcEnum = PlcEnum.PLC1);

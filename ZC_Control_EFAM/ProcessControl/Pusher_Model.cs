@@ -156,6 +156,7 @@ namespace ZC_Control_EFAM.ProcessControl
                 eFAM_Data.HV_Data.PlaceSenser
                 && eFAM_Data.HV_Data.StationInfo.IsWafer
                 && eFAM_Data.HV_Data.StationInfo.ProcessState == ProcessState.Processing
+                && pusherActionIsenable
                 && GetHVState
             )
             {
@@ -186,7 +187,7 @@ namespace ZC_Control_EFAM.ProcessControl
             if (
                 !eFAM_Data.HV_Data.PlaceSenser
                 && !eFAM_Data.HV_Data.StationInfo.IsWafer
-                && GetHVState
+                && GetHVState&& pusherActionIsenable
             )
             {
                 if (
@@ -341,7 +342,7 @@ namespace ZC_Control_EFAM.ProcessControl
             var a = eFAM_Data.PusherToRB_Getpos(ArmType.DirtyArm).Result;
             if (a.Result)
             {
-                WTSDownRecipe?.Invoke(eFAM_Data.Pusher_Data.RecipeName);
+                WTSDownRecipe?.Invoke(eFAM_Data.Pusher_Data.RecipeName, eFAM_Data.Pusher_Data);
                 return PusherEvent.Pusher_To_WTR_Get_Position_Complete;
             }
             return PusherEvent.Fail;

@@ -205,7 +205,7 @@ namespace BC_Control_System.Command
         {
             if (CommonMethods.Device.IsConnected)
             {
-                var a = CommonMethods.PLC.ReadInt16("D5020", 300);
+                var a = CommonMethods.PLC.ReadInt16("D5000", 320);
                 if (a.IsSuccess)
                 {
                     pusherStationState.WaferCount = a.Content[169];
@@ -214,7 +214,12 @@ namespace BC_Control_System.Command
                     {
                         pusherStationState.ClearWaferMap[i] = (WaferMapStation)a.Content[170 + i];
                     }
-
+                    pusherStationState.Odd_Data.Batchid.Batchid= CommonMethods
+                        .PLC.ReadString("D5000", 20)
+                        .Content.Replace("\0", "");
+                    pusherStationState.Even_Data.Batchid.Batchid = CommonMethods
+                       .PLC.ReadString("D5000", 20)
+                       .Content.Replace("\0", "");
                     pusherStationState.Odd_Data.RFID = CommonMethods
                         .PLC.ReadString("D5020", 20)
                         .Content.Replace("\0", "");

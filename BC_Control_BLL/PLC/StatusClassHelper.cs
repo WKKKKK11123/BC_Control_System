@@ -123,26 +123,23 @@ namespace BC_Control_Helper
                 var dataType = (DataType)Enum.Parse(typeof(DataType), variable.DataType, true);
                 string falseValue = GetDefaultValue(dataType);
 
-                if (!tempDevice.IsConnected)
-                {
-                    item.Value = falseValue;
-                    return;
-                }
+                //if (!tempDevice.IsConnected)
+                //{
+                //    item.ActualValue = falseValue;                  
+                //}
 
                 UpdateItemValues(item, variable, dataType);
-                string value=item.ActualValue;
-                int value1 = 0;
-                if (
-                    !int.TryParse(item.ActualValue, out value1)
+                int value1;
+                if (!int.TryParse(item.ActualValue, out value1)
                     || item.StatusArribute.Count() == 0
                     || !item.StatusArribute.ContainsKey(value1)
                 ) //如果无特性或者不是数字则可直接跳出
                 {
-                    item.Value = value;
+                    item.Value = item.ActualValue;
                     return;
                 }
                 item.Value = item.StatusArribute[value1];
-                
+
 
             }
             catch (Exception ex)
@@ -168,6 +165,7 @@ namespace BC_Control_Helper
             {
                 if (variable.VarValue == null)
                 {
+                    item.ActualValue = GetDefaultValue(item.DataType);
                     return;
                 }
                 if (!string.IsNullOrEmpty(item.ValueAddress))
@@ -175,7 +173,7 @@ namespace BC_Control_Helper
                     item.ActualValue = dataType == DataType.Float
                         ? Convert.ToDouble(variable.VarValue).ToString("F2")
                         : variable.VarValue.ToString()!;
-                    
+
                 }
             }
             catch (Exception ex)

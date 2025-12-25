@@ -22,8 +22,16 @@ namespace ZC_Control_EFAM.ProcessControl
 
         public event Action<PusherStationState> WTRGetCompleteEvent;
         public event Action<PusherStationState> WTRPutCompleteEvent;
-        public event Action<string> WTSDownRecipe;
-
+        public event Action<string, PusherStationState> WTSDownRecipe;
+        public bool pusherActionIsenable;
+        public bool PusherActionIsenable
+        {
+            get { return pusherActionIsenable; }
+            set
+            {
+                pusherActionIsenable = value;
+            }
+        }
         public event Action<string, int> ReadRFIDComplete;
 
         public event Action<string, List<WaferMapStation>, int> PutStorageComplete;

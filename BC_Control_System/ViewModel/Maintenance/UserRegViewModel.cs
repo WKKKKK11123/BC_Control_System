@@ -39,6 +39,9 @@ namespace BC_Control_System.ViewModel.Maintenance
 
         public UseRegViewModel(SysAdminService adminService)
         {
+            RequestClose = new Action<IDialogResult>((item) => { });
+            CurrentAdmin =new SysAdmin();
+            SelectAdmin=new SysAdmin();
             _adminService = adminService ?? throw new ArgumentNullException(nameof(adminService));
             _ = LoadAdmins();
         }

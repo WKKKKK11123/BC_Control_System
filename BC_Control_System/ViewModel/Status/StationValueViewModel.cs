@@ -23,6 +23,8 @@ namespace BC_Control_System.ViewModel.Status
         private BindingList<StatusClass> batchDataClasseCollection;
         [ObservableProperty]
         private BindingList<DataClass> iODataClasseCollection;
+        [ObservableProperty]
+        private BindingList<DataClass> _CotrolCollection;
         public string Title { get; set; } = "";
 
         public event Action<IDialogResult> RequestClose;
@@ -35,6 +37,7 @@ namespace BC_Control_System.ViewModel.Status
             ModuleDataClasseCollection=new BindingList<DataClass>();
             BatchDataClasseCollection=new BindingList<StatusClass> { };
             IODataClasseCollection=new BindingList<DataClass> { };
+            CotrolCollection=new BindingList<DataClass> { };
         }
         public bool CanCloseDialog()
         {
@@ -66,6 +69,10 @@ namespace BC_Control_System.ViewModel.Status
             {
                 IODataClasseCollection = new BindingList<DataClass>(stationInfo.IOViewDataCollection);
             }
+            if (stationInfo?.ControlDataCollection != null)
+            {
+                CotrolCollection = new BindingList<DataClass>(stationInfo.ControlDataCollection);
+            }  
         }
     }
 }

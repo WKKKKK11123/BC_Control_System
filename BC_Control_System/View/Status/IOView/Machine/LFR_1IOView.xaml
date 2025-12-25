@@ -11,6 +11,7 @@
     xmlns:ioviewmodel="clr-namespace:BC_Control_System.ViewModel.Status.IOViewModel"
     xmlns:local="clr-namespace:BC_Control_System.View.Status.IOView"
     xmlns:localCommand="clr-namespace:BC_Control_System.Command"
+     xmlns:localbehaviors="clr-namespace:ZCControlSystem.Controls.Behaviors"
     xmlns:localConverters="clr-namespace:BC_Control_System.Converters"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="650"
@@ -59,6 +60,9 @@
     <Grid>
         <Viewbox Margin="0,0,0,0" Stretch="Uniform">
             <Canvas Width="600" Height="600">
+                <i:Interaction.Behaviors>
+                    <localbehaviors:ContainerRebindBehavior RebindTrigger="True" ValveInfos="{Binding IODataCollection}" />
+                </i:Interaction.Behaviors>
                 <Ellipse
                     x:Name="Z轴使能信号"
                     Canvas.Left="98"
@@ -188,6 +192,9 @@
                     BorderBrush="Black"
                     BorderThickness="0.8">
                     <StackPanel Background="Gray">
+                        <i:Interaction.Behaviors>
+                            <localbehaviors:ContainerRebindBehavior RebindTrigger="True" ValveInfos="{Binding IODataCollection}" />
+                        </i:Interaction.Behaviors>
                         <Border
                             x:Name="Z轴上定位"
                             Height="25"

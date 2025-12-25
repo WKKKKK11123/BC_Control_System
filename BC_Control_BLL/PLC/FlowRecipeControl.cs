@@ -46,10 +46,12 @@ namespace BC_Control_Helper
                 {
                     result&=DownLoadModel(item,$"{AddressType}{1000+(item.FlowStep*1000)}");
                     shorts[item.FlowStep-1]= Convert.ToInt16(Enum.Parse(typeof(BathNameEnum),item.BathName.ToString()));
-                }            
+                }
                 //shorts[recipe.FlowStepList.Count] = (short)BathNameEnum.END; // 结束工位
-                result &= _plcHelper.SelectPLC(plcEnum).Write($"{AddressType}{intstart+9000}", shorts).IsSuccess;
-                result &= _plcHelper.SelectPLC(plcEnum).Write($"{AddressType}{intstart + 9999}",(short)1).IsSuccess;
+                //result &= _plcHelper.SelectPLC(plcEnum).Write($"{AddressType}{intstart+9000}", shorts).IsSuccess;
+                //result &= _plcHelper.SelectPLC(plcEnum).Write($"{AddressType}{intstart + 9999}",(short)1).IsSuccess;
+                result &= _plcHelper.SelectPLC(plcEnum).Write($"{AddressType}{intstart + 12000}", shorts).IsSuccess;
+                result &= _plcHelper.SelectPLC(plcEnum).Write($"{AddressType}{intstart + 12999}", (short)1).IsSuccess;
                 if (result)
                 {
                     return true;

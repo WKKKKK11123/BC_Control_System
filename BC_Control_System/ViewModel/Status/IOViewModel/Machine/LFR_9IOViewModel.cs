@@ -9,8 +9,7 @@ using System.Threading.Tasks;
 
 namespace BC_Control_System.ViewModel.Status.IOViewModel.Machine
 {
-    [AddINotifyPropertyChangedInterface]
-    public class LFR_9IOViewModel : IOViewModelBase<LiftStatusClass>
+    public class LFR_9IOViewModel : IOViewModelNoEntityBase
     {
         public LFR_9IOViewModel(ILogOpration logOpration) : base(logOpration)
         {

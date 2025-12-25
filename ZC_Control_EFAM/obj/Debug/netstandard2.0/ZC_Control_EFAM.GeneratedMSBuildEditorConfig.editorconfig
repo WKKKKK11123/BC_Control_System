@@ -1,7 +1,7 @@
 is_global = true
 build_property.PropertyChangedAnalyzerConfiguration = 
 build_property.RootNamespace = ZC_Control_EFAM
-build_property.ProjectDir = D:\program\BC3100\BC_Control_System\ZC_Control_EFAM\
+build_property.ProjectDir = D:\上位机\BC_Control_System\BC_Control_System\ZC_Control_EFAM\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.CsWinRTUseWindowsUIXamlProjections = false

@@ -75,22 +75,9 @@ namespace BC_Control_Helper
                 // 使用接口方法替换原来的静态实例调用
                 var tempDevice = _plcHelper.SelectDevice(item.PLC);
                 if (tempDevice == null) return;
-
                 var variable = _plcHelper.FindVariable(item.ValueAddress, item.PLC);
                 if (variable == default(Variable)) return;
-
-
                 var dataType = (DataType)Enum.Parse(typeof(DataType), variable.DataType, true);
-                string falseValue = GetDefaultValue(dataType);
-
-
-                if (!tempDevice.IsConnected)
-                {
-                    item.Value = falseValue;
-                    item.SettingValue = falseValue;
-                    return;
-                }
-
                 UpdateItemValues(item, variable, dataType);
             }
             catch (Exception ex)
@@ -122,37 +109,43 @@ namespace BC_Control_Helper
         {
             try
             {
-                if (variable.VarValue==null)
-                {
-                    return;
-                }
-                if (!string.IsNullOrEmpty(item.ValueAddress))
+                string falseValue = GetDefaultValue(dataType);               
+                if (!string.IsNullOrEmpty(item.ValueAddress) && variable.VarValue != null)
                 {
                     item.Value = dataType == DataType.Float
                         ? Convert.ToDouble(variable.VarValue).ToString("F2")
-                        : variable.VarValue.ToString()!;
+                        : variable.VarValue?.ToString()!;
                 }
-
-                if (!string.IsNullOrEmpty(item.SettingValueAddress))
+                else
                 {
-                    var SettingValue = _plcHelper.FindVariable(item.SettingValueAddress, item.PLC);
-                    if (SettingValue == null)
-                    {
-                        item.SettingValue = "";
-                        return;
-                    }
+                    item.Value = falseValue;
+                }
+                
+                if (string.IsNullOrEmpty(item.SettingValueAddress))
+                {
+                    item.SettingValue = "";
+                    return;
+                }
+                var SettingValue = _plcHelper.FindVariable(item.SettingValueAddress, item.PLC);
+                if (SettingValue.VarValue != null)
+                {
                     item.SettingValue = dataType == DataType.Float
                         ? Convert.ToDouble(SettingValue.VarValue).ToString("F2")
-                        : variable.VarValue.ToString()!;
+                        : SettingValue.VarValue.ToString()!;                                     
                 }
+                else
+                {
+                    item.SettingValue = falseValue;
+                }
+                    
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-
                 throw;
             }
             
         }
+        
         private static string GetPropertyDescription(PropertyInfo propertyInfo)
         {
             try

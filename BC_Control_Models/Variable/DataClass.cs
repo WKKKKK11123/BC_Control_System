@@ -22,8 +22,8 @@ namespace BC_Control_Models
         public string Unit { get; set; } = "";
         [ExcelColumnName("PLC选择")]
         public PlcEnum PLC { get; set; } = PlcEnum.PLC1;
-        public string SettingValue { get; set; }
-        public string Value { get; set; }
+        public string SettingValue { get; set; } = "0";
+        public string Value { get; set; } = "0";
         [ExcelColumnName("Type")]
         public DataType DataType { get; set; }
         [ExcelColumnName("Scale")]

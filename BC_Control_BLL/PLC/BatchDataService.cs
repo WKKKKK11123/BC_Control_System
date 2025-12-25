@@ -31,18 +31,19 @@ namespace BC_Control_BLL.PLC
         {
             try
             {
+
                 for (int i = 0; i < BatchDataCollection.Count(); i++)
                 {
-                    if (int.TryParse(BatchDataCollection[i].IsWafer.Value,out int valueResult))
+                    if (!int.TryParse(BatchDataCollection[i].IsWafer.ActualValue,out int valueResult))
                     {
                         continue;
                     }
                     if (valueResult != TankInProcessPre[i])
                     {
-                        //UpdateModuleState?.Invoke(BatchDataCollection[i]);
+                        UpdateModuleState?.Invoke(BatchDataCollection[i]);
                     }
                 }
-                ///TankInProcessPre = BatchDataCollection.Select(src => int.Parse(src.IsWafer.Value)).ToList();                
+                TankInProcessPre = BatchDataCollection.Select(src => int.Parse(src.IsWafer.ActualValue)).ToList();                
             }
             catch (Exception)
             {
@@ -86,7 +87,8 @@ namespace BC_Control_BLL.PLC
                 }
             }
             BatchDataCollection.Reverse();
-            ///TankInProcessPre = BatchDataCollection.Select(src => int.Parse(src.IsWafer.Value)).ToList();
+            
+            TankInProcessPre = BatchDataCollection.Select(src => int.Parse(src.IsWafer.ActualValue)).ToList();
         }
     }
 }

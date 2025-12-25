@@ -33,13 +33,13 @@ namespace BC_Control_DAL
                     {
                         continue;
                     }
-                    if (item.Value == "Unknow")
+                    if (item.ActualValue == "")
                     {
                         propertyInfo.SetValue(actualDataClass, "0");
                     }                  
                     else
                     {
-                        propertyInfo.SetValue(actualDataClass, item.Value);
+                        propertyInfo.SetValue(actualDataClass, item.ActualValue);
                     }
                 }
                 await baseService.Add(actualDataClass);

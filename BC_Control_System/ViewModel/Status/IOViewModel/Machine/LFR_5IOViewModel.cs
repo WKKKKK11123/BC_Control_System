@@ -17,8 +17,7 @@ using BC_Control_Models.Personal;
 
 namespace BC_Control_System.ViewModel.Status.IOViewModel
 {
-    [AddINotifyPropertyChangedInterface]
-    public class LFR_5IOViewModel : IOViewModelBase<LiftStatusClass>
+    public class LFR_5IOViewModel : IOViewModelNoEntityBase
     {
         public LFR_5IOViewModel(ILogOpration logOpration) : base(logOpration)
         {

@@ -328,8 +328,7 @@ namespace BC_Control_System
         private void TaskScheduler_UnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs e)
         {
             // 处理Task异常
-            HandleException(e.Exception);
-            
+            HandleException(e.Exception);            
             e.SetObserved(); // 标记为已观察
         }
 

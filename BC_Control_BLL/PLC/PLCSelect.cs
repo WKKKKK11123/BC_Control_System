@@ -16,6 +16,7 @@ namespace BC_Control_Helper
     public class PLCSelect : IPLCHelper
     {
         #region
+        private readonly ILogOpration _logOpration;
         private CancellationTokenSource _cts;
         private string devPath =
            "C:" + "\\PLCConfig" + "\\Config\\Device.ini";
@@ -73,6 +74,12 @@ namespace BC_Control_Helper
         public PLCSelect()
         {
             _cts = new CancellationTokenSource();
+            _logOpration = null;
+        }
+        public PLCSelect(ILogOpration logOpration)
+        {
+            _cts = new CancellationTokenSource();
+            _logOpration = logOpration;
         }
         public Device SelectDevice(PlcEnum plcEnum = PlcEnum.PLC1)
         {
@@ -232,6 +239,13 @@ namespace BC_Control_Helper
             {
 
                 return result;
+            }
+        }
+        public void CloseAll()
+        {
+            for (int i = 0; i < 13; i++)
+            {
+                SelectPLC((PlcEnum)i).ConnectClose();
             }
         }
         public MitsubishiPLC SelectPLC(PlcEnum plcEnum = PlcEnum.PLC1)
@@ -1123,14 +1137,26 @@ namespace BC_Control_Helper
                             ddd.Scale = plcValue.Scale;
                             ddd.Remark = plcValue.ParameterName;
                         }
+                        else
+                        {
+                            _logOpration.WriteError($"{plcValue.ValueAddress},{plcValue.PLC},{plcValue.ParameterName}，未找到变量,变量登陆失败");
+                        }
                         break;
                     }
+                    else
+                    {
+                        _logOpration.WriteError($"{plcValue.ValueAddress},{plcValue.PLC},{plcValue.ParameterName}" +"\r\n"+
+                            $"aa.McDataType.AsciiCode={aa.McDataType.AsciiCode == code}," +
+                            $"aa.AddressStart={aa.AddressStart <= addressStart}，" +
+                            $"aa.AddressStart={(aa.AddressStart + item1.Length) >= addressStart}，未找到变量");
+                    }
+                    ;
                 }
             }
             catch (Exception ex)
             {
 
-                throw;
+                _logOpration.WriteError(ex);
             }
 
         }

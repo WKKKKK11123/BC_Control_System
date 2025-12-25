@@ -4,7 +4,6 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="clr-namespace:BC_Control_System"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-    
     xmlns:prism="http://prismlibrary.com/">
     <prism:PrismApplication.Resources>
         <ResourceDictionary>
@@ -15,8 +14,8 @@
 
                 <ResourceDictionary Source="Theme\lighttheme.xaml" />
                 <ResourceDictionary Source="Theme\darktheme.xaml" />
-                <ResourceDictionary Source="Styles/DataGridStyles.xaml"/>
-                <ResourceDictionary Source="/BC_Control_CustomControl;component/themes/Generic.xaml"/>
+                <ResourceDictionary Source="Styles/DataGridStyles.xaml" />
+                <ResourceDictionary Source="/BC_Control_CustomControl;component/themes/Generic.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <FontFamily x:Key="SystemFont">Segoe UI</FontFamily>
         </ResourceDictionary>
