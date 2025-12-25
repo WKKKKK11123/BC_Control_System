@@ -973,7 +973,7 @@ namespace BC_Control_Helper
                                                         start,
                                                         variable.OffsetOrLength,
                                                         Encoding.ASCII
-                                                    );
+                                                    ).Replace("/0","");
                                                 break;
                                             case DataType.ByteArray:
                                                 variable.VarValue =
