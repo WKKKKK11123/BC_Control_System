@@ -8,11 +8,16 @@
     <UseWPF>true</UseWPF>
 	  <SatelliteResourceLanguages>en</SatelliteResourceLanguages>
 	  <CopyLocalSatelliteAssemblies>false</CopyLocalSatelliteAssemblies>
+	  <ApplicationIcon>Resources\Logo.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
     <None Remove="Resources\Lift.png" />
     <None Remove="Resources\LiftPic.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Resources\Logo.ico" />
   </ItemGroup>
 
   <ItemGroup>
