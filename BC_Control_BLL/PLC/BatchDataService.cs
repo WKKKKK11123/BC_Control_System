@@ -34,13 +34,10 @@ namespace BC_Control_BLL.PLC
 
                 for (int i = 0; i < BatchDataCollection.Count(); i++)
                 {
-                    if (!int.TryParse(BatchDataCollection[i].IsWafer.ActualValue,out int valueResult))
+                    ModuleStatus module = BatchDataCollection[i];
+                    if (module.HasRecipe==false)
                     {
                         continue;
-                    }
-                    if (valueResult != TankInProcessPre[i])
-                    {
-                        UpdateModuleState?.Invoke(BatchDataCollection[i]);
                     }
                 }
                 TankInProcessPre = BatchDataCollection.Select(src => int.Parse(src.IsWafer.ActualValue)).ToList();                
