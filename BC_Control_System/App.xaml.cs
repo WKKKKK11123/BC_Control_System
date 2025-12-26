@@ -187,8 +187,8 @@ namespace BC_Control_System
             //containerRegistry.RegisterForNavigation<LFR_2IOView>("LFR_2");
             containerRegistry.RegisterForNavigation<LoginView>("LoginView");
             // 新增对话框注册
-            
-
+            containerRegistry.RegisterDialog<EAPControlModelView, EAPControlModeViewModel>();
+            containerRegistry.RegisterDialog<CarrierOut, CarrierOutViewModel>();
             containerRegistry.RegisterSingleton<OpenRecipeEditorViewCommand>();
             containerRegistry.RegisterDialog<CarrierOut, CarrierOutViewModel>();
             containerRegistry.RegisterDialog<ChartView, ChartViewModel>();

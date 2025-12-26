@@ -12,8 +12,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\HTR.png" />
+    <None Remove="Resources\HVC.png" />
     <None Remove="Resources\Lift.png" />
     <None Remove="Resources\LiftPic.png" />
+    <None Remove="Resources\ZC logo.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -44,10 +47,19 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\HTR.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\HVC.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\Lift.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\LiftPic.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\ZC logo.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

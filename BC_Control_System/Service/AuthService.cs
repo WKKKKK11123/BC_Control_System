@@ -32,7 +32,7 @@ namespace BC_Control_System
             SwitchToGuest();
             _sessionTimer = new DispatcherTimer
             {
-                Interval = TimeSpan.FromMinutes(1) // 每分钟检查一次
+                Interval = TimeSpan.FromSeconds(10)
             };
             _sessionTimer.Tick += CheckSessionTimeout;
             _sessionTimer.Start();
@@ -47,6 +47,7 @@ namespace BC_Control_System
                 _sysAdmin.UserRights = user.UserRights;
                 UserName = user.LoginName;
                 UserRights = user.UserRights;
+                _lastActiveTime = DateTime.Now;
                 _sysAdmin.IsLoggedIn = true;
                 return true;
             }
