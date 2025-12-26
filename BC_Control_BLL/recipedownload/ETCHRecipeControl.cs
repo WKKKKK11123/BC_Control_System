@@ -24,13 +24,13 @@ namespace BC_Control_BLL.recipedownload
                 short steptemp = Convert.ToInt16(Regex.Match(t.Step, @"-?\d+(\.\d+)?").Value);
                 int Step = (steptemp - 1) * 20;
                 var shortstemp = floatTointArray(steptemp);
-                Array.Copy(shortstemp, 0, shorts, 0, shortstemp.Length);
+                //Array.Copy(shortstemp, 0, shorts, 0, shortstemp.Length);
                 shortstemp = floatTointArray(t.Time);
-                Array.Copy(shortstemp, 0, shorts, 2, shortstemp.Length);
+                Array.Copy(shortstemp, 0, shorts, 0, shortstemp.Length);
                 shortstemp = floatTointArray(t.PumpStop ? 1 : 0);
-                Array.Copy(shortstemp, 0, shorts, 4, shortstemp.Length);
+                Array.Copy(shortstemp, 0, shorts, 2, shortstemp.Length);
                 shortstemp = floatTointArray(t.Agination ? 1 : 0);
-                Array.Copy(shortstemp, 0, shorts, 6, shortstemp.Length);
+                Array.Copy(shortstemp, 0, shorts, 4, shortstemp.Length);
                 //shorts[Step + 4] = (short)t.DSM;
                 return shorts;
             }

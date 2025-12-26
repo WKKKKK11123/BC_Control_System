@@ -26,21 +26,21 @@ namespace BC_Control_Helper
                 short steptemp = Convert.ToInt16(Regex.Match(t.Step, @"-?\d+(\.\d+)?").Value);
                 int Step = (steptemp - 1) * 20;
                 var shortstemp = floatTointArray(steptemp);
-                Array.Copy(shortstemp, 0, shorts, 0, shortstemp.Length);
                 shortstemp = floatTointArray(t.Time);
-                Array.Copy(shortstemp, 0, shorts, 2, shortstemp.Length);
+                Array.Copy(shortstemp, 0, shorts, 0, shortstemp.Length);
                 shortstemp = floatTointArray(t.FastLeak ? 1 : 0); ;
-                Array.Copy(shortstemp, 0, shorts, 4, shortstemp.Length);
+                Array.Copy(shortstemp, 0, shorts, 2, shortstemp.Length);
                 shortstemp = floatTointArray(t.SlowLeak ? 1 : 0);
-                Array.Copy(shortstemp, 0, shorts, 6, shortstemp.Length);
+                Array.Copy(shortstemp, 0, shorts, 4, shortstemp.Length);
                 shortstemp = floatTointArray(t.QDR ? 1 : 0);
-                Array.Copy(shortstemp, 0, shorts, 8, shortstemp.Length);
+                Array.Copy(shortstemp, 0, shorts, 6, shortstemp.Length);
                 shortstemp = floatTointArray(t.Shower ? 1 : 0);
                 Array.Copy(shortstemp, 0, shorts, 8, shortstemp.Length);
                 shortstemp = floatTointArray(t.Agitation ? 1 : 0);
-                Array.Copy(shortstemp, 0, shorts, 10, shortstemp.Length);
+                Array.Copy(shortstemp, 0, shorts, 8, shortstemp.Length);
                 shortstemp = floatTointArray(t.ResistivityCheck ? 1 : 0);
-                Array.Copy(shortstemp, 0, shorts, 12, shortstemp.Length);
+                Array.Copy(shortstemp, 0, shorts, 10, shortstemp.Length);
+                //Array.Copy(shortstemp, 0, shorts, 12, shortstemp.Length);
                 return shorts;
             }
             catch (Exception)
