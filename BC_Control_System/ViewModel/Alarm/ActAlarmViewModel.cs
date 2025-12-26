@@ -21,7 +21,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace BC_Control_System.ViewModel.Alarm
 {
-    
+
     public partial class ActAlarmViewModel : ObservableObject
     {
         private readonly IPLCHelper _plcHelper;
@@ -34,7 +34,7 @@ namespace BC_Control_System.ViewModel.Alarm
             try
             {
                 _plcHelper = pLCHelper;
-                AlarmLogs =new BindingList<AlarmLog>(dataBaseAddService.actualAlarmList);                                  
+                AlarmLogs = new BindingList<AlarmLog>(dataBaseAddService.actualAlarmList);
                 ResetAlarmSingleCommand = new DelegateCommand<AlarmLog>(ResetAlarmSingle);
                 ResetAllCommand = new DelegateCommand(ResetAll);
                 eventAggregator.GetEvent<AlarmUpdateEvent>().Subscribe(UpdateAlarmCollection);
@@ -56,6 +56,7 @@ namespace BC_Control_System.ViewModel.Alarm
             {
                 Application.Current.Dispatcher.Invoke(() =>
                 {
+                    int t = 1;
                     AlarmLogs = new BindingList<AlarmLog>(newAlarmLogs);
                 });
             }
