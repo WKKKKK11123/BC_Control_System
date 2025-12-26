@@ -23,8 +23,7 @@ namespace BC_Control_System.ViewModel.Opration
         public bool ControlMode { get; set; }       
         public DelegateCommand<IList> ProcessStartCommand { get; set; }
         public DelegateCommand<StorageStation> CarrierOutCommand { get; set; }
-        public DelegateCommand<StorageCollection> ChangeDataCommand { get; set; }
-        public DelegateCommand<StorageCollection> RemoveCarrierCommand { get; set; }
+       
         public AsyncRelayCommand ChangeWaferThickness { get; set; }
 
         private void OnCarrierCountChang()
@@ -38,14 +37,14 @@ namespace BC_Control_System.ViewModel.Opration
         )
         {
             _processControl = processControl;
-            StorageStations = processControl.eFAM_Data.Storage_Data;
+            StorageStations = processControl.eFAM_Data.Storage_Data;    
             _dialogService = dialogService;
             ControlMode = processControl.Auto;
-  
+
             ProcessStartCommand = new DelegateCommand<IList>(ProcessStart);
             CarrierOutCommand = new DelegateCommand<StorageStation>(CarrierOutFunc);
-            ChangeDataCommand = new DelegateCommand<StorageCollection>(ChangeData);
-            RemoveCarrierCommand = new DelegateCommand<StorageCollection>(RemoveCarrier);           
+            //ChangeDataCommand = new DelegateCommand<StorageCollection>(ChangeData);
+            //RemoveCarrierCommand = new DelegateCommand<StorageCollection>(RemoveCarrier);
         }
 
 

@@ -56,20 +56,20 @@ namespace ZC_Control_EFAM
                 StationID = StationID.Control_Door_2,
                 FTRStationID = FTRStationID.LP_2
             },
-            //new LoadportState()
-            //{
-            //    StationName = "LP3",
-            //    StationInfo = new StationInfo() { Form_LP = StationID.LP_3, },
-            //    StationID = StationID.Control_Door_3,
-            //    FTRStationID = FTRStationID.LP_3
-            //},
-            //new LoadportState()
-            //{
-            //    StationName = "LP4",
-            //    StationInfo = new StationInfo() { Form_LP = StationID.LP_4, },
-            //    StationID = StationID.Control_Door_4,
-            //    FTRStationID = FTRStationID.LP_4
-            //},
+            new LoadportState()
+            {
+                StationName = "LP3",
+                StationInfo = new StationInfo() { Form_LP = StationID.LP_3, },
+                StationID = StationID.Control_Door_3,
+                FTRStationID = FTRStationID.LP_3
+            },
+            new LoadportState()
+            {
+                StationName = "LP4",
+                StationInfo = new StationInfo() { Form_LP = StationID.LP_4, },
+                StationID = StationID.Control_Door_4,
+                FTRStationID = FTRStationID.LP_4
+            },
         };
 
         public List<StorageStation> Storage_Data = new List<StorageStation>()
@@ -414,7 +414,7 @@ namespace ZC_Control_EFAM
                 {
                     return false;
                 }
-                for (int i = 0; i < 4; i++)
+                for (int i = 0; i < 2; i++)
                 {
                     HEX_EN b = _defineCommands.WaferSpecificationSwitchCommand(i, thikckness);
                     long a = tcpHexClient.SendHexPayload(b.f_full);

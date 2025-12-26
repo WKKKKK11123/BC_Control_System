@@ -1,4 +1,5 @@
-﻿using Prism.Commands;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Services.Dialogs;
 using System.IO;
@@ -6,11 +7,14 @@ using System.Windows;
 
 namespace BC_Control_System.ViewModel.Opration
 {
-    public class OpenFileViewModel : BindableBase, IDialogAware
+    public partial class OpenFileViewModel : ObservableObject, IDialogAware
     {
         private string filepath;
-        public List<string> OpenFiles { get; set; }
-        public string SelectFile { get; set; }
+        [ObservableProperty]
+        
+        private List<string> _OpenFiles = new List<string>();
+        [ObservableProperty]
+        private string _SelectFile = "";
         public string Title { get; set; } = "Open Folder";
 
         public event Action<IDialogResult> RequestClose;

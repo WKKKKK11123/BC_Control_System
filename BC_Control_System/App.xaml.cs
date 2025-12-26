@@ -57,6 +57,7 @@ using Prism.Regions;
 using System.IO;
 using System.Windows;
 using ZC_Control_System.EFAMAction;
+using ZC_Control_System.ViewModel.Opration;
 
 namespace BC_Control_System
 {
@@ -189,6 +190,7 @@ namespace BC_Control_System
             
 
             containerRegistry.RegisterSingleton<OpenRecipeEditorViewCommand>();
+            containerRegistry.RegisterDialog<CarrierOut, CarrierOutViewModel>();
             containerRegistry.RegisterDialog<ChartView, ChartViewModel>();
             containerRegistry.RegisterDialog<LoginView, LoginViewModel>();
             containerRegistry.RegisterDialog<SearchByTimeView, SearchByTimeViewModel>();

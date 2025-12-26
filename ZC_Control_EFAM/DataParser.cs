@@ -779,8 +779,8 @@ namespace ZC_Control_EFAM
                     //0xFF: Unknown status).
                     Loadport_Data[0].PlaceSenser = list[10] == 1;
                     Loadport_Data[1].PlaceSenser = list[11] == 1;
-                    Loadport_Data[2].PlaceSenser = list[12] == 1;
-                    Loadport_Data[3].PlaceSenser = list[13] == 1;
+                    //Loadport_Data[2].PlaceSenser = list[12] == 1;
+                    //Loadport_Data[3].PlaceSenser = list[13] == 1;
                     break;
                 case 2:
                     result = true; //后边数据需要解析

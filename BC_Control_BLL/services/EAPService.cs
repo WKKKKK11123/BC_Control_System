@@ -167,7 +167,7 @@ namespace BC_Control_BLL.Services
                 int downloadoutStatus = 270040;
                 int downloadReleaseCarrierID = 258000;
                 int downloadOutCarrierID = 258020;
-                for (int i = 0; i < 4; i++)
+                for (int i = 0; i < 2; i++)
                 {
                     OperateResult<short> releaseAck = PLCSelect.Instance.SelectPLC(PlcEnum.PLC1).ReadInt16($"ZR{downloadReleaseStatus + i * 1}");
 

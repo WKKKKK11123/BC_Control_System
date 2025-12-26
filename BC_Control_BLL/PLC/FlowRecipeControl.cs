@@ -27,7 +27,7 @@ namespace BC_Control_Helper
                 var match = Regex.Match(startAddress, @"([a-zA-Z]+)(\d+)");
                 int intstart = 0;
                 string AddressType;
-                short[] shorts=new short[10];
+                short[] shorts=new short[20];
                 if (match.Success)
                 {
                     AddressType = match.Groups[1].Value;  // 前面的字符部分

@@ -622,7 +622,7 @@ namespace BC_Control_System.ViewModel
         private void _processControl_WTSDownRecipe(string obj, PusherStationState obj1)
         {
             string temppath = System.IO.Path.Combine(filepath, obj);
-            DownLoadRecipe("Tool", File.ReadAllText(temppath));
+            bool b=DownLoadRecipe("Tool", File.ReadAllText(temppath));
             PusherStationState tempObj = obj1;
             int storagetemp = 0;
             string batchIDTemp = "";

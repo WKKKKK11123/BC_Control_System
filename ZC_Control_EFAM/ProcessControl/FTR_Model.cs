@@ -136,7 +136,7 @@ namespace ZC_Control_EFAM.ProcessControl
 
         private DeviceEvent FTRIdleFunc()
         {
-            for (int i = 0; i < 4; i++) //20251015 FTR处于IDLE 状态的时候  所有 传递锁定解除
+            for (int i = 0; i < 2; i++) //20251015 FTR处于IDLE 状态的时候  所有 传递锁定解除
             {
                 eFAM_Data.Loadport_Data[i].FTRTransferState = false;
             }

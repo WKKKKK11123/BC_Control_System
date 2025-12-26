@@ -301,7 +301,7 @@
                     CommandParameter="{Binding ElementName=grid, Path=SelectedItem}"
                     Content="Carier Out"
                     FontSize="12" />
-                <Button
+                <!--<Button
                     Width="140"
                     Margin="5,5"
                     VerticalAlignment="Center"
@@ -324,7 +324,7 @@
                     Command="{Binding RemoveCarrierCommand}"
                     CommandParameter="{Binding ElementName=grid, Path=SelectedItem}"
                     Content="Delete Carrier"
-                    FontSize="12" />
+                    FontSize="12" />-->
             </StackPanel>
         </Border>
     </Grid>

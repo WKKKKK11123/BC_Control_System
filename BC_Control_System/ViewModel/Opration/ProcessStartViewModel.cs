@@ -14,11 +14,12 @@ using BC_Control_Models;
 using BC_Control_Models.Personal;
 using BC_Control_Models.RecipeModel;
 using BC_Control_System.View.Opration;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace BC_Control_System.ViewModel.Opration
 {
-    [AddINotifyPropertyChangedInterface]
-    public class ProcessStartViewModel : BindableBase, IDialogAware
+    
+    public partial class ProcessStartViewModel : ObservableObject, IDialogAware
     {
         private IDialogService _dialogService;
         private string filepath = @"C:\212Recipe\Tool";
@@ -26,8 +27,10 @@ namespace BC_Control_System.ViewModel.Opration
         //public List<StorageCollection> carrierTrackingClasses { get; set; }
         public List<StorageStation> carrierTrackingClasses { get; set; }
         public string Title { get; set; } = "Process Start View";
-        public string BatchID { get; set; }
-        public string RecipeName { get; set; }
+        [ObservableProperty]
+        private string _BatchID;
+        [ObservableProperty]
+        private string _RecipeName;
 
         public event Action<IDialogResult> RequestClose;
         public DelegateCommand OpenfileDelegateCommand { get; set; }

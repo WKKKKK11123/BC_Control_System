@@ -62,42 +62,42 @@ namespace BC_Control_System
 
         private void btn_EFAMAuto_Click(object sender, RoutedEventArgs e)
         {
-            //_processControl.eFAM_Data.UpdataStationData();
-            //if (!_processControl.eFAM_Data.IsConnected)
-            //{
-            //    MessageBox.Show("与EFAM的网络连接是断开的！", "Error");
-            //    return;
-            //}
+            _processControl.eFAM_Data.UpdataStationData();
+            if (!_processControl.eFAM_Data.IsConnected)
+            {
+                MessageBox.Show("与EFAM的网络连接是断开的！", "Error");
+                return;
+            }
 
-            //if (
-            //    MessageBox.Show("确认改变EFAM的控制状态！", "提示", MessageBoxButton.YesNo)
-            //    == MessageBoxResult.Yes
-            //)
-            //{
-            //    if (
-            //        !_processControl.Auto
-            //        && (
-            //            _processControl.FTRPlaceSenser
-            //            || _processControl.Opener1PlaceSenser
-            //            || _processControl.Opener2PlaceSenser
-            //            || _processControl.WHRPaceSenser
-            //            || _processControl.HVPlaceSenser
-            //        )
-            //    )
-            //    {
-            //        MessageBox.Show("当前状态不允许切换状态！", "Error");
-            //        return;
-            //    }
-            //    _processControl.Auto = !_processControl.Auto;
-            //    if (_processControl.Auto)
-            //    {
-            //        btn_EFEMAuto.Background = Brushes.Green;
-            //    }
-            //    else
-            //    {
-            //        btn_EFEMAuto.Background = Brushes.Silver;
-            //    }
-            //}
+            if (
+                MessageBox.Show("确认改变EFAM的控制状态！", "提示", MessageBoxButton.YesNo)
+                == MessageBoxResult.Yes
+            )
+            {
+                if (
+                    !_processControl.Auto
+                    && (
+                        _processControl.FTRPlaceSenser
+                        || _processControl.Opener1PlaceSenser
+                        || _processControl.Opener2PlaceSenser
+                        || _processControl.WHRPaceSenser
+                        || _processControl.HVPlaceSenser
+                    )
+                )
+                {
+                    MessageBox.Show("当前状态不允许切换状态！", "Error");
+                    return;
+                }
+                _processControl.Auto = !_processControl.Auto;
+                if (_processControl.Auto)
+                {
+                    btn_EFEMAuto.Background = Brushes.Green;
+                }
+                else
+                {
+                    btn_EFEMAuto.Background = Brushes.Silver;
+                }
+            }
         }
 
         private void ResetButton_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
