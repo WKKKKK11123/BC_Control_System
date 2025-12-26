@@ -48,13 +48,15 @@ namespace BC_Control_BLL.recipedownload
                 //总时间计算
                 int prestepTime = PreRecipeList.Select(prop => prop.Time).Sum();
                 short[] tempTime = floatTointArray(prestepTime);
-                Array.Copy(tempTime, 0, shorts, 900, 2);
+                Array.Copy(tempTime, 0, shorts, 908, 2);
                 int stepTime = RecipeList.Select(prop => prop.Time).Sum();
                 tempTime = floatTointArray(stepTime);
-                Array.Copy(tempTime, 0, shorts, 902, 2);
+                Array.Copy(tempTime, 0, shorts, 918, 2);
                 int poststepTime = PostRecipeList.Select(prop => prop.Time).Sum();
                 tempTime = floatTointArray(poststepTime);
-                Array.Copy(tempTime, 0, shorts, 904, 2);
+                Array.Copy(tempTime, 0, shorts, 928, 2);
+                short TotalTime = (short)(prestepTime + stepTime + poststepTime);
+                shorts[70]=TotalTime;
                 var result = _helper.SelectPLC(plcEnum).Write(startAddress, shorts);
                 if (result.IsSuccess)
                 {
