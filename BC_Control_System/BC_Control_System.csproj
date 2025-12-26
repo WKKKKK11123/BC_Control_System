@@ -47,6 +47,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\HTR.png" />
+    <Resource Include="Resources\HVC.png" />
     <Resource Include="Resources\Lift.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
