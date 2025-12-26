@@ -935,7 +935,7 @@
                                 <Image
                                     Width="60"
                                     Margin="0,10,0,4"
-                                    Source="/Resources/HVC.png" />
+                                    Source="pack://application:,,,/BC_Control_System;component/Resources/HVC.png" />
 
                             </StackPanel>
                         </Border>
@@ -957,7 +957,7 @@
                                 <Image
                                     Width="60"
                                     Margin="0,10,0,4"
-                                    Source="/Resources/HTR.png" />
+                                    Source="pack://application:,,,/BC_Control_System;component/Resources/HTR.png" />
 
                             </StackPanel>
                         </Border>

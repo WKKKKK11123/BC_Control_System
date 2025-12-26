@@ -47,12 +47,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Resources\HTR.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\HVC.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
     <Resource Include="Resources\Lift.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
