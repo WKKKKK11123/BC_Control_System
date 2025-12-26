@@ -12,6 +12,11 @@ using BC_Control_Helper;
 using BC_Control_Models;
 using BC_Control_Models.RecipeModel;
 using CommunityToolkit.Mvvm.ComponentModel;
+using BC_Control_Models.RecipeModel.RecipeBase;
+using EnumsNET;
+using NPOI.SS.Formula.Functions;
+using SqlSugar;
+using MathNet.Numerics.Differentiation;
 
 namespace BC_Control_System.ViewModel.Recipe
 {
@@ -119,7 +124,7 @@ namespace BC_Control_System.ViewModel.Recipe
         private void SaveFile()
         {
             bool hasMGD9 = FlowSteps.Any(step => step.BathName == BathNameEnum.LPD_1);
-
+            bool timeresult=CheckUnitStepTime();
 
             if (!hasMGD9)
             {
@@ -145,6 +150,47 @@ namespace BC_Control_System.ViewModel.Recipe
                 File.WriteAllText(path, json);
                 
             }
+        }
+        private bool CheckUnitStepTime()
+        {
+            try
+            {
+                int i = 0;
+                foreach (var item in FlowSteps)
+                {
+                    string recipePath = @"C:\212Recipe";
+
+                    var thisPath = Path.Combine(recipePath, item.BathName.GetName()!, item.UnitRecipeName);
+                    var recipeEntity = File.ReadAllText(thisPath);
+                    
+                    ModuleRecipeClassBase<TotalStep> recipeStepsPre = JSONHelper.JSONToEntity<ModuleRecipeClassBase<TotalStep>>(recipeEntity);
+                    int totalTime = recipeStepsPre.RecipeStepCollection.Select(filter => filter.Time).Sum();
+                    thisPath = Path.Combine(recipePath, FlowSteps[i + 1].BathName.GetName()!, FlowSteps[i + 1].UnitRecipeName);
+                    recipeEntity = File.ReadAllText(thisPath);
+                    recipeStepsPre = JSONHelper.JSONToEntity<ModuleRecipeClassBase<TotalStep>>(recipeEntity);
+                    int PreTime = recipeStepsPre.RecipeStepCollection.Where(filter => filter.StepType == ProcessStepEnum.PreStep).Select(filter => filter.Time).Sum();
+                    if (PreTime> totalTime)
+                    {
+                        MessageBox.Show($"{item.BathName.GetName()} 配方总时间小于下一步，时间为{totalTime}S");
+                        return false; ;
+                    }
+                    i++;
+                    if (i > FlowSteps.Count())
+                    {
+                        break;
+                    }
+                }
+                return true;
+            }
+            catch (Exception)
+            {
+
+                return false;
+            }
+        }
+        private void GetPreTime()
+        { 
+        
         }
         private void AddStep()
         {
