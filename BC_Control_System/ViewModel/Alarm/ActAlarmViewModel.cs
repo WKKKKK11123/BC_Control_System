@@ -49,6 +49,7 @@ namespace BC_Control_System.ViewModel.Alarm
         {
             if (Application.Current.Dispatcher.CheckAccess())
             {
+                int t = 0;
                 AlarmLogs = new BindingList<AlarmLog>(newAlarmLogs);
             }
             else
