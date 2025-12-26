@@ -935,7 +935,7 @@
                                 <Image
                                     Width="60"
                                     Margin="0,10,0,4"
-                                    Source="pack://application:,,,/Resources/HVC.png" />
+                                    Source="/Resources/HVC.png" />
 
                             </StackPanel>
                         </Border>
@@ -957,7 +957,7 @@
                                 <Image
                                     Width="60"
                                     Margin="0,10,0,4"
-                                    Source="pack://application:,,,/Resources/HTR.png" />
+                                    Source="/Resources/HTR.png" />
 
                             </StackPanel>
                         </Border>

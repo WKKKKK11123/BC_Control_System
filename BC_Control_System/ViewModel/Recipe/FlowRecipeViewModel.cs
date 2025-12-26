@@ -123,9 +123,19 @@ namespace BC_Control_System.ViewModel.Recipe
 
             if (!hasMGD9)
             {
-                MessageBox.Show("保存失败：必须至少包含一个MGD的步骤", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("保存失败：必须至少包含一个LPD的步骤", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
+            bool hasQDR = FlowSteps.Any(step => step.BathName == BathNameEnum.QDR_1) || FlowSteps.Any(step => step.BathName == BathNameEnum.QDR_2)
+            || FlowSteps.Any(step => step.BathName == BathNameEnum.QDR_3) || FlowSteps.Any(step => step.BathName == BathNameEnum.QDR_4)
+            || FlowSteps.Any(step => step.BathName == BathNameEnum.QDR_5);
+
+            if (!hasQDR)
+            {
+                MessageBox.Show("保存失败：必须至少包含一个QDR的步骤", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
 
             if ((int)MessageBox.Show("Save this Recipe ?", "Confirm Message", MessageBoxButton.OKCancel) == 1)
             {
