@@ -158,38 +158,60 @@ namespace BC_Control_System.ViewModel.Recipe
         {
             try
             {
-                int i = 0;
-                foreach (var item in FlowSteps)
-                {
-                    string recipePath = @"C:\212Recipe";
+                string recipePath = @"C:\212Recipe";
 
-                    var thisPath = Path.Combine(recipePath, item.BathName.GetName()!, item.UnitRecipeName);
-                    var recipeEntity = File.ReadAllText(thisPath);
-                    
-                    ModuleRecipeClassBase<TotalStep> recipeStepsPre = JSONHelper.JSONToEntity<ModuleRecipeClassBase<TotalStep>>(recipeEntity);
-                    int totalTime = recipeStepsPre.RecipeStepCollection.Select(filter => filter.Time).Sum();
-                    thisPath = Path.Combine(recipePath, FlowSteps[i + 1].BathName.GetName()!, FlowSteps[i + 1].UnitRecipeName);
-                    recipeEntity = File.ReadAllText(thisPath);
-                    recipeStepsPre = JSONHelper.JSONToEntity<ModuleRecipeClassBase<TotalStep>>(recipeEntity);
-                    int PreTime = recipeStepsPre.RecipeStepCollection.Where(filter => filter.StepType == ProcessStepEnum.PreStep).Select(filter => filter.Time).Sum();
-                    if (PreTime> totalTime)
+                for (int i = 0; i < FlowSteps.Count - 1; i++)
+                {
+                    var current = FlowSteps[i];
+                    var next = FlowSteps[i + 1];
+
+                    // 当前步配方
+                    var currentPath = Path.Combine(
+                        recipePath,
+                        current.BathName.GetName()!,
+                        current.UnitRecipeName
+                    );
+
+                    var currentRecipeJson = File.ReadAllText(currentPath);
+                    var currentRecipe =
+                        JSONHelper.JSONToEntity<ModuleRecipeClassBase<TotalStep>>(currentRecipeJson);
+
+                    int totalTime = currentRecipe.RecipeStepCollection
+                        .Sum(x => x.Time);
+
+                    // 下一步配方（只算 PreStep）
+                    var nextPath = Path.Combine(
+                        recipePath,
+                        next.BathName.GetName()!,
+                        next.UnitRecipeName
+                    );
+
+                    var nextRecipeJson = File.ReadAllText(nextPath);
+                    var nextRecipe =
+                        JSONHelper.JSONToEntity<ModuleRecipeClassBase<TotalStep>>(nextRecipeJson);
+
+                    int preTime = nextRecipe.RecipeStepCollection
+                        .Where(x => x.StepType == ProcessStepEnum.PreStep)
+                        .Sum(x => x.Time);
+
+                    if (preTime > totalTime)
                     {
-                        MessageBox.Show($"第{item.FlowStep}步 {item.BathName.GetName()}的配方总时间{totalTime} S,小于下一步配方提前步时间{PreTime} S");
-                        return false; ;
-                    }
-                    i++;
-                    if (i > FlowSteps.Count())
-                    {
-                        break;
+                        MessageBox.Show(
+                            $"第{current.FlowStep}步 {current.BathName.GetName()} 的配方总时间 {totalTime} S，" +
+                            $"小于下一步提前步时间 {preTime} S"
+                        );
+                        return false;
                     }
                 }
+
                 return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
+                MessageBox.Show(ex.ToString());
                 return false;
             }
+
         }
         private void GetPreTime()
         { 

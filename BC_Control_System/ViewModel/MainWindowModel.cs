@@ -925,8 +925,8 @@ namespace BC_Control_System.ViewModel
                     if (CommonMethods.Device.IsConnected)
                     {
                         //Btn_1 = (bool)CommonMethods.Device["Y11"];
-                        //Btn_2 = (bool)CommonMethods.Device["M1000"];
-                        //Btn_3 = (bool)PLC2CommonMethods.Device["M4002"];
+                        Btn_2 = (bool)CommonMethods.Device["M1000"];
+                        Btn_3 = (bool)PLC2CommonMethods.Device["M4002"];
                         //Btn_4 = (bool)CommonMethods.Device["Y13"];
                         //Btn_5 = (bool)CommonMethods.Device["M3151"];
                         ////Btn_6 = (bool)CommonMethods.Device["M3600"];

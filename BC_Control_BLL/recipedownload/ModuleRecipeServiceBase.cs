@@ -56,7 +56,7 @@ namespace BC_Control_BLL.recipedownload
                 tempTime = floatTointArray(poststepTime);
                 Array.Copy(tempTime, 0, shorts, 928, 2);
                 short TotalTime = (short)(prestepTime + stepTime + poststepTime);
-                shorts[70]=TotalTime;
+                shorts[70]= (short)prestepTime;
                 var result = _helper.SelectPLC(plcEnum).Write(startAddress, shorts);
                 if (result.IsSuccess)
                 {
