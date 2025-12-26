@@ -261,11 +261,24 @@ namespace ZC_Control_EFAM.ProcessControl
             int storageID2 = 0;
             string s = eFAM_Data.Storage_Data[0].StationInfo.RFID;
             eFAM_Data
-                
-                .Storage_Data.FindAll(src=>!string.IsNullOrEmpty(src.StationInfo.RFID))
+
+                .Storage_Data.FindAll(src => !string.IsNullOrEmpty(src.StationInfo.RFID))
                 .Where(c => c.StationInfo.RFID.Trim() == carrierID && c.PlaceSenser)
                 .ToList()
                 .ForEach(c => storageID1 = (int)c.FTRStationID - 5);
+            if (storageID1 > 0)
+                eFAM_Data.Storage_Data[storageID1 - 1].Out_LP = (StationID)(lPNO + 19);
+        }
+        public void SetStorageOutLP(StationID StorageID, int lPNO)
+        {
+            int storageID1 = 0;
+            int storageID2 = 0;
+            string s = eFAM_Data.Storage_Data[0].StationInfo.RFID;
+            storageID1 = (int)eFAM_Data
+                .Storage_Data
+                .Where(c => c.StationID == StorageID && c.PlaceSenser)
+                .FirstOrDefault().FTRStationID - 5;
+
             if (storageID1 > 0)
                 eFAM_Data.Storage_Data[storageID1 - 1].Out_LP = (StationID)(lPNO + 19);
         }
@@ -311,7 +324,7 @@ namespace ZC_Control_EFAM.ProcessControl
             if (_pusherState.CurrentState == PusherState.WaitWTRPUT)
             {
                 _pusherState.CurrentState = PusherState.Idle;
-
+                //eFAM_Data.Pusher_Data.Odd_Data.IsWafer = true;
                 WTRPutCompleteEvent?.Invoke(eFAM_Data.Pusher_Data);
                 eFAM_Data.Pusher_Data.IsMapComplete = false;
                 eFAM_Data.Pusher_Data.Odd_Data.ProcessState = ProcessState.Processed;
@@ -405,10 +418,10 @@ namespace ZC_Control_EFAM.ProcessControl
                 getStatusDone = true;
             }
         }
-        
+
         private void Run()
         {
-            
+
             Task.Run(() =>
             {
                 while (true)

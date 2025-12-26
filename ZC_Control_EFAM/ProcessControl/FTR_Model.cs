@@ -140,7 +140,7 @@ namespace ZC_Control_EFAM.ProcessControl
             {
                 eFAM_Data.Loadport_Data[i].FTRTransferState = false;
             }
-           
+
             if (
                 !eFAM_Data.ControlMode
                 || !eFAM_Data.IsConnected
@@ -329,7 +329,7 @@ namespace ZC_Control_EFAM.ProcessControl
                     (c.StationInfo.ProcessState == ProcessState.Processed || c.StationInfo.ProcessState == ProcessState.UnProcess)
                     && c.PlaceSenser
                     && (int)c.Out_LP >= 20
-                    && (int)c.Out_LP <= 23
+                    && (int)c.Out_LP <= 21
                 )
             //var item in CarrierOutQueue
 
@@ -360,7 +360,7 @@ namespace ZC_Control_EFAM.ProcessControl
                     && c.PlaceSenser
                     && c.PreDatetime.AddSeconds(5) < DateTime.Now
                     && c.VerifyStatus
-                    
+
                     )//增加外置验证条件                                    
             )
             {

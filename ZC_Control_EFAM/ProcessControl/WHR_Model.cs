@@ -179,7 +179,7 @@ namespace ZC_Control_EFAM.ProcessControl
 
             return WHREvent.None;
         }
-        
+
         private WHREvent WHR_Get_Opener_And_HV_Flip_Degree0Func()
         {
             _hVState.CurrentState = HVState.Busy;
@@ -331,6 +331,7 @@ namespace ZC_Control_EFAM.ProcessControl
 
         private WHREvent WHR_Get_HV()
         {
+            return WHREvent.WHR_Get_HV1_Complete;
             var a = eFAM_Data
                 .WTRFuncCommand(WHRActionType.Get, WHRStationID.HV, WTRArmType.CleanArm)
                 .Result;
@@ -351,13 +352,9 @@ namespace ZC_Control_EFAM.ProcessControl
 
         private WHREvent WHR_Get_HV2()
         {
-            eFAM_Data.WHR_Data.StationInfo.CopyStationInfo(eFAM_Data.HV_Data.StationInfo);//跳过执行此步骤 只执行数据流装
-            eFAM_Data.HV_Data.StationInfo.IsWafer = false;
-            //eFAM_Data.UpdataStationData();
-            _hVState.CurrentState = HVState.Idle;
-            return WHREvent.WHR_Get_HV2_Complete;
+
             var a = eFAM_Data
-                .WTRFuncCommand(WHRActionType.Get, WHRStationID.HV, WTRArmType.CleanArmReturn)
+                .WTRFuncCommand(WHRActionType.Get, WHRStationID.HV, WTRArmType.CleanArm)
                 .Result;
             if (a.Result)
             {

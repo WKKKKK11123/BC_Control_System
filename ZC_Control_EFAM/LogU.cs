@@ -1,4 +1,4 @@
-ï»¿using System;
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
@@ -10,26 +10,26 @@ using System.Threading.Tasks;
 namespace ZC_Control_EFAM
 {
     /// <summary>
-    /// å†™æ—¥å¿—ç±»
+    /// Ğ´ÈÕÖ¾Àà
     /// </summary>
     public class LogU
     {
-        #region å­—æ®µ
+        #region ×Ö¶Î
 
         public static string LogPath = "D:\\Info\\Func\\";
-        public static int fileSize = 10 * 1024 * 1024; //æ—¥å¿—åˆ†éš”æ–‡ä»¶å¤§å°
+        public static int fileSize = 10 * 1024 * 1024; //ÈÕÖ¾·Ö¸ôÎÄ¼ş´óĞ¡
         private static ConcurrentQueue<Tuple<string, DateTime>> queue =
             new ConcurrentQueue<Tuple<string, DateTime>>();
 
-        #endregion å­—æ®µ
+        #endregion ×Ö¶Î
 
-        #region æ„é€ å‡½æ•°
+        #region ¹¹Ôìº¯Êı
 
         static LogU()
         {
             Task.Factory.StartNew(
                 new Action(
-                    delegate()
+                    delegate ()
                     {
                         StringBuilder log;
                         string path;
@@ -61,12 +61,12 @@ namespace ZC_Control_EFAM
             );
         }
 
-        #endregion æ„é€ å‡½æ•°
+        #endregion ¹¹Ôìº¯Êı
 
-        #region å†™æ–‡ä»¶
+        #region Ğ´ÎÄ¼ş
 
         /// <summary>
-        /// å†™æ–‡ä»¶
+        /// Ğ´ÎÄ¼ş
         /// </summary>
         public static void WriteFile(string log, string path)
         {
@@ -96,12 +96,12 @@ namespace ZC_Control_EFAM
             catch { }
         }
 
-        #endregion å†™æ–‡ä»¶
+        #endregion Ğ´ÎÄ¼ş
 
-        #region ç”Ÿæˆæ—¥å¿—æ–‡ä»¶è·¯å¾„
+        #region Éú³ÉÈÕÖ¾ÎÄ¼şÂ·¾¶
 
         /// <summary>
-        /// ç”Ÿæˆæ—¥å¿—æ–‡ä»¶è·¯å¾„
+        /// Éú³ÉÈÕÖ¾ÎÄ¼şÂ·¾¶
         /// </summary>
         public static string CreateLogPath()
         {
@@ -135,30 +135,30 @@ namespace ZC_Control_EFAM
             return logPath;
         }
 
-        #endregion ç”Ÿæˆæ—¥å¿—æ–‡ä»¶è·¯å¾„
+        #endregion Éú³ÉÈÕÖ¾ÎÄ¼şÂ·¾¶
 
-        #region å†™é”™è¯¯æ—¥å¿—
+        #region Ğ´´íÎóÈÕÖ¾
 
         /// <summary>
-        /// å†™é”™è¯¯æ—¥å¿—
+        /// Ğ´´íÎóÈÕÖ¾
         /// </summary>
         public static void LogError(string log)
         {
             queue.Enqueue(new Tuple<string, DateTime>("[Error] " + log, DateTime.Now));
         }
 
-        #endregion å†™é”™è¯¯æ—¥å¿—
+        #endregion Ğ´´íÎóÈÕÖ¾
 
-        #region å†™æ“ä½œæ—¥å¿—
+        #region Ğ´²Ù×÷ÈÕÖ¾
 
         /// <summary>
-        /// å†™æ“ä½œæ—¥å¿—
+        /// Ğ´²Ù×÷ÈÕÖ¾
         /// </summary>
         public static void LogInfo(string log)
         {
             queue.Enqueue(new Tuple<string, DateTime>("[Info]  " + log, DateTime.Now));
         }
 
-        #endregion å†™æ“ä½œæ—¥å¿—
+        #endregion Ğ´²Ù×÷ÈÕÖ¾
     }
 }

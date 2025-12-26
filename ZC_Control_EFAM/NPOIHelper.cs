@@ -1,13 +1,14 @@
-ï»¿using System;
+using Microsoft.VisualBasic;
+using NPOI.HSSF.UserModel;
+using NPOI.SS.UserModel;
+using NPOI.XSSF.UserModel;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using NPOI.HSSF.UserModel;
-using NPOI.SS.UserModel;
-using NPOI.XSSF.UserModel;
 
 namespace ZC_Control_EFAM
 {
@@ -16,7 +17,7 @@ namespace ZC_Control_EFAM
         #region Excel2003
 
         /// <summary>
-        /// å°†Excelæ–‡ä»¶ä¸­çš„æ•°æ®è¯»å‡ºåˆ°DataTableä¸­(xls)
+        /// ½«ExcelÎÄ¼şÖĞµÄÊı¾İ¶Á³öµ½DataTableÖĞ(xls)
         /// </summary>
         /// <param name="file"></param>
         /// <returns></returns>
@@ -30,7 +31,7 @@ namespace ZC_Control_EFAM
                     HSSFWorkbook hssfworkbook = new HSSFWorkbook(fs);
                     ISheet sheet = hssfworkbook.GetSheetAt(0);
 
-                    //è¡¨å¤´
+                    //±íÍ·
                     IRow header = sheet.GetRow(sheet.FirstRowNum);
                     List<int> columns = new List<int>();
                     for (int i = 0; i < header.LastCellNum; i++)
@@ -45,7 +46,7 @@ namespace ZC_Control_EFAM
                             dt.Columns.Add(new DataColumn(obj.ToString()));
                         columns.Add(i);
                     }
-                    //æ•°æ®
+                    //Êı¾İ
                     for (int i = sheet.FirstRowNum + 1; i <= sheet.LastRowNum; i++)
                     {
                         DataRow dr = dt.NewRow();
@@ -73,7 +74,7 @@ namespace ZC_Control_EFAM
         }
 
         /// <summary>
-        /// å°†DataTableæ•°æ®å¯¼å‡ºåˆ°Excelæ–‡ä»¶ä¸­(xls)
+        /// ½«DataTableÊı¾İµ¼³öµ½ExcelÎÄ¼şÖĞ(xls)
         /// </summary>
         /// <param name="dt"></param>
         /// <param name="file"></param>
@@ -82,7 +83,7 @@ namespace ZC_Control_EFAM
             HSSFWorkbook hssfworkbook = new HSSFWorkbook();
             ISheet sheet = hssfworkbook.CreateSheet(dt.TableName);
 
-            //è¡¨å¤´
+            //±íÍ·
             IRow row = sheet.CreateRow(0);
             for (int i = 0; i < dt.Columns.Count; i++)
             {
@@ -90,7 +91,7 @@ namespace ZC_Control_EFAM
                 cell.SetCellValue(dt.Columns[i].ColumnName);
             }
 
-            //æ•°æ®
+            //Êı¾İ
             for (int i = 0; i < dt.Rows.Count; i++)
             {
                 IRow row1 = sheet.CreateRow(i + 1);
@@ -101,12 +102,12 @@ namespace ZC_Control_EFAM
                 }
             }
 
-            //è½¬ä¸ºå­—èŠ‚æ•°ç»„
+            //×ªÎª×Ö½ÚÊı×é
             MemoryStream stream = new MemoryStream();
             hssfworkbook.Write(stream);
             var buf = stream.ToArray();
 
-            //ä¿å­˜ä¸ºExcelæ–‡ä»¶
+            //±£´æÎªExcelÎÄ¼ş
             using (FileStream fs = new FileStream(file, FileMode.Create, FileAccess.Write))
             {
                 fs.Write(buf, 0, buf.Length);
@@ -121,7 +122,7 @@ namespace ZC_Control_EFAM
             foreach (DataTable dt in ds.Tables)
             {
                 ISheet sheet = hssfworkbook.CreateSheet(dt.TableName);
-                //è¡¨å¤´
+                //±íÍ·
                 IRow row = sheet.CreateRow(0);
                 for (int i = 0; i < dt.Columns.Count; i++)
                 {
@@ -129,7 +130,7 @@ namespace ZC_Control_EFAM
                     cell.SetCellValue(dt.Columns[i].ColumnName);
                 }
 
-                //æ•°æ®
+                //Êı¾İ
                 for (int i = 0; i < dt.Rows.Count; i++)
                 {
                     IRow row1 = sheet.CreateRow(i + 1);
@@ -144,12 +145,12 @@ namespace ZC_Control_EFAM
                     }
                 }
 
-                //è½¬ä¸ºå­—èŠ‚æ•°ç»„
+                //×ªÎª×Ö½ÚÊı×é
                 MemoryStream stream = new MemoryStream();
                 hssfworkbook.Write(stream);
                 var buf = stream.ToArray();
 
-                //ä¿å­˜ä¸ºExcelæ–‡ä»¶
+                //±£´æÎªExcelÎÄ¼ş
                 using (FileStream fs = new FileStream(file, FileMode.Create, FileAccess.Write))
                 {
                     fs.Write(buf, 0, buf.Length);
@@ -159,7 +160,7 @@ namespace ZC_Control_EFAM
         }
 
         /// <summary>
-        /// è·å–å•å…ƒæ ¼ç±»å‹(xls)
+        /// »ñÈ¡µ¥Ôª¸ñÀàĞÍ(xls)
         /// </summary>
         /// <param name="cell"></param>
         /// <returns></returns>
@@ -204,7 +205,7 @@ namespace ZC_Control_EFAM
                     XSSFWorkbook xssfworkbook = new XSSFWorkbook(fs);
                     ISheet sheet = xssfworkbook.GetSheetAt(0);
 
-                    //è¡¨å¤´
+                    //±íÍ·
                     IRow header = sheet.GetRow(sheet.FirstRowNum);
                     List<int> columns = new List<int>();
                     for (int i = 0; i < header.LastCellNum; i++)
@@ -219,7 +220,7 @@ namespace ZC_Control_EFAM
                             dt.Columns.Add(new DataColumn(obj.ToString()));
                         columns.Add(i);
                     }
-                    //æ•°æ®
+                    //Êı¾İ
                     for (int i = sheet.FirstRowNum + 1; i <= sheet.LastRowNum; i++)
                     {
                         DataRow dr = dt.NewRow();
@@ -247,7 +248,7 @@ namespace ZC_Control_EFAM
         }
 
         /// <summary>
-        /// å°†DataTableæ•°æ®å¯¼å‡ºåˆ°Excelæ–‡ä»¶ä¸­(xlsx)
+        /// ½«DataTableÊı¾İµ¼³öµ½ExcelÎÄ¼şÖĞ(xlsx)
         /// </summary>
         /// <param name="dt"></param>
         /// <param name="file"></param>
@@ -256,7 +257,7 @@ namespace ZC_Control_EFAM
             XSSFWorkbook xssfworkbook = new XSSFWorkbook();
             ISheet sheet = xssfworkbook.CreateSheet(dt.TableName);
 
-            //è¡¨å¤´
+            //±íÍ·
             IRow row = sheet.CreateRow(0);
             for (int i = 0; i < dt.Columns.Count; i++)
             {
@@ -264,7 +265,7 @@ namespace ZC_Control_EFAM
                 cell.SetCellValue(dt.Columns[i].ColumnName);
             }
 
-            //æ•°æ®
+            //Êı¾İ
             for (int i = 0; i < dt.Rows.Count; i++)
             {
                 IRow row1 = sheet.CreateRow(i + 1);
@@ -275,12 +276,12 @@ namespace ZC_Control_EFAM
                 }
             }
 
-            //è½¬ä¸ºå­—èŠ‚æ•°ç»„
+            //×ªÎª×Ö½ÚÊı×é
             MemoryStream stream = new MemoryStream();
             xssfworkbook.Write(stream);
             var buf = stream.ToArray();
 
-            //ä¿å­˜ä¸ºExcelæ–‡ä»¶
+            //±£´æÎªExcelÎÄ¼ş
             using (FileStream fs = new FileStream(file, FileMode.Create, FileAccess.Write))
             {
                 fs.Write(buf, 0, buf.Length);
@@ -289,7 +290,7 @@ namespace ZC_Control_EFAM
         }
 
         /// <summary>
-        /// è·å–å•å…ƒæ ¼ç±»å‹(xlsx)
+        /// »ñÈ¡µ¥Ôª¸ñÀàĞÍ(xlsx)
         /// </summary>
         /// <param name="cell"></param>
         /// <returns></returns>

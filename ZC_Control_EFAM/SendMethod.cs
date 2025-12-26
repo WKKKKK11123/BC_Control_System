@@ -1,4 +1,4 @@
-ï»¿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.AccessControl;
@@ -9,14 +9,14 @@ namespace ZC_Control_EFAM
 {
     public partial class ZC_EFAM_Data
     {
-        #region WTRæ–¹æ³•
+        #region WTR·½·¨
 
         /// <summary>
-        /// WTRå–æ”¾æ–¹æ³•
+        /// WTRÈ¡·Å·½·¨
         /// </summary>
-        /// <param name="wHRActionType">å–æ”¾é€‰æ‹©</param>
-        /// <param name="wHRStationID">ç›®æ ‡å·¥ä½</param>
-        /// <param name="armType">æ‰‹æŒ‡é€‰æ‹©</param>
+        /// <param name="wHRActionType">È¡·ÅÑ¡Ôñ</param>
+        /// <param name="wHRStationID">Ä¿±ê¹¤Î»</param>
+        /// <param name="armType">ÊÖÖ¸Ñ¡Ôñ</param>
         /// <returns></returns>
         public async Task<MegModel> WTRFuncCommand(
             WHRActionType wHRActionType,
@@ -28,7 +28,7 @@ namespace ZC_Control_EFAM
 
             if (!tcpHexClient.IsConnected)
             {
-                megModel.ErrorCode = "ç½‘ç»œè¿æ¥å¤±è´¥ï¼";
+                megModel.ErrorCode = "ÍøÂçÁ¬½ÓÊ§°Ü£¡";
                 return megModel;
             }
             HEX_EN b;
@@ -45,16 +45,16 @@ namespace ZC_Control_EFAM
             }
             else
             {
-                megModel.ErrorCode = "æœªæ‰¾åˆ°éœ€è¦å‘é€çš„æŠ¥æ–‡ï¼";
+                megModel.ErrorCode = "Î´ÕÒµ½ĞèÒª·¢ËÍµÄ±¨ÎÄ£¡";
             }
 
             return megModel;
         }
 
         /// <summary>
-        /// WTR ç§»åŠ¨åˆ°MAPä½ç½®
+        /// WTR ÒÆ¶¯µ½MAPÎ»ÖÃ
         /// </summary>
-        /// <param name="armType">æ‰‹æŒ‡é€‰æ‹©</param>
+        /// <param name="armType">ÊÖÖ¸Ñ¡Ôñ</param>
         /// <returns></returns>
         public async Task<MegModel> WTRMoveToMAPCommand(ArmType armType)
         {
@@ -62,7 +62,7 @@ namespace ZC_Control_EFAM
 
             if (!tcpHexClient.IsConnected)
             {
-                megModel.ErrorCode = "ç½‘ç»œè¿æ¥å¤±è´¥ï¼";
+                megModel.ErrorCode = "ÍøÂçÁ¬½ÓÊ§°Ü£¡";
                 return megModel;
             }
             HEX_EN b;
@@ -77,27 +77,27 @@ namespace ZC_Control_EFAM
             }
             else
             {
-                megModel.ErrorCode = "æœªæ‰¾åˆ°éœ€è¦å‘é€çš„æŠ¥æ–‡ï¼";
+                megModel.ErrorCode = "Î´ÕÒµ½ĞèÒª·¢ËÍµÄ±¨ÎÄ£¡";
             }
 
             return megModel;
         }
         #endregion
 
-        #region FTRæ–¹æ³•
+        #region FTR·½·¨
         /// <summary>
-        /// FTRå–æ”¾æ“ä½œå‘½ä»¤
+        /// FTRÈ¡·Å²Ù×÷ÃüÁî
         /// </summary>
-        /// <param name="actionType">å–æ”¾ç±»å‹</param>
-        /// <param name="stationID">è¦ä½œä¸šçš„ç«™ç‚¹ï¼Œå·¥ä½å®šä¹‰æ˜¯FTRçš„å®šä¹‰</param>
-        /// <returns>è¿”å›ç»“æœ</returns>
+        /// <param name="actionType">È¡·ÅÀàĞÍ</param>
+        /// <param name="stationID">Òª×÷ÒµµÄÕ¾µã£¬¹¤Î»¶¨ÒåÊÇFTRµÄ¶¨Òå</param>
+        /// <returns>·µ»Ø½á¹û</returns>
         public async Task<MegModel> FTRFuncCommand(ActionType actionType, FTRStationID stationID)
         {
             MegModel megModel = new MegModel() { Result = false };
 
             if (!tcpHexClient.IsConnected)
             {
-                megModel.ErrorCode = "ç½‘ç»œè¿æ¥å¤±è´¥ï¼";
+                megModel.ErrorCode = "ÍøÂçÁ¬½ÓÊ§°Ü£¡";
                 return megModel;
             }
             HEX_EN b;
@@ -113,32 +113,32 @@ namespace ZC_Control_EFAM
             }
             else
             {
-                megModel.ErrorCode = "æœªæ‰¾åˆ°éœ€è¦å‘é€çš„æŠ¥æ–‡ï¼";
+                megModel.ErrorCode = "Î´ÕÒµ½ĞèÒª·¢ËÍµÄ±¨ÎÄ£¡";
             }
 
             return megModel;
         }
         #endregion
 
-        #region Openeræ“ä½œ
+        #region Opener²Ù×÷
         /// <summary>
-        /// Openeræ“ä½œ
+        /// Opener²Ù×÷
         /// </summary>
-        /// <param name="stationID">ç«™ç‚¹ID</param>
-        /// <param name="func">è¦è¿›è¡Œçš„åŠ¨ä½œ  false:å…³  true:å¼€</param>
-        /// <returns>è¿”å›ç»“æœ</returns>
+        /// <param name="stationID">Õ¾µãID</param>
+        /// <param name="func">Òª½øĞĞµÄ¶¯×÷  false:¹Ø  true:¿ª</param>
+        /// <returns>·µ»Ø½á¹û</returns>
         public async Task<MegModel> OpenerFuncCommand(StationID stationID, bool func)
         {
             MegModel megModel = new MegModel() { Result = false };
 
             if (!tcpHexClient.IsConnected)
             {
-                megModel.ErrorCode = "ç½‘ç»œè¿æ¥å¤±è´¥ï¼";
+                megModel.ErrorCode = "ÍøÂçÁ¬½ÓÊ§°Ü£¡";
                 return megModel;
             }
             if ((int)stationID > 1)
             {
-                megModel.ErrorCode = "è¶…å‡ºäº†Openerå·¥ä½çš„ç¼–å·ï¼";
+                megModel.ErrorCode = "³¬³öÁËOpener¹¤Î»µÄ±àºÅ£¡";
                 return megModel;
             }
 
@@ -155,32 +155,32 @@ namespace ZC_Control_EFAM
             }
             else
             {
-                megModel.ErrorCode = "æœªæ‰¾åˆ°éœ€è¦å‘é€çš„æŠ¥æ–‡ï¼";
+                megModel.ErrorCode = "Î´ÕÒµ½ĞèÒª·¢ËÍµÄ±¨ÎÄ£¡";
             }
 
             return megModel;
         }
         #endregion
 
-        #region LPæ“ä½œ
+        #region LP²Ù×÷
         /// <summary>
-        /// LPæ“ä½œ
+        /// LP²Ù×÷
         /// </summary>
-        /// <param name="stationID">ç«™ç‚¹ID</param>
-        /// <param name="lPFuncType">åŠ¨ä½œç±»å‹</param>
-        /// <returns>è¿”å›ç»“æœ</returns>
+        /// <param name="stationID">Õ¾µãID</param>
+        /// <param name="lPFuncType">¶¯×÷ÀàĞÍ</param>
+        /// <returns>·µ»Ø½á¹û</returns>
         public async Task<MegModel> LoadportFuncCommand(StationID stationID, LPFuncType lPFuncType)
         {
             MegModel megModel = new MegModel() { Result = false };
 
             if (!tcpHexClient.IsConnected)
             {
-                megModel.ErrorCode = "ç½‘ç»œè¿æ¥å¤±è´¥ï¼";
+                megModel.ErrorCode = "ÍøÂçÁ¬½ÓÊ§°Ü£¡";
                 return megModel;
             }
             if ((int)stationID > 0x17 || (int)stationID < 0x14)
             {
-                megModel.ErrorCode = "è¶…å‡ºäº†LoadPortå·¥ä½çš„ç¼–å·ï¼";
+                megModel.ErrorCode = "³¬³öÁËLoadPort¹¤Î»µÄ±àºÅ£¡";
                 return megModel;
             }
 
@@ -197,31 +197,31 @@ namespace ZC_Control_EFAM
             }
             else
             {
-                megModel.ErrorCode = "æœªæ‰¾åˆ°éœ€è¦å‘é€çš„æŠ¥æ–‡ï¼";
+                megModel.ErrorCode = "Î´ÕÒµ½ĞèÒª·¢ËÍµÄ±¨ÎÄ£¡";
             }
 
             return megModel;
         }
         #endregion
 
-        #region è¯»å–RFID
+        #region ¶ÁÈ¡RFID
         /// <summary>
-        /// è¯»å–RFID
+        /// ¶ÁÈ¡RFID
         /// </summary>
-        /// <param name="lp_No">è¦è¯»å–çš„LPå·</param>
-        /// <returns>è¿”å›ç»“æœ</returns>
+        /// <param name="lp_No">Òª¶ÁÈ¡µÄLPºÅ</param>
+        /// <returns>·µ»Ø½á¹û</returns>
         public async Task<MegModel> ReadRFIDCommand(byte lp_No)
         {
             MegModel megModel = new MegModel() { Result = false };
 
             if (!tcpHexClient.IsConnected)
             {
-                megModel.ErrorCode = "ç½‘ç»œè¿æ¥å¤±è´¥ï¼";
+                megModel.ErrorCode = "ÍøÂçÁ¬½ÓÊ§°Ü£¡";
                 return megModel;
             }
             if (lp_No > 4 || lp_No < 1)
             {
-                megModel.ErrorCode = "è¶…å‡ºäº†LoadPortå·¥ä½çš„ç¼–å·,è¯·è¾“å…¥1--4ï¼";
+                megModel.ErrorCode = "³¬³öÁËLoadPort¹¤Î»µÄ±àºÅ,ÇëÊäÈë1--4£¡";
                 return megModel;
             }
 
@@ -237,26 +237,26 @@ namespace ZC_Control_EFAM
             }
             else
             {
-                megModel.ErrorCode = "æœªæ‰¾åˆ°éœ€è¦å‘é€çš„æŠ¥æ–‡ï¼";
+                megModel.ErrorCode = "Î´ÕÒµ½ĞèÒª·¢ËÍµÄ±¨ÎÄ£¡";
             }
 
             return megModel;
         }
         #endregion
 
-        #region HVç›¸å…³çš„æ–¹æ³•
+        #region HVÏà¹ØµÄ·½·¨
         /// <summary>
-        /// HVç¿»è½¬çš„å‘½ä»¤
+        /// HV·­×ªµÄÃüÁî
         /// </summary>
-        /// <param name="hV_FlipFuncType">Flipç¿»è½¬è§’åº¦çš„å‚æ•°</param>
-        /// <returns>è¿”å›ç»“æœ</returns>
+        /// <param name="hV_FlipFuncType">Flip·­×ª½Ç¶ÈµÄ²ÎÊı</param>
+        /// <returns>·µ»Ø½á¹û</returns>
         public async Task<MegModel> HV_FlipCommand(HV_FlipFuncType hV_FlipFuncType)
         {
             MegModel megModel = new MegModel() { Result = false };
 
             if (!tcpHexClient.IsConnected)
             {
-                megModel.ErrorCode = "ç½‘ç»œè¿æ¥å¤±è´¥ï¼";
+                megModel.ErrorCode = "ÍøÂçÁ¬½ÓÊ§°Ü£¡";
                 return megModel;
             }
 
@@ -272,24 +272,24 @@ namespace ZC_Control_EFAM
             }
             else
             {
-                megModel.ErrorCode = "æœªæ‰¾åˆ°éœ€è¦å‘é€çš„æŠ¥æ–‡ï¼";
+                megModel.ErrorCode = "Î´ÕÒµ½ĞèÒª·¢ËÍµÄ±¨ÎÄ£¡";
             }
 
             return megModel;
         }
 
         /// <summary>
-        /// HVæŠ±ç‰‡åŠ¨ä½œæ–¹æ³•
+        /// HV±§Æ¬¶¯×÷·½·¨
         /// </summary>
-        /// <param name="hV_LockFuncType">æŠ±ç‰‡ç»“æ„åŠ¨ä½œç±»å‹</param>
-        /// <returns>è¿”å›ç»“æœ</returns>
+        /// <param name="hV_LockFuncType">±§Æ¬½á¹¹¶¯×÷ÀàĞÍ</param>
+        /// <returns>·µ»Ø½á¹û</returns>
         public async Task<MegModel> HV_LockCommand(HV_LockFuncType hV_LockFuncType)
         {
             MegModel megModel = new MegModel() { Result = false };
 
             if (!tcpHexClient.IsConnected)
             {
-                megModel.ErrorCode = "ç½‘ç»œè¿æ¥å¤±è´¥ï¼";
+                megModel.ErrorCode = "ÍøÂçÁ¬½ÓÊ§°Ü£¡";
                 return megModel;
             }
 
@@ -328,7 +328,7 @@ namespace ZC_Control_EFAM
             }
             else
             {
-                megModel.ErrorCode = "æœªæ‰¾åˆ°éœ€è¦å‘é€çš„æŠ¥æ–‡ï¼";
+                megModel.ErrorCode = "Î´ÕÒµ½ĞèÒª·¢ËÍµÄ±¨ÎÄ£¡";
             }
 
             return megModel;
@@ -336,14 +336,14 @@ namespace ZC_Control_EFAM
 
         #endregion
 
-        #region Pusherç›¸å…³æ–¹æ³•
+        #region PusherÏà¹Ø·½·¨
         /// <summary>
-        /// Pusherç§»åŠ¨åˆ°HVå–æ”¾ä½çš„æ–¹æ³•
+        /// PusherÒÆ¶¯µ½HVÈ¡·ÅÎ»µÄ·½·¨
         /// </summary>
-        /// <param name="pusherMoveMode">æ™®é€šè¿åŠ¨===ã€‹è½¨è¿¹è¿åŠ¨</param>
-        /// <param name="oddEven">å¥‡å¶æ¨¡å¼</param>
-        /// <param name="pusherToHV_Func">å–æ”¾æ¨¡å¼</param>
-        /// <returns>è¿”å›ç»“æœ</returns>
+        /// <param name="pusherMoveMode">ÆÕÍ¨ÔË¶¯===¡·¹ì¼£ÔË¶¯</param>
+        /// <param name="oddEven">ÆæÅ¼Ä£Ê½</param>
+        /// <param name="pusherToHV_Func">È¡·ÅÄ£Ê½</param>
+        /// <returns>·µ»Ø½á¹û</returns>
         public async Task<MegModel> PusherToHVCommand(
             PusherMoveMode pusherMoveMode,
             OddEven oddEven,
@@ -354,7 +354,7 @@ namespace ZC_Control_EFAM
 
             if (!tcpHexClient.IsConnected)
             {
-                megModel.ErrorCode = "ç½‘ç»œè¿æ¥å¤±è´¥ï¼";
+                megModel.ErrorCode = "ÍøÂçÁ¬½ÓÊ§°Ü£¡";
                 return megModel;
             }
 
@@ -372,23 +372,23 @@ namespace ZC_Control_EFAM
             }
             else
             {
-                megModel.ErrorCode = "æœªæ‰¾åˆ°éœ€è¦å‘é€çš„æŠ¥æ–‡ï¼";
+                megModel.ErrorCode = "Î´ÕÒµ½ĞèÒª·¢ËÍµÄ±¨ÎÄ£¡";
             }
 
             return megModel;
         }
 
         /// <summary>
-        /// Pusherç§»åŠ¨åˆ°Home
+        /// PusherÒÆ¶¯µ½Home
         /// </summary>
-        /// <returns>è¿”å›ç»“æœ</returns>
+        /// <returns>·µ»Ø½á¹û</returns>
         public async Task<MegModel> PusherToHome()
         {
             MegModel megModel = new MegModel() { Result = false };
 
             if (!tcpHexClient.IsConnected)
             {
-                megModel.ErrorCode = "ç½‘ç»œè¿æ¥å¤±è´¥ï¼";
+                megModel.ErrorCode = "ÍøÂçÁ¬½ÓÊ§°Ü£¡";
                 return megModel;
             }
 
@@ -402,7 +402,7 @@ namespace ZC_Control_EFAM
             }
             else
             {
-                megModel.ErrorCode = "æœªæ‰¾åˆ°éœ€è¦å‘é€çš„æŠ¥æ–‡ï¼";
+                megModel.ErrorCode = "Î´ÕÒµ½ĞèÒª·¢ËÍµÄ±¨ÎÄ£¡";
             }
 
             return megModel;
@@ -411,14 +411,14 @@ namespace ZC_Control_EFAM
         /// <summary>
         /// PusherMapping
         /// </summary>
-        /// <returns>è¿”å›ç»“æœ</returns>
+        /// <returns>·µ»Ø½á¹û</returns>
         public async Task<MegModel> PusherMapping()
         {
             MegModel megModel = new MegModel() { Result = false };
 
             if (!tcpHexClient.IsConnected)
             {
-                megModel.ErrorCode = "ç½‘ç»œè¿æ¥å¤±è´¥ï¼";
+                megModel.ErrorCode = "ÍøÂçÁ¬½ÓÊ§°Ü£¡";
                 return megModel;
             }
 
@@ -432,24 +432,24 @@ namespace ZC_Control_EFAM
             }
             else
             {
-                megModel.ErrorCode = "æœªæ‰¾åˆ°éœ€è¦å‘é€çš„æŠ¥æ–‡ï¼";
+                megModel.ErrorCode = "Î´ÕÒµ½ĞèÒª·¢ËÍµÄ±¨ÎÄ£¡";
             }
 
             return megModel;
         }
 
         /// <summary>
-        /// Pusherç§»åŠ¨åˆ°RBå–ç‚¹ä½
+        /// PusherÒÆ¶¯µ½RBÈ¡µãÎ»
         /// </summary>
-        /// <param name="armType">å¹²å‡€è¿˜æ˜¯è„æ±¡é€‰æ‹©</param>
-        /// <returns>è¿”å›ç»“æœ</returns>
+        /// <param name="armType">¸É¾»»¹ÊÇÔàÎÛÑ¡Ôñ</param>
+        /// <returns>·µ»Ø½á¹û</returns>
         public async Task<MegModel> PusherToRB_Getpos(ArmType armType)
         {
             MegModel megModel = new MegModel() { Result = false };
 
             if (!tcpHexClient.IsConnected)
             {
-                megModel.ErrorCode = "ç½‘ç»œè¿æ¥å¤±è´¥ï¼";
+                megModel.ErrorCode = "ÍøÂçÁ¬½ÓÊ§°Ü£¡";
                 return megModel;
             }
 
@@ -465,24 +465,24 @@ namespace ZC_Control_EFAM
             }
             else
             {
-                megModel.ErrorCode = "æœªæ‰¾åˆ°éœ€è¦å‘é€çš„æŠ¥æ–‡ï¼";
+                megModel.ErrorCode = "Î´ÕÒµ½ĞèÒª·¢ËÍµÄ±¨ÎÄ£¡";
             }
 
             return megModel;
         }
 
         /// <summary>
-        /// Pusherç§»åŠ¨åˆ°ä¸Šå®šä½
+        /// PusherÒÆ¶¯µ½ÉÏ¶¨Î»
         /// </summary>
-        /// <param name="armType">å¹²å‡€è¿˜æ˜¯è„æ±¡é€‰æ‹©</param>
-        /// <returns>è¿”å›ç»“æœ</returns>
+        /// <param name="armType">¸É¾»»¹ÊÇÔàÎÛÑ¡Ôñ</param>
+        /// <returns>·µ»Ø½á¹û</returns>
         public async Task<MegModel> PusherToUp(ArmType armType)
         {
             MegModel megModel = new MegModel() { Result = false };
 
             if (!tcpHexClient.IsConnected)
             {
-                megModel.ErrorCode = "ç½‘ç»œè¿æ¥å¤±è´¥ï¼";
+                megModel.ErrorCode = "ÍøÂçÁ¬½ÓÊ§°Ü£¡";
                 return megModel;
             }
 
@@ -498,23 +498,23 @@ namespace ZC_Control_EFAM
             }
             else
             {
-                megModel.ErrorCode = "æœªæ‰¾åˆ°éœ€è¦å‘é€çš„æŠ¥æ–‡ï¼";
+                megModel.ErrorCode = "Î´ÕÒµ½ĞèÒª·¢ËÍµÄ±¨ÎÄ£¡";
             }
 
             return megModel;
         }
 
         /// <summary>
-        /// Pusherç§»åŠ¨åˆ°ä¸‹å®šä½
+        /// PusherÒÆ¶¯µ½ÏÂ¶¨Î»
         /// </summary>
-        /// <returns>è¿”å›ç»“æœ</returns>
+        /// <returns>·µ»Ø½á¹û</returns>
         public async Task<MegModel> PusherToDown()
         {
             MegModel megModel = new MegModel() { Result = false };
 
             if (!tcpHexClient.IsConnected)
             {
-                megModel.ErrorCode = "ç½‘ç»œè¿æ¥å¤±è´¥ï¼";
+                megModel.ErrorCode = "ÍøÂçÁ¬½ÓÊ§°Ü£¡";
                 return megModel;
             }
 
@@ -528,23 +528,23 @@ namespace ZC_Control_EFAM
             }
             else
             {
-                megModel.ErrorCode = "æœªæ‰¾åˆ°éœ€è¦å‘é€çš„æŠ¥æ–‡ï¼";
+                megModel.ErrorCode = "Î´ÕÒµ½ĞèÒª·¢ËÍµÄ±¨ÎÄ£¡";
             }
 
             return megModel;
         }
 
         /// <summary>
-        /// Pusherç§»åŠ¨åˆ°å®‰å…¨ä½ç½®
+        /// PusherÒÆ¶¯µ½°²È«Î»ÖÃ
         /// </summary>
-        /// <returns>è¿”å›ç»“æœ</returns>
+        /// <returns>·µ»Ø½á¹û</returns>
         public async Task<MegModel> PusherToSafe()
         {
             MegModel megModel = new MegModel() { Result = false };
 
             if (!tcpHexClient.IsConnected)
             {
-                megModel.ErrorCode = "ç½‘ç»œè¿æ¥å¤±è´¥ï¼";
+                megModel.ErrorCode = "ÍøÂçÁ¬½ÓÊ§°Ü£¡";
                 return megModel;
             }
 
@@ -558,24 +558,24 @@ namespace ZC_Control_EFAM
             }
             else
             {
-                megModel.ErrorCode = "æœªæ‰¾åˆ°éœ€è¦å‘é€çš„æŠ¥æ–‡ï¼";
+                megModel.ErrorCode = "Î´ÕÒµ½ĞèÒª·¢ËÍµÄ±¨ÎÄ£¡";
             }
 
             return megModel;
         }
 
         /// <summary>
-        /// Pusherâ€”â€”CombåŠ¨ä½œ
+        /// Pusher¡ª¡ªComb¶¯×÷
         /// </summary>
-        /// <param name="armType">å¹²å‡€è¿˜æ˜¯è„æ±¡é€‰æ‹©</param>
-        /// <returns>è¿”å›ç»“æœ</returns>
+        /// <param name="armType">¸É¾»»¹ÊÇÔàÎÛÑ¡Ôñ</param>
+        /// <returns>·µ»Ø½á¹û</returns>
         public async Task<MegModel> Pusher_Comb(ArmType armType)
         {
             MegModel megModel = new MegModel() { Result = false };
 
             if (!tcpHexClient.IsConnected)
             {
-                megModel.ErrorCode = "ç½‘ç»œè¿æ¥å¤±è´¥ï¼";
+                megModel.ErrorCode = "ÍøÂçÁ¬½ÓÊ§°Ü£¡";
                 return megModel;
             }
 
@@ -599,24 +599,24 @@ namespace ZC_Control_EFAM
             }
             else
             {
-                megModel.ErrorCode = "æœªæ‰¾åˆ°éœ€è¦å‘é€çš„æŠ¥æ–‡ï¼";
+                megModel.ErrorCode = "Î´ÕÒµ½ĞèÒª·¢ËÍµÄ±¨ÎÄ£¡";
             }
 
             return megModel;
         }
 
         /// <summary>
-        /// Pusheræ—‹è½¬
+        /// PusherĞı×ª
         /// </summary>
-        /// <param name="angle">false=ã€‹0Â°   true=ã€‹180Â°</param>
-        /// <returns>è¿”å›ç»“æœ</returns>
+        /// <param name="angle">false=¡·0¡ã   true=¡·180¡ã</param>
+        /// <returns>·µ»Ø½á¹û</returns>
         public async Task<MegModel> Pusher_Rotate(bool angle)
         {
             MegModel megModel = new MegModel() { Result = false };
 
             if (!tcpHexClient.IsConnected)
             {
-                megModel.ErrorCode = "ç½‘ç»œè¿æ¥å¤±è´¥ï¼";
+                megModel.ErrorCode = "ÍøÂçÁ¬½ÓÊ§°Ü£¡";
                 return megModel;
             }
 
@@ -633,27 +633,27 @@ namespace ZC_Control_EFAM
             }
             else
             {
-                megModel.ErrorCode = "æœªæ‰¾åˆ°éœ€è¦å‘é€çš„æŠ¥æ–‡ï¼";
+                megModel.ErrorCode = "Î´ÕÒµ½ĞèÒª·¢ËÍµÄ±¨ÎÄ£¡";
             }
 
             return megModel;
         }
         #endregion
 
-        #region å…¬å…±æ–¹æ³•
+        #region ¹«¹²·½·¨
 
         /// <summary>
-        /// ç›´æ¥æ£€ç´¢å‘½ä»¤å¹¶å‘é€
+        /// Ö±½Ó¼ìË÷ÃüÁî²¢·¢ËÍ
         /// </summary>
-        /// <param name="meg">ä»è¡¨æ ¼ä¸­å–å¾—éœ€è¦æ‰§è¡Œçš„å‘½ä»¤å­—ç¬¦ä¸²</param>
-        /// <returns>è¿”å›ç»“æœçš„MegModelå®ä½“</returns>
+        /// <param name="meg">´Ó±í¸ñÖĞÈ¡µÃĞèÒªÖ´ĞĞµÄÃüÁî×Ö·û´®</param>
+        /// <returns>·µ»Ø½á¹ûµÄMegModelÊµÌå</returns>
         public async Task<MegModel> SendCommand(string meg)
         {
             MegModel megModel = new MegModel() { Result = false };
 
             if (!tcpHexClient.IsConnected)
             {
-                megModel.ErrorCode = "ç½‘ç»œè¿æ¥å¤±è´¥ï¼";
+                megModel.ErrorCode = "ÍøÂçÁ¬½ÓÊ§°Ü£¡";
                 return megModel;
             }
 
@@ -667,24 +667,24 @@ namespace ZC_Control_EFAM
             }
             else
             {
-                megModel.ErrorCode = "æœªæ‰¾åˆ°éœ€è¦å‘é€çš„æŠ¥æ–‡ï¼";
+                megModel.ErrorCode = "Î´ÕÒµ½ĞèÒª·¢ËÍµÄ±¨ÎÄ£¡";
             }
 
             return megModel;
         }
 
         /// <summary>
-        /// ç«™ç‚¹è·å–çŠ¶æ€çš„æ–¹æ³•
+        /// Õ¾µã»ñÈ¡×´Ì¬µÄ·½·¨
         /// </summary>
-        /// <param name="stationID">ç«™ç‚¹IDï¼Œ</param>
-        /// <returns>è¿”å›ç»“æœ</returns>
+        /// <param name="stationID">Õ¾µãID£¬</param>
+        /// <returns>·µ»Ø½á¹û</returns>
         public async Task<MegModel> GetStatusCommand(StationID stationID)
         {
             MegModel megModel = new MegModel() { Result = false };
 
             if (!tcpHexClient.IsConnected)
             {
-                megModel.ErrorCode = "ç½‘ç»œè¿æ¥å¤±è´¥ï¼";
+                megModel.ErrorCode = "ÍøÂçÁ¬½ÓÊ§°Ü£¡";
                 return megModel;
             }
             HEX_EN b;
@@ -699,29 +699,29 @@ namespace ZC_Control_EFAM
             }
             else
             {
-                megModel.ErrorCode = "æœªæ‰¾åˆ°éœ€è¦å‘é€çš„æŠ¥æ–‡ï¼";
+                megModel.ErrorCode = "Î´ÕÒµ½ĞèÒª·¢ËÍµÄ±¨ÎÄ£¡";
             }
 
             return megModel;
         }
 
         /// <summary>
-        /// ç«™ç‚¹åˆå§‹åŒ–çš„æ–¹æ³•
+        /// Õ¾µã³õÊ¼»¯µÄ·½·¨
         /// </summary>
-        /// <param name="stationID">ç«™ç‚¹IDï¼Œ</param>
-        /// <returns>è¿”å›ç»“æœ</returns>
+        /// <param name="stationID">Õ¾µãID£¬</param>
+        /// <returns>·µ»Ø½á¹û</returns>
         public async Task<MegModel> ResetCommand(StationID stationID)
         {
             MegModel megModel = new MegModel() { Result = false };
 
             if (!tcpHexClient.IsConnected)
             {
-                megModel.ErrorCode = "ç½‘ç»œè¿æ¥å¤±è´¥ï¼";
+                megModel.ErrorCode = "ÍøÂçÁ¬½ÓÊ§°Ü£¡";
                 return megModel;
             }
             if (((int)stationID > 0x5 && (int)stationID < 0x14) || ((int)stationID == 0x18))
             {
-                megModel.ErrorCode = $"ç›®æ ‡å·¥ä½{stationID.ToString()}ä¸å­˜åœ¨å¤ä½çš„å‘½ä»¤ï¼";
+                megModel.ErrorCode = $"Ä¿±ê¹¤Î»{stationID.ToString()}²»´æÔÚ¸´Î»µÄÃüÁî£¡";
                 return megModel;
             }
             HEX_EN b;
@@ -736,29 +736,29 @@ namespace ZC_Control_EFAM
             }
             else
             {
-                megModel.ErrorCode = "æœªæ‰¾åˆ°éœ€è¦å‘é€çš„æŠ¥æ–‡ï¼";
+                megModel.ErrorCode = "Î´ÕÒµ½ĞèÒª·¢ËÍµÄ±¨ÎÄ£¡";
             }
 
             return megModel;
         }
 
         /// <summary>
-        /// ç«™ç‚¹æ¸…é™¤é”™è¯¯çš„æ–¹æ³•
+        /// Õ¾µãÇå³ı´íÎóµÄ·½·¨
         /// </summary>
-        /// <param name="stationID">ç«™ç‚¹IDï¼Œ</param>
-        /// <returns>è¿”å›ç»“æœ</returns>
+        /// <param name="stationID">Õ¾µãID£¬</param>
+        /// <returns>·µ»Ø½á¹û</returns>
         public async Task<MegModel> ClearErrorCommand(StationID stationID)
         {
             MegModel megModel = new MegModel() { Result = false };
 
             if (!tcpHexClient.IsConnected)
             {
-                megModel.ErrorCode = "ç½‘ç»œè¿æ¥å¤±è´¥ï¼";
+                megModel.ErrorCode = "ÍøÂçÁ¬½ÓÊ§°Ü£¡";
                 return megModel;
             }
             if (((int)stationID > 0x5 && (int)stationID < 0x14) || ((int)stationID == 0x18))
             {
-                megModel.ErrorCode = $"ç›®æ ‡å·¥ä½{stationID.ToString()}ä¸å­˜åœ¨æ¸…é™¤æŠ¥é”™çš„å‘½ä»¤ï¼";
+                megModel.ErrorCode = $"Ä¿±ê¹¤Î»{stationID.ToString()}²»´æÔÚÇå³ı±¨´íµÄÃüÁî£¡";
                 return megModel;
             }
 
@@ -774,26 +774,26 @@ namespace ZC_Control_EFAM
             }
             else
             {
-                megModel.ErrorCode = "æœªæ‰¾åˆ°éœ€è¦å‘é€çš„æŠ¥æ–‡ï¼";
+                megModel.ErrorCode = "Î´ÕÒµ½ĞèÒª·¢ËÍµÄ±¨ÎÄ£¡";
             }
 
             return megModel;
         }
         #endregion
 
-        #region ç³»ç»Ÿå‘½ä»¤
+        #region ÏµÍ³ÃüÁî
 
         /// <summary>
-        /// ç³»ç»Ÿåˆå§‹åŒ–
+        /// ÏµÍ³³õÊ¼»¯
         /// </summary>
-        /// <returns>è¿”å›ç»“æœ</returns>
+        /// <returns>·µ»Ø½á¹û</returns>
         public async Task<MegModel> Sys_All_Reset()
         {
             MegModel megModel = new MegModel() { Result = false };
 
             if (!tcpHexClient.IsConnected)
             {
-                megModel.ErrorCode = "ç½‘ç»œè¿æ¥å¤±è´¥ï¼";
+                megModel.ErrorCode = "ÍøÂçÁ¬½ÓÊ§°Ü£¡";
                 return megModel;
             }
 
@@ -807,23 +807,23 @@ namespace ZC_Control_EFAM
             }
             else
             {
-                megModel.ErrorCode = "æœªæ‰¾åˆ°éœ€è¦å‘é€çš„æŠ¥æ–‡ï¼";
+                megModel.ErrorCode = "Î´ÕÒµ½ĞèÒª·¢ËÍµÄ±¨ÎÄ£¡";
             }
 
             return megModel;
         }
 
         /// <summary>
-        /// è·å–LPæ£€çŸ¥çŠ¶æ€
+        /// »ñÈ¡LP¼ìÖª×´Ì¬
         /// </summary>
-        /// <returns>è¿”å›ç»“æœ</returns>
+        /// <returns>·µ»Ø½á¹û</returns>
         public async Task<MegModel> Sys_Get_LPStatus()
         {
             MegModel megModel = new MegModel() { Result = false };
 
             if (!tcpHexClient.IsConnected)
             {
-                megModel.ErrorCode = "ç½‘ç»œè¿æ¥å¤±è´¥ï¼";
+                megModel.ErrorCode = "ÍøÂçÁ¬½ÓÊ§°Ü£¡";
                 return megModel;
             }
 
@@ -837,23 +837,23 @@ namespace ZC_Control_EFAM
             }
             else
             {
-                megModel.ErrorCode = "æœªæ‰¾åˆ°éœ€è¦å‘é€çš„æŠ¥æ–‡ï¼";
+                megModel.ErrorCode = "Î´ÕÒµ½ĞèÒª·¢ËÍµÄ±¨ÎÄ£¡";
             }
 
             return megModel;
         }
 
         /// <summary>
-        /// è®¾ç½®ç³»ç»Ÿæ“ä½œæ¨¡å¼
+        /// ÉèÖÃÏµÍ³²Ù×÷Ä£Ê½
         /// </summary>
-        /// <returns>è¿”å›ç»“æœ</returns>
+        /// <returns>·µ»Ø½á¹û</returns>
         public async Task<MegModel> Sys_Set_Mode(SysMode sysMode)
         {
             MegModel megModel = new MegModel() { Result = false };
 
             if (!tcpHexClient.IsConnected)
             {
-                megModel.ErrorCode = "ç½‘ç»œè¿æ¥å¤±è´¥ï¼";
+                megModel.ErrorCode = "ÍøÂçÁ¬½ÓÊ§°Ü£¡";
                 return megModel;
             }
 
@@ -870,23 +870,23 @@ namespace ZC_Control_EFAM
             }
             else
             {
-                megModel.ErrorCode = "æœªæ‰¾åˆ°éœ€è¦å‘é€çš„æŠ¥æ–‡ï¼";
+                megModel.ErrorCode = "Î´ÕÒµ½ĞèÒª·¢ËÍµÄ±¨ÎÄ£¡";
             }
 
             return megModel;
         }
 
         /// <summary>
-        /// è·å–StorageAllçš„çŠ¶æ€
+        /// »ñÈ¡StorageAllµÄ×´Ì¬
         /// </summary>
-        /// <returns>è¿”å›ç»“æœ</returns>
+        /// <returns>·µ»Ø½á¹û</returns>
         public async Task<MegModel> Sys_Get_AllStorage_Status()
         {
             MegModel megModel = new MegModel() { Result = false };
 
             if (!tcpHexClient.IsConnected)
             {
-                megModel.ErrorCode = "ç½‘ç»œè¿æ¥å¤±è´¥ï¼";
+                megModel.ErrorCode = "ÍøÂçÁ¬½ÓÊ§°Ü£¡";
                 return megModel;
             }
 
@@ -900,7 +900,7 @@ namespace ZC_Control_EFAM
             }
             else
             {
-                megModel.ErrorCode = "æœªæ‰¾åˆ°éœ€è¦å‘é€çš„æŠ¥æ–‡ï¼";
+                megModel.ErrorCode = "Î´ÕÒµ½ĞèÒª·¢ËÍµÄ±¨ÎÄ£¡";
             }
 
             return megModel;

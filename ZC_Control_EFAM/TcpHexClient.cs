@@ -1,4 +1,4 @@
-ï»¿using System;
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
@@ -44,7 +44,7 @@ namespace ZC_Control_EFAM
             };
             client.Events.Disconnected += (s, e) =>
             {
-                DisplayLog($"é€šä¿¡è¿æ¥æ–­å¼€ï¼", 3);
+                DisplayLog($"Í¨ĞÅÁ¬½Ó¶Ï¿ª£¡", 3);
                 OnDisconnected?.Invoke();
             };
             client.Events.DataReceived += (s, e) =>
@@ -63,12 +63,12 @@ namespace ZC_Control_EFAM
             try
             {
                 client.Connect();
-                DisplayLog($"é€šä¿¡è¿æ¥æˆåŠŸï¼", 3);
+                DisplayLog($"Í¨ĞÅÁ¬½Ó³É¹¦£¡", 3);
                 return IsConnected;
             }
             catch
             {
-                DisplayLog($"é€šä¿¡è¿æ¥å¤±è´¥ï¼", 3);
+                DisplayLog($"Í¨ĞÅÁ¬½ÓÊ§°Ü£¡", 3);
                 return false;
             }
         }
@@ -134,7 +134,7 @@ namespace ZC_Control_EFAM
 
                     //int totalLength = 4 + payload.Length;
                     //if (totalLength > 255)
-                    //    continue; // ä¸¢å¼ƒé”™è¯¯æ•°æ®
+                    //    continue; // ¶ªÆú´íÎóÊı¾İ
 
                     //byte[] fullPacket = new byte[1 + totalLength];
                     //fullPacket[0] = (byte)totalLength;
@@ -156,7 +156,7 @@ namespace ZC_Control_EFAM
                 }
                 catch (Exception ex)
                 {
-                    DisplayLog($"Commandå‘é€å¤±è´¥ï¼{ex.Message}", 3);
+                    DisplayLog($"Command·¢ËÍÊ§°Ü£¡{ex.Message}", 3);
                 }
             }
         }
@@ -197,7 +197,7 @@ namespace ZC_Control_EFAM
         {
             hex = hex.Replace(" ", "");
             if (hex.Length % 2 != 0)
-                throw new ArgumentException("åå…­è¿›åˆ¶å­—ç¬¦ä¸²é•¿åº¦å¿…é¡»ä¸ºå¶æ•°");
+                throw new ArgumentException("Ê®Áù½øÖÆ×Ö·û´®³¤¶È±ØĞëÎªÅ¼Êı");
 
             byte[] result = new byte[hex.Length / 2];
             for (int i = 0; i < result.Length; i++)

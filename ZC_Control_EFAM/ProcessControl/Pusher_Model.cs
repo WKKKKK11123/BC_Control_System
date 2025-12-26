@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.AccessControl;
 using System.Text;
 using System.Threading.Tasks;
 using ZC_Control_EFAM.StatusManagement;
@@ -92,11 +93,11 @@ namespace ZC_Control_EFAM.ProcessControl
                 }
             );
             //20251014 HVUnlockClean
-            _pusherState.RegisterExecutor(    
+            _pusherState.RegisterExecutor(
                 PusherState.HV_Unlock_Clean,
                 () =>
                 {
-                    return PrimaryHVGetUnlockClean();   
+                    return PrimaryHVGetUnlockClean();
                 }
             );
             //HV_To_270
@@ -156,8 +157,7 @@ namespace ZC_Control_EFAM.ProcessControl
                 eFAM_Data.HV_Data.PlaceSenser
                 && eFAM_Data.HV_Data.StationInfo.IsWafer
                 && eFAM_Data.HV_Data.StationInfo.ProcessState == ProcessState.Processing
-                && pusherActionIsenable
-                && GetHVState
+                && GetHVState && pusherActionIsenable
             )
             {
                 switch (eFAM_Data.HV_Data.StationInfo.OddEven)
@@ -187,7 +187,7 @@ namespace ZC_Control_EFAM.ProcessControl
             if (
                 !eFAM_Data.HV_Data.PlaceSenser
                 && !eFAM_Data.HV_Data.StationInfo.IsWafer
-                && GetHVState&& pusherActionIsenable
+                && GetHVState && pusherActionIsenable
             )
             {
                 if (

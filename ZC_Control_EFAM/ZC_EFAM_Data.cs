@@ -1,4 +1,4 @@
-ï»¿using System;
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Data;
@@ -26,10 +26,12 @@ namespace ZC_Control_EFAM
         private DefineCommands _defineCommands;
         public List<HEX_EN> List_hex;
         public event Action<MegModel> EventTrigger;
+
         public AutoResetEvent autoEvent = new AutoResetEvent(false);
         public AutoResetEvent autoEvent1 = new AutoResetEvent(false);
+
         public event Action<string> DataReceived;
-        public CTCTraceDataClass CTCTraceData { get; set; }
+
         public WFRStationState FTR_Data = new WFRStationState()
         {
             StationName = "FTR",
@@ -56,20 +58,20 @@ namespace ZC_Control_EFAM
                 StationID = StationID.Control_Door_2,
                 FTRStationID = FTRStationID.LP_2
             },
-            new LoadportState()
-            {
-                StationName = "LP3",
-                StationInfo = new StationInfo() { Form_LP = StationID.LP_3, },
-                StationID = StationID.Control_Door_3,
-                FTRStationID = FTRStationID.LP_3
-            },
-            new LoadportState()
-            {
-                StationName = "LP4",
-                StationInfo = new StationInfo() { Form_LP = StationID.LP_4, },
-                StationID = StationID.Control_Door_4,
-                FTRStationID = FTRStationID.LP_4
-            },
+            //new LoadportState()
+            //{
+            //    StationName = "LP3",
+            //    StationInfo = new StationInfo() { Form_LP = StationID.LP_3, },
+            //    StationID = StationID.Control_Door_3,
+            //    FTRStationID = FTRStationID.LP_3
+            //},
+            //new LoadportState()
+            //{
+            //    StationName = "LP4",
+            //    StationInfo = new StationInfo() { Form_LP = StationID.LP_4, },
+            //    StationID = StationID.Control_Door_4,
+            //    FTRStationID = FTRStationID.LP_4
+            //},
         };
 
         public List<StorageStation> Storage_Data = new List<StorageStation>()
@@ -315,7 +317,7 @@ namespace ZC_Control_EFAM
         }
 
         /// <summary>
-        /// å½“å‰çš„æ§åˆ¶æ¨¡å¼
+        /// µ±Ç°µÄ¿ØÖÆÄ£Ê½
         /// </summary>
         public bool ControlMode { get; set; }
         private int waferSpecification;
@@ -335,7 +337,7 @@ namespace ZC_Control_EFAM
                 }
                 else
                 {
-                    throw new ArgumentException($"å˜æ›´åšåº¦å¤±è´¥");
+                    throw new ArgumentException($"±ä¸üºñ¶ÈÊ§°Ü");
                 }
 
             }
@@ -392,15 +394,15 @@ namespace ZC_Control_EFAM
             });
         }
 
-        #region é€šè®¯æ–­å¼€å’Œè¿æ¥åçš„äº‹ä»¶
+        #region Í¨Ñ¶¶Ï¿ªºÍÁ¬½ÓºóµÄÊÂ¼ş
         private void Client_OnDisconnected() { }
 
         private void Client_OnConnected() { }
         #endregion
         /// <summary>
-        /// åˆ‡æ¢åšåº¦æŒ‡ä»¤
+        /// ÇĞ»»ºñ¶ÈÖ¸Áî
         /// </summary>
-        /// <param name="thikckness">æŒ‡å®šåšåº¦ æœ€å¤§3</param>
+        /// <param name="thikckness">Ö¸¶¨ºñ¶È ×î´ó3</param>
         /// <returns></returns>
         public bool ChangeThickness(int thikckness)
         {
@@ -414,15 +416,15 @@ namespace ZC_Control_EFAM
                 {
                     return false;
                 }
-                for (int i = 0; i < 2; i++)
+                for (int i = 0; i < 4; i++)
                 {
                     HEX_EN b = _defineCommands.WaferSpecificationSwitchCommand(i, thikckness);
                     long a = tcpHexClient.SendHexPayload(b.f_full);
-                    
+
                     if (ChackReveState(a).GetAwaiter().GetResult().Result == false)
                     {
                         return false;
-                    } 
+                    }
                 }
                 return true;
             }
@@ -435,10 +437,10 @@ namespace ZC_Control_EFAM
         }
 
         /// <summary>
-        /// æ¥æ”¶åˆ°æŠ¥æ–‡ï¼Œæ ¹æ®æŠ¥æ–‡è¿›è¡Œåˆ†å‘å¤„ç†
+        /// ½ÓÊÕµ½±¨ÎÄ£¬¸ù¾İ±¨ÎÄ½øĞĞ·Ö·¢´¦Àí
         /// </summary>
-        /// <param name="Len">æŠ¥æ–‡æ ‡è¯†ç¬¦</param>
-        /// <param name="list">æŠ¥æ–‡å­—èŠ‚åˆ—è¡¨</param>
+        /// <param name="Len">±¨ÎÄ±êÊ¶·û</param>
+        /// <param name="list">±¨ÎÄ×Ö½ÚÁĞ±í</param>
         private void Client_OnHexDataReceived(long Len, List<byte> list)
         {
             switch (list[5])
@@ -502,8 +504,8 @@ namespace ZC_Control_EFAM
                                     .Replace("-", ""),
                             }
                         );
-                        
-                    }                   
+
+                    }
                     else
                     {
                         ReceivedQueue.TryAdd(
@@ -517,7 +519,7 @@ namespace ZC_Control_EFAM
                                });
                     }
                     ;
-                      
+
                     break;
                 case 3:
                     SystemDataParser(Len, list);
@@ -560,38 +562,38 @@ namespace ZC_Control_EFAM
         }
 
         /// <summary>
-        /// é€šè®¯è¿æ¥å»ºç«‹
+        /// Í¨Ñ¶Á¬½Ó½¨Á¢
         /// </summary>
         /// <returns></returns>
         public bool Connent() => tcpHexClient.Connect();
 
         /// <summary>
-        /// é€šè®¯è¿æ¥å»ºç«‹
+        /// Í¨Ñ¶Á¬½Ó½¨Á¢
         /// </summary>
         /// <returns></returns>
         public void Disconnect() => tcpHexClient.Disconnect();
 
         /// <summary>
-        /// ä»å­—èŠ‚ä¸­æŠ½å–Bitä½
+        /// ´Ó×Ö½ÚÖĞ³éÈ¡BitÎ»
         /// </summary>
-        /// <param name="b">å­—èŠ‚æ•°æ®</param>
-        /// <param name="bitPosition">1-8çš„Bitä½</param>
-        /// <returns>æŠ½å–Bitä½çš„å€¼</returns>
-        /// ä½è¿ç®—åŸç†ï¼š
-        //1 << bitPositionï¼šåˆ›å»ºä¸€ä¸ªæ©ç (mask)ï¼Œå°†1å·¦ç§»åˆ°æŒ‡å®šä½ç½®
-        //ä¾‹å¦‚bitPosition = 3æ—¶ï¼Œå¾—åˆ°00001000(äºŒè¿›åˆ¶)
-        //b & maskï¼šæŒ‰ä½ä¸è¿ç®—ï¼Œåªä¿ç•™bä¸­ä¸maskå¯¹åº”ä½ç›¸åŒçš„ä½
-        //å…¶ä»–ä½éƒ½ä¼šè¢«ç½®ä¸º0
-        //!= 0ï¼šæ£€æŸ¥ç»“æœæ˜¯å¦ä¸º0ï¼Œå¦‚æœä¸æ˜¯0ï¼Œè¯´æ˜è¯¥ä½æ˜¯1
+        /// <param name="b">×Ö½ÚÊı¾İ</param>
+        /// <param name="bitPosition">1-8µÄBitÎ»</param>
+        /// <returns>³éÈ¡BitÎ»µÄÖµ</returns>
+        /// Î»ÔËËãÔ­Àí£º
+        //1 << bitPosition£º´´½¨Ò»¸öÑÚÂë(mask)£¬½«1×óÒÆµ½Ö¸¶¨Î»ÖÃ
+        //ÀıÈçbitPosition = 3Ê±£¬µÃµ½00001000(¶ş½øÖÆ)
+        //b & mask£º°´Î»ÓëÔËËã£¬Ö»±£ÁôbÖĞÓëmask¶ÔÓ¦Î»ÏàÍ¬µÄÎ»
+        //ÆäËûÎ»¶¼»á±»ÖÃÎª0
+        //!= 0£º¼ì²é½á¹ûÊÇ·ñÎª0£¬Èç¹û²»ÊÇ0£¬ËµÃ÷¸ÃÎ»ÊÇ1
         public static bool GetBit(byte b, int bitPosition) => (b & (1 << (bitPosition - 1))) != 0;
 
-        // RemoveAll æ–¹æ³•å†…éƒ¨å®ç°
+        // RemoveAll ·½·¨ÄÚ²¿ÊµÏÖ
         public void ReceivedQueueRemoveAll(Predicate<MegModel> match)
         {
             foreach (var kvp in ReceivedQueue)
             {
-                if (match(kvp.Value)) // æ£€æŸ¥å½“å‰å…ƒç´ æ˜¯å¦æ»¡è¶³åˆ é™¤æ¡ä»¶
-                    ReceivedQueue.TryRemove(kvp.Key, out _); // å¦‚æœæ»¡è¶³ï¼Œåˆ™åˆ é™¤
+                if (match(kvp.Value)) // ¼ì²éµ±Ç°ÔªËØÊÇ·ñÂú×ãÉ¾³ıÌõ¼ş
+                    ReceivedQueue.TryRemove(kvp.Key, out _); // Èç¹ûÂú×ã£¬ÔòÉ¾³ı
             }
         }
 
@@ -599,8 +601,8 @@ namespace ZC_Control_EFAM
         {
             foreach (var kvp in ReceivedQueue_1)
             {
-                if (match(kvp.Value)) // æ£€æŸ¥å½“å‰å…ƒç´ æ˜¯å¦æ»¡è¶³åˆ é™¤æ¡ä»¶
-                    ReceivedQueue_1.TryRemove(kvp.Key, out _); // å¦‚æœæ»¡è¶³ï¼Œåˆ™åˆ é™¤
+                if (match(kvp.Value)) // ¼ì²éµ±Ç°ÔªËØÊÇ·ñÂú×ãÉ¾³ıÌõ¼ş
+                    ReceivedQueue_1.TryRemove(kvp.Key, out _); // Èç¹ûÂú×ã£¬ÔòÉ¾³ı
             }
         }
 
@@ -618,7 +620,7 @@ namespace ZC_Control_EFAM
 
                     if (ss.Value != null)
                     {
-                        string reciveMessage = $"ä¿¡æ¯ID: {ss.Value.UUID} å·¥ä½å·ï¼š{ss.Value.Station} æ¥æ”¶çŠ¶æ€:{ss.Value.State} æ¥æ”¶ä¿¡æ¯:{ss.Value.Message} é”™è¯¯ä»£ç :{ss.Value.ErrorCode}"; //20251011
+                        string reciveMessage = $"ĞÅÏ¢ID: {ss.Value.UUID} ¹¤Î»ºÅ£º{ss.Value.Station} ½ÓÊÕ×´Ì¬:{ss.Value.State} ½ÓÊÕĞÅÏ¢:{ss.Value.Message} ´íÎó´úÂë:{ss.Value.ErrorCode}"; //20251011
                         LogU.LogInfo("Recive:   " + reciveMessage);
                         ReceivedQueueRemoveAll(c => c.UUID == number);
                         return ss.Value;
@@ -632,7 +634,7 @@ namespace ZC_Control_EFAM
                     }
                     if (sw.Elapsed >= TimeSpan.FromMilliseconds(60000))
                     {
-                        megModel.ErrorCode = $"æ¥æ”¶è¶…æ—¶ï¼{sw.Elapsed.ToString()}";
+                        megModel.ErrorCode = $"½ÓÊÕ³¬Ê±£¡{sw.Elapsed.ToString()}";
                         return megModel;
                     }
                     await Task.Delay(100);

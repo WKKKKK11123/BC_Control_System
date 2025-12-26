@@ -64,7 +64,7 @@ namespace ZC_Control_EFAM.StatusManagement
                 _machine.Fire(LoadportEvent.DownloadServiceFinish);
             });
         }
-        public LoadportState():base()
+        public LoadportState() : base()
         {
             _machine = new StateMachine<LoadportStateEnum, LoadportEvent>(LoadportStateEnum.InService);
             _machine.Configure(LoadportStateEnum.InService)

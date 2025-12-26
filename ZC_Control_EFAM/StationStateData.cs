@@ -1,4 +1,4 @@
-ï»¿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -16,69 +16,69 @@ namespace ZC_Control_EFAM
         public CarrierProcessQueueModel Batchid { get; set; } = new CarrierProcessQueueModel();
 
         /// <summary>
-        /// æ˜¯å¦æ˜¯ç©ºFoup
+        /// ÊÇ·ñÊÇ¿ÕFoup
         /// </summary>
         //public bool IsNullFoup { get; set; }
 
         /// <summary>
-        /// åˆ¶ç¨‹çŠ¶æ€
+        /// ÖÆ³Ì×´Ì¬
         /// </summary>
         public ProcessState ProcessState { get; set; }
 
         /// <summary>
-        /// å·¥ä½RFID
+        /// ¹¤Î»RFID
         /// </summary>
         public string RFID { get; set; }
 
         public string RecipeName { get; set; }
 
         /// <summary>
-        /// å·¥ä½çš„MAPæ•°æ®
+        /// ¹¤Î»µÄMAPÊı¾İ
         /// </summary>
         public List<WaferMapStation> WaferMap { get; set; } = new List<WaferMapStation>();
 
         /// <summary>
-        /// æ¸…æ´—åçš„MAPæ•°æ®
+        /// ÇåÏ´ºóµÄMAPÊı¾İ
         /// </summary>
         public List<WaferMapStation> ClearWaferMap { get; set; } = new List<WaferMapStation>();
 
         /// <summary>
-        /// å·¥ä½çš„æ™¶åœ†æ€»æ•°
+        /// ¹¤Î»µÄ¾§Ô²×ÜÊı
         /// </summary>
         public int? WaferCount { get; set; }
 
         /// <summary>
-        /// æ˜¯å¦æœ‰è´§
+        /// ÊÇ·ñÓĞ»õ
         /// </summary>
         public bool IsWafer { get; set; }
 
         /// <summary>
-        /// è¡¨ç¤ºå·¥ä½çš„æ™¶åœ†æ˜¯å¦æ¸…æ´—è¿‡ false:è„  true:å¹²å‡€çš„
+        /// ±íÊ¾¹¤Î»µÄ¾§Ô²ÊÇ·ñÇåÏ´¹ı false:Ôà  true:¸É¾»µÄ
         /// </summary>
         //public ArmType DirtyClean { get; set; }
 
         /// <summary>
-        /// è¡¨ç¤ºå·¥ä½çš„æ™¶åœ†æ¥è‡ªå“ªä¸ªLP
+        /// ±íÊ¾¹¤Î»µÄ¾§Ô²À´×ÔÄÄ¸öLP
         /// </summary>
         public StationID Form_LP { get; set; }
 
         /// <summary>
-        /// è¡¨ç¤ºå·¥ä½çš„æ™¶åœ†çš„FOUPæ”¾åœ¨å“ªä¸ªStorage
+        /// ±íÊ¾¹¤Î»µÄ¾§Ô²µÄFOUP·ÅÔÚÄÄ¸öStorage
         /// </summary>
         public StorageID StorageID { get; set; }
 
         /// <summary>
-        /// è¡¨ç¤ºå·¥ä½çš„å¥‡å¶  1:å¥‡  2:å¶
+        /// ±íÊ¾¹¤Î»µÄÆæÅ¼  1:Ææ  2:Å¼
         /// </summary>
         public OddEven OddEven { get; set; }
 
         /// <summary>
-        /// è¡¨ç¤ºæ˜¯å¦æ˜¯åŒæ‰¹ä½œä¸š
+        /// ±íÊ¾ÊÇ·ñÊÇË«Åú×÷Òµ
         /// </summary>
         public bool DoubleProcess { get; set; }
 
         /// <summary>
-        /// MapæŠ¥é”™
+        /// Map±¨´í
         /// </summary>
         public bool MAPError { get; set; }
 
@@ -117,7 +117,7 @@ namespace ZC_Control_EFAM
         public bool VerifyStatus { get; set; }
 
         /// <summary>
-        /// è¡¨ç¤ºå·¥ä½çš„æ™¶åœ†æ¥è‡ªå“ªä¸ªLP
+        /// ±íÊ¾¹¤Î»µÄ¾§Ô²À´×ÔÄÄ¸öLP
         /// </summary>
 
         [JsonIgnore]
@@ -125,17 +125,17 @@ namespace ZC_Control_EFAM
         public StationID Out_LP { get; set; }
 
         /// <summary>
-        /// å·¥ä½ID
+        /// ¹¤Î»ID
         /// </summary>
         public StationID StationID { get; set; }
 
         /// <summary>
-        /// åœ¨FTRåŒºåŸŸçš„å·¥ä½ID
+        /// ÔÚFTRÇøÓòµÄ¹¤Î»ID
         /// </summary>
         public FTRStationID FTRStationID { get; set; }
 
         /// <summary>
-        /// åœ¨WHRåŒºåŸŸçš„å·¥ä½ID
+        /// ÔÚWHRÇøÓòµÄ¹¤Î»ID
         /// </summary>
         public WHRStationID WHRStationID { get; set; }
 
@@ -143,30 +143,30 @@ namespace ZC_Control_EFAM
         public StationInfo StationInfo { get; set; } = new StationInfo() { };
 
         /// <summary>
-        /// æ˜¯å¦MAPå®Œæˆ
+        /// ÊÇ·ñMAPÍê³É
         /// </summary>
         public bool IsMapComplete { get; set; }
 
         public string StationName { get; set; }
 
         /// <summary>
-        /// æ£€çŸ¥Senser
+        /// ¼ìÖªSenser
         /// </summary>
         public bool PlaceSenser { get; set; }
 
         /// <summary>
-        /// è¡¨ç¤ºå·¥ä½çš„çš„é”™è¯¯ä¿¡æ¯
+        /// ±íÊ¾¹¤Î»µÄµÄ´íÎóĞÅÏ¢
         /// </summary>
         public string ErrorCode { get; set; }
 
         public override string ToString()
         {
-            // è·å–å½“å‰å¯¹è±¡çš„æ‰€æœ‰å…¬å…±å±æ€§
+            // »ñÈ¡µ±Ç°¶ÔÏóµÄËùÓĞ¹«¹²ÊôĞÔ
             var properties = GetType()
                 .GetProperties(BindingFlags.Public | BindingFlags.Instance)
-                .Where(p => p.CanRead); // åªå–å¯è¯»å±æ€§
+                .Where(p => p.CanRead); // Ö»È¡¿É¶ÁÊôĞÔ
 
-            // æ‹¼æ¥å±æ€§åå’Œå€¼
+            // Æ´½ÓÊôĞÔÃûºÍÖµ
             var result = string.Join(
                 ", ",
                 properties.Select(prop => $"{prop.Name}: {prop.GetValue(this) ?? "null"}")
@@ -506,17 +506,17 @@ namespace ZC_Control_EFAM
         public StationInfo Even_Data { get; set; } = new StationInfo();
 
         /// <summary>
-        /// å·¥ä½çš„MAPæ•°æ®
+        /// ¹¤Î»µÄMAPÊı¾İ
         /// </summary>
         public List<WaferMapStation> WaferMap { get; set; } = new List<WaferMapStation>();
 
         /// <summary>
-        /// æ¸…æ´—åçš„MAPæ•°æ®
+        /// ÇåÏ´ºóµÄMAPÊı¾İ
         /// </summary>
         public List<WaferMapStation> ClearWaferMap { get; set; } = new List<WaferMapStation>();
 
         /// <summary>
-        /// æ¸…æ´—é…æ–¹
+        /// ÇåÏ´Åä·½
         /// </summary>
         public string RecipeName
         {
@@ -536,7 +536,7 @@ namespace ZC_Control_EFAM
         }
 
         /// <summary>
-        /// å·¥ä½çš„æ™¶åœ†æ€»æ•°
+        /// ¹¤Î»µÄ¾§Ô²×ÜÊı
         /// </summary>
         public int? WaferCount { get; set; }
 
@@ -545,19 +545,19 @@ namespace ZC_Control_EFAM
         public OddEven PutType { get; set; }
 
         /// <summary>
-        /// å·¥ä½ID
+        /// ¹¤Î»ID
         /// </summary>
         public StationID StationID { get; set; }
 
         /// <summary>
-        /// æ£€çŸ¥Senser
+        /// ¼ìÖªSenser
         /// </summary>
         public bool PlaceSenser { get; set; }
 
         public bool IsMapResult { get; set; }
 
         /// <summary>
-        /// æ˜¯å¦MAPå®Œæˆ
+        /// ÊÇ·ñMAPÍê³É
         /// </summary>
         public bool IsMapComplete { get; set; }
 

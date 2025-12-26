@@ -82,7 +82,7 @@ namespace ZC_Control_EFAM.StatusManagement
                     WHREvent.WHR_Get_Opener_And_HV_Flip_Degree0_Complete,
                     WHRState.HV_Unlock_Dirty
                 ),
-                 new WHRStateTransition( 
+                 new WHRStateTransition(
                     WHRState.HV_Unlock_Dirty,
                     WHREvent.HV_Unlock_Dirty_Complete,
                     WHRState.WHR_Put_HV1

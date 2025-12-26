@@ -1,4 +1,4 @@
-ï»¿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +10,7 @@ namespace ZC_Control_EFAM
     public partial class ZC_EFAM_Data
     {
         /// <summary>
-        /// è¯»å–ç³»ç»ŸçŠ¶æ€çš„æ–¹æ³•
+        /// ¶ÁÈ¡ÏµÍ³×´Ì¬µÄ·½·¨
         /// </summary>
         private async Task ReadWTSStatus()
         {
@@ -33,10 +33,10 @@ namespace ZC_Control_EFAM
         }
 
         /// <summary>
-        /// å­å‘½ä»¤æŠ¥æ–‡åˆ†å‘ï¼ˆå› æœºæ„å›å¤æœ‰æ‰€å·®åˆ«æ‰€ä»¥åˆ†å‘åˆ°å…·ä½“çš„æ¨¡å—æ¥è§£æï¼‰
+        /// ×ÓÃüÁî±¨ÎÄ·Ö·¢£¨Òò»ú¹¹»Ø¸´ÓĞËù²î±ğËùÒÔ·Ö·¢µ½¾ßÌåµÄÄ£¿éÀ´½âÎö£©
         /// </summary>
-        /// <param name="len">æŠ¥æ–‡æ ‡è¯†ç¬¦</param>
-        /// <param name="list">æŠ¥æ–‡</param>
+        /// <param name="len">±¨ÎÄ±êÊ¶·û</param>
+        /// <param name="list">±¨ÎÄ</param>
         private void SubCommDataParser(long len, List<byte> list)
         {
             switch (list[6])
@@ -72,10 +72,10 @@ namespace ZC_Control_EFAM
         }
 
         /// <summary>
-        /// PusheræŠ¥æ–‡è§£ææ–¹æ³•
+        /// Pusher±¨ÎÄ½âÎö·½·¨
         /// </summary>
-        /// <param name="len">æŠ¥æ–‡æ ‡è¯†ç¬¦</param>
-        /// <param name="list">æŠ¥æ–‡</param>
+        /// <param name="len">±¨ÎÄ±êÊ¶·û</param>
+        /// <param name="list">±¨ÎÄ</param>
         private void Pusher_SubCommandParser(long len, List<byte> list)
         {
             switch (list[7])
@@ -184,10 +184,10 @@ namespace ZC_Control_EFAM
         }
 
         /// <summary>
-        /// LPæŠ¥æ–‡è§£ææ–¹æ³•
+        /// LP±¨ÎÄ½âÎö·½·¨
         /// </summary>
-        /// <param name="len">æŠ¥æ–‡æ ‡è¯†ç¬¦</param>
-        /// <param name="list">æŠ¥æ–‡</param>
+        /// <param name="len">±¨ÎÄ±êÊ¶·û</param>
+        /// <param name="list">±¨ÎÄ</param>
         private void ControlDoor_SubCommandParser(long len, List<byte> list)
         {
             switch (list[7])
@@ -294,10 +294,10 @@ namespace ZC_Control_EFAM
         }
 
         /// <summary>
-        /// HVæŠ¥æ–‡è§£ææ–¹æ³•
+        /// HV±¨ÎÄ½âÎö·½·¨
         /// </summary>
-        /// <param name="len">æŠ¥æ–‡æ ‡è¯†ç¬¦</param>
-        /// <param name="list">æŠ¥æ–‡</param>
+        /// <param name="len">±¨ÎÄ±êÊ¶·û</param>
+        /// <param name="list">±¨ÎÄ</param>
         private void HV_SubCommandParser(long len, List<byte> list)
         {
             switch (list[7])
@@ -401,10 +401,10 @@ namespace ZC_Control_EFAM
         }
 
         /// <summary>
-        /// è¯»å–RFIDæŠ¥æ–‡è§£ææ–¹æ³•
+        /// ¶ÁÈ¡RFID±¨ÎÄ½âÎö·½·¨
         /// </summary>
-        /// <param name="len">æŠ¥æ–‡æ ‡è¯†ç¬¦</param>
-        /// <param name="list">æŠ¥æ–‡</param>
+        /// <param name="len">±¨ÎÄ±êÊ¶·û</param>
+        /// <param name="list">±¨ÎÄ</param>
         private void RFID_SubCommandParser(long len, List<byte> list)
         {
             switch (list[7])
@@ -450,7 +450,8 @@ namespace ZC_Control_EFAM
                         {
                             UUID = len,
                             Message = BitConverter.ToString(list.ToArray()).Replace("-", " "),
-                            Result = Loadport_Data[list[8] - 1].StationInfo.RFID.Length > 5,
+                            //Result = Loadport_Data[list[8] - 1].StationInfo.RFID.Length > 5,
+                            Result = true,
                             MesType = "SubSystem",
                             Station = (StationID)list[6],
                             AdditionalData = Encoding.ASCII.GetString(
@@ -480,10 +481,10 @@ namespace ZC_Control_EFAM
         }
 
         /// <summary>
-        /// OpeneræŠ¥æ–‡è§£ææ–¹æ³•
+        /// Opener±¨ÎÄ½âÎö·½·¨
         /// </summary>
-        /// <param name="len">æŠ¥æ–‡æ ‡è¯†ç¬¦</param>
-        /// <param name="list">æŠ¥æ–‡</param>
+        /// <param name="len">±¨ÎÄ±êÊ¶·û</param>
+        /// <param name="list">±¨ÎÄ</param>
         private void Opener_SubCommandParser(long len, List<byte> list)
         {
             switch (list[7])
@@ -575,7 +576,7 @@ namespace ZC_Control_EFAM
         }
 
         /// <summary>
-        /// WHRæŠ¥æ–‡è§£ææ–¹æ³•
+        /// WHR±¨ÎÄ½âÎö·½·¨
         /// </summary>
         /// <param name="len"></param>
         /// <param name="list"></param>
@@ -672,7 +673,7 @@ namespace ZC_Control_EFAM
         }
 
         /// <summary>
-        /// FTRæŠ¥æ–‡è§£ææ–¹æ³•
+        /// FTR±¨ÎÄ½âÎö·½·¨
         /// </summary>
         /// <param name="len"></param>
         /// <param name="list"></param>
@@ -774,7 +775,7 @@ namespace ZC_Control_EFAM
                 case 0:
                     break;
                 case 1:
-                    result = true; //åè¾¹æ•°æ®éœ€è¦è§£æ
+                    result = true; //ºó±ßÊı¾İĞèÒª½âÎö
                     //Parameter 1~m: Opener And LoadPort m Box Status(0: Box not present; 1: Box Present,
                     //0xFF: Unknown status).
                     Loadport_Data[0].PlaceSenser = list[10] == 1;
@@ -783,23 +784,23 @@ namespace ZC_Control_EFAM
                     //Loadport_Data[3].PlaceSenser = list[13] == 1;
                     break;
                 case 2:
-                    result = true; //åè¾¹æ•°æ®éœ€è¦è§£æ
+                    result = true; //ºó±ßÊı¾İĞèÒª½âÎö
                     //Parameter 1: WHR Station
-                    //Parameter 2~: Slot wafer present status(â€˜Pâ€™ (0x50): Present; â€˜Eâ€™ (0x45): Empty; â€˜Câ€™ (0x43):
-                    //Crossed; â€˜?â€™ (0x3F): Unknown; â€˜Dâ€™ (0x44): Double; â€˜#â€™ (0x23): Not found on Pick Up)
+                    //Parameter 2~: Slot wafer present status(¡®P¡¯ (0x50): Present; ¡®E¡¯ (0x45): Empty; ¡®C¡¯ (0x43):
+                    //Crossed; ¡®?¡¯ (0x3F): Unknown; ¡®D¡¯ (0x44): Double; ¡®#¡¯ (0x23): Not found on Pick Up)
                     break;
                 case 3:
-                    result = true; //åè¾¹æ•°æ®éœ€è¦è§£æ
+                    result = true; //ºó±ßÊı¾İĞèÒª½âÎö
                     //Parameter 1: Control Mode (0: Local Mode; 1: Remote Mode)
                     ControlMode = list[8] == 1;
                     break;
                 case 5:
-                    result = true; //åè¾¹æ•°æ®éœ€è¦è§£æ
+                    result = true; //ºó±ßÊı¾İĞèÒª½âÎö
                     //Parameter 1~m: Subsystem Status(0: Normal; 1: Not Normal).
                     //Where m is subsystem number.
                     break;
                 case 6:
-                    result = true; //åè¾¹æ•°æ®éœ€è¦è§£æ
+                    result = true; //ºó±ßÊı¾İĞèÒª½âÎö
                     //Parameter 1: WHR end-effecter 1 present status (0: Not present; 1: Present; 0xFF: Unknown)
                     break;
                 case 8:
@@ -896,7 +897,7 @@ namespace ZC_Control_EFAM
             switch (list[7])
             {
                 case 0x02:
-                    //åœ¨ä½çŠ¶æ€å‘ç”Ÿæ”¹å˜
+                    //ÔÚÎ»×´Ì¬·¢Éú¸Ä±ä
                     switch (list[8])
                     {
                         case 0x00:
@@ -912,10 +913,10 @@ namespace ZC_Control_EFAM
                             Loadport_Data[1].PlaceSenser = true;
                             break;
                         case 0x04:
-                            Loadport_Data[2].PlaceSenser = true;
+                            //Loadport_Data[2].PlaceSenser = true;
                             break;
                         case 0x05:
-                            Loadport_Data[3].PlaceSenser = true;
+                            //Loadport_Data[3].PlaceSenser = true;
                             break;
                         case 0x19:
                             FTR_Data.PlaceSenser = true;
@@ -942,7 +943,7 @@ namespace ZC_Control_EFAM
                     break;
 
                 case 0x03:
-                    //åœ¨ä½çŠ¶æ€å‘ç”Ÿæ”¹å˜
+                    //ÔÚÎ»×´Ì¬·¢Éú¸Ä±ä
 
                     switch (list[8])
                     {
@@ -990,18 +991,18 @@ namespace ZC_Control_EFAM
                     break;
 
                 case 0x05:
-                    //æ§åˆ¶æ¨¡å¼å‘ç”Ÿæ”¹å˜
+                    //¿ØÖÆÄ£Ê½·¢Éú¸Ä±ä
                     ControlMode = list[8] == 1;
                     break;
 
                 case 0x21:
-                    //åœ¨ä½çŠ¶æ€å‘ç”Ÿæ”¹å˜
+                    //ÔÚÎ»×´Ì¬·¢Éú¸Ä±ä
                     Storage_Data[list[8]].PlaceSenser = list[9] == 0 ? true : false;
 
                     break;
 
                 case 0x28:
-                    //Opener Mapæ•°æ®
+                    //Opener MapÊı¾İ
                     //Opener_Data[list[8]].WaferMap = new List<WaferMapStation>(25);
                     List<WaferMapStation> qwe = new List<WaferMapStation>(25);
                     for (int i = 0; i < 25; i++)
@@ -1015,7 +1016,7 @@ namespace ZC_Control_EFAM
                         //        0x3F => WaferMapStation.Unknown,
                         //        0x44 => WaferMapStation.Double,
                         //        0x23 => WaferMapStation.Not_found_on_Pick_Up,
-                        //        _ => WaferMapStation.Empty // é»˜è®¤æƒ…å†µ
+                        //        _ => WaferMapStation.Empty // Ä¬ÈÏÇé¿ö
                         //    }
                         //);
                         byte value = list[9 + i];
@@ -1049,7 +1050,7 @@ namespace ZC_Control_EFAM
                     break;
 
                 case 0x29:
-                    //Pusher Mapæ•°æ®
+                    //Pusher MapÊı¾İ
                     Pusher_Data.WaferMap = new List<WaferMapStation>(50);
 
                     for (int i = 0; i < 50; i++)
@@ -1063,7 +1064,7 @@ namespace ZC_Control_EFAM
                         //        0x3F => WaferMapStation.Unknown,
                         //        0x44 => WaferMapStation.Double,
                         //        0x23 => WaferMapStation.Not_found_on_Pick_Up,
-                        //        _ => WaferMapStation.Empty // é»˜è®¤æƒ…å†µ
+                        //        _ => WaferMapStation.Empty // Ä¬ÈÏÇé¿ö
                         //    }
                         //);
 
@@ -1082,7 +1083,7 @@ namespace ZC_Control_EFAM
                                                 ? WaferMapStation.Double
                                                 : value == 0x23
                                                     ? WaferMapStation.Not_found_on_Pick_Up
-                                                    : WaferMapStation.Empty // é»˜è®¤æƒ…å†µ
+                                                    : WaferMapStation.Empty // Ä¬ÈÏÇé¿ö
                         );
                     }
 
