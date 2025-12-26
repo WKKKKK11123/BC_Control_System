@@ -124,8 +124,11 @@ namespace BC_Control_System.ViewModel.Recipe
         private void SaveFile()
         {
             bool hasMGD9 = FlowSteps.Any(step => step.BathName == BathNameEnum.LPD_1);
-            bool timeresult=CheckUnitStepTime();
-
+            
+            if(!CheckUnitStepTime())
+            {
+                return;
+            }
             if (!hasMGD9)
             {
                 MessageBox.Show("保存失败：必须至少包含一个LPD的步骤", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -171,7 +174,7 @@ namespace BC_Control_System.ViewModel.Recipe
                     int PreTime = recipeStepsPre.RecipeStepCollection.Where(filter => filter.StepType == ProcessStepEnum.PreStep).Select(filter => filter.Time).Sum();
                     if (PreTime> totalTime)
                     {
-                        MessageBox.Show($"{item.BathName.GetName()} 配方总时间小于下一步，时间为{totalTime}S");
+                        MessageBox.Show($"第{item.FlowStep}步 {item.BathName.GetName()}的配方总时间{totalTime} S,小于下一步配方提前步时间{PreTime} S");
                         return false; ;
                     }
                     i++;

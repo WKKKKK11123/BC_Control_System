@@ -555,26 +555,40 @@ namespace BC_Control_System.ViewModel
 
             if (obj == "Manual")
             {
-                // PLC6: M102 = true, M2102 = true
-                //PLC6CommonMethods.CommonWrite("M102", "true");
-                //PLC6CommonMethods.CommonWrite("M2102", "true");
-
-                // PLC5: M102 = true, M2102 = true
-                PLC5CommonMethods.CommonWrite("M102", "true");
-                PLC5CommonMethods.CommonWrite("M2102", "true");
-
-                // PLC4: M102 = true, M2102 = true
-                PLC4CommonMethods.CommonWrite("M102", "true");
-                //PLC4CommonMethods.CommonWrite("M2102", "true");
-
-                // PLC3: M102 = true
-                PLC3CommonMethods.CommonWrite("M102", "true");
-
-                // PLC2: M102 = true123123
-                PLC2CommonMethods.CommonWrite("M102", "true");
-
-                // PLC1: M1000 = false
                 CommonMethods.CommonWrite("M1000", "false");
+
+                PLC2CommonMethods.CommonWrite("M4002", "true");
+                PLC2CommonMethods.CommonWrite("M4802", "true");
+                PLC3CommonMethods.CommonWrite("M4002", "true");
+                PLC3CommonMethods.CommonWrite("M4802", "true");
+                PLC4CommonMethods.CommonWrite("M4002", "true");
+                PLC4CommonMethods.CommonWrite("M4802", "true");
+                PLC5CommonMethods.CommonWrite("M4002", "true");
+                PLC5CommonMethods.CommonWrite("M4802", "true");
+                PLC6CommonMethods.CommonWrite("M4002", "true");
+                PLC6CommonMethods.CommonWrite("M4802", "true");
+
+                PLC7CommonMethods.CommonWrite("M102", "true");
+                PLC8CommonMethods.CommonWrite("M4002", "true");
+
+            }
+            else if (obj == "Auto")
+            {
+                CommonMethods.CommonWrite("M1000", "true");
+
+                PLC2CommonMethods.CommonWrite("M4003", "true");
+                PLC2CommonMethods.CommonWrite("M4803", "true");
+                PLC3CommonMethods.CommonWrite("M4003", "true");
+                PLC3CommonMethods.CommonWrite("M4803", "true");
+                PLC4CommonMethods.CommonWrite("M4003", "true");
+                PLC4CommonMethods.CommonWrite("M4803", "true");
+                PLC5CommonMethods.CommonWrite("M4003", "true");
+                PLC5CommonMethods.CommonWrite("M4803", "true");
+                PLC6CommonMethods.CommonWrite("M4003", "true");
+                PLC6CommonMethods.CommonWrite("M4803", "true");
+
+                PLC7CommonMethods.CommonWrite("M103", "true");
+                PLC8CommonMethods.CommonWrite("M4003", "true");
             }
             else
             {
@@ -912,7 +926,7 @@ namespace BC_Control_System.ViewModel
                     {
                         //Btn_1 = (bool)CommonMethods.Device["Y11"];
                         //Btn_2 = (bool)CommonMethods.Device["M1000"];
-                        //Btn_3 = (bool)CommonMethods.Device["Y12"];
+                        //Btn_3 = (bool)PLC2CommonMethods.Device["M4002"];
                         //Btn_4 = (bool)CommonMethods.Device["Y13"];
                         //Btn_5 = (bool)CommonMethods.Device["M3151"];
                         ////Btn_6 = (bool)CommonMethods.Device["M3600"];
