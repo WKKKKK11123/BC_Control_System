@@ -23,9 +23,7 @@
     WindowState="Normal"
     WindowStyle="None"
     mc:Ignorable="d">
-
     <Window.Resources>
-
         <!--<localCommand:OpenRecipeEditorViewCommand x:Key="OpenRecipeView" />-->
         <localConv:RightsConverter x:Key="localRightsConverter" />
         <conv:BoolToBrushConverter
