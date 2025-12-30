@@ -356,7 +356,20 @@ namespace BC_Control_System.ViewModel
                 {
                     while (!cancellationTokenSource.IsCancellationRequested)
                     {
-
+                        switch (_containerProvider.Resolve<EAPService>().EAPControlState)
+                        {
+                            case 0:
+                                EAPControlMode = "Offline";
+                                break;
+                            case 1:
+                                EAPControlMode = "Online Local";
+                                break;
+                            case 2:
+                                EAPControlMode = "Online Remote";
+                                break;
+                            default:
+                                break;
+                        }
                         if (!CommonMethods.Device.IsConnected)
                         {
                             await Task.Delay(500);
@@ -366,20 +379,7 @@ namespace BC_Control_System.ViewModel
                         tasks[0] = WriteStorageLogToPLC();
                         tasks[1] = _containerProvider.Resolve<EAPService>().RunUpdateEapStatus(cancellationTokenSource);
                         await Task.WhenAll(tasks);
-                        switch (_containerProvider.Resolve<EAPService>().EAPControlState)
-                        {
-                            case 0:
-                                EAPControlMode = "Offline";
-                                break;
-                                case 1:
-                                EAPControlMode = "Online Local";
-                                break;
-                                case 2:
-                                EAPControlMode = "Online Remote";
-                                break;
-                            default:
-                                break;
-                        }
+                        
                         await Task.Delay(200);
                     }
                 }
