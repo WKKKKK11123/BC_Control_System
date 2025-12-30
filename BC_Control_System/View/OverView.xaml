@@ -1006,15 +1006,6 @@
                                                     </i:EventTrigger>
                                                 </i:Interaction.Triggers>
                                                 <Grid Background="Transparent">
-                                                    <!--<TextBlock FontSize="16" Text="{Binding ModuleName}" />-->
-                                                    <!--<Controls:TankWaferControl
-                                                        x:Name="TankWafer"
-                                                        Canvas.Top="42"
-                                                        HorizontalAlignment="Center"
-                                                        VerticalAlignment="Top"
-                                                        Status2="{Binding TankWaferStatus}"/>-->
-
-                                                    <!--  Status2="{Binding TankWaferStatus}"  -->
                                                     <StackPanel Orientation="Vertical">
                                                         <TextBlock
                                                             Margin="4"

@@ -137,7 +137,7 @@ namespace BC_Control_System
 
         private void CheckSessionTimeout(object? sender, EventArgs e)
         {
-            if (_sysAdmin?.IsLoggedIn == true && DateTime.Now - _lastActiveTime > new TimeSpan(0, 30, 0))
+            if (_sysAdmin?.IsLoggedIn == true && DateTime.Now - _lastActiveTime > new TimeSpan(8, 30, 0))
             {
                 // 切换到UI线程执行
                 Logout();

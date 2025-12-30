@@ -99,7 +99,7 @@ namespace ZC_Control_EFAM
                     Pusher_Data.Rotate_180_Degree = GetBit(list[7 + 12], 6);
                     Pusher_Data.Dirty_Comb = GetBit(list[7 + 12], 5);
                     Pusher_Data.Clean_Comb = GetBit(list[7 + 12], 4);
-                    BufferPlaceSenser = GetBit(list[7 + 12], 3);
+                    BufferPlaceSenser = !GetBit(list[7 + 12], 3);
 
                     break;
 
@@ -913,10 +913,10 @@ namespace ZC_Control_EFAM
                             Loadport_Data[1].PlaceSenser = true;
                             break;
                         case 0x04:
-                            //Loadport_Data[2].PlaceSenser = true;
+                            Loadport_Data[2].PlaceSenser = true;
                             break;
                         case 0x05:
-                            //Loadport_Data[3].PlaceSenser = true;
+                            Loadport_Data[3].PlaceSenser = true;
                             break;
                         case 0x19:
                             FTR_Data.PlaceSenser = true;

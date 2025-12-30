@@ -492,7 +492,7 @@
                         Background="{Binding Btn_2, Converter={StaticResource ConverterBoolToVisibility}}"
                         BorderThickness="0"
                         Command="{Binding WritePLCCommand}"
-                        CommandParameter="M1000"
+                        CommandParameter="Auto"
                         FontFamily="Microsoft YaHei"
                         Template="{StaticResource CustomButtonTemplate}">
                         <Button.Content>

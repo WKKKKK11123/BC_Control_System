@@ -205,21 +205,19 @@ namespace BC_Control_System.Command
         {
             if (CommonMethods.Device.IsConnected)
             {
-                var a = CommonMethods.PLC.ReadInt16("D5000", 320);
+                var a = CommonMethods.PLC.ReadInt16("D5020", 300);
                 if (a.IsSuccess)
                 {
                     pusherStationState.WaferCount = a.Content[169];
+
+                    pusherStationState.Even_Data.RecipeName = CommonMethods.PLC.ReadString("D5120",20).ToString();
+                    pusherStationState.Odd_Data.RecipeName = CommonMethods.PLC.ReadString("D5120", 20).ToString();
 
                     for (int i = 0; i < 50; i++)
                     {
                         pusherStationState.ClearWaferMap[i] = (WaferMapStation)a.Content[170 + i];
                     }
-                    pusherStationState.Odd_Data.Batchid.Batchid= CommonMethods
-                        .PLC.ReadString("D5000", 20)
-                        .Content.Replace("\0", "");
-                    pusherStationState.Even_Data.Batchid.Batchid = CommonMethods
-                       .PLC.ReadString("D5000", 20)
-                       .Content.Replace("\0", "");
+
                     pusherStationState.Odd_Data.RFID = CommonMethods
                         .PLC.ReadString("D5020", 20)
                         .Content.Replace("\0", "");
@@ -257,12 +255,12 @@ namespace BC_Control_System.Command
             while (!CommonMethods.Device.IsConnected)
             {
                 Thread.Sleep(50);
-            }            
+            }
             var a = Enumerable.Repeat((short)0, 300).ToList();
             CommonMethods.PLC.Write("D5020", a.ToArray());//新增 清除数据
-            
+
             a[169] = (short)pusherStationState.WaferCount;
-            
+
             for (int i = 0; i < 50; i++)
             {
                 a[170 + i] = (short)pusherStationState.WaferMap[i];
@@ -297,13 +295,13 @@ namespace BC_Control_System.Command
             }
             a[95] = (short)pusherStationState.Even_Data.OddEven;
             a[96] = pusherStationState.Even_Data.IsWafer ? (short)1 : (short)0;
-            
+
             while (!CommonMethods.Device.IsConnected)
             {
                 Thread.Sleep(50);
             }
             CommonMethods.PLC.Write("D5020", a.ToArray());
-            //CommonMethods.PLC.Write("M4135",true);
+            // CommonMethods.PLC.Write("M4135",true);
         }
 
         public static List<short> ConvertStringToShortArray(string recipeName)

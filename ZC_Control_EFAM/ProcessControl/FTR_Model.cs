@@ -172,6 +172,7 @@ namespace ZC_Control_EFAM.ProcessControl
                 && _hVState.CurrentState == HVState.Idle
                 && !eFAM_Data.WHR_Data.PlaceSenser
                 && !eFAM_Data.HV_Data.PlaceSenser
+              && !BufferPlaceSenser
                 && !eFAM_Data.Pusher_Data.PlaceSenser
                 //&& (
                 //    !eFAM_Data.Pusher_Data.PlaceSenser

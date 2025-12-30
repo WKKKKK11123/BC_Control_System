@@ -42,10 +42,10 @@ namespace BC_Control_System.ViewModels.LogDataModel
         private readonly IRegionManager _regionManager;
         public DelegateCommand ExportCommand { get; set; }
         public DelegateCommand OpenDetailCommand { get; }
-        
-        
 
-        public EndofRunLogViewModel(IRegionManager regionManager,EndofRunLogService sqlSugarHelper, IDialogService dialogService)
+
+
+        public EndofRunLogViewModel(IRegionManager regionManager, EndofRunLogService sqlSugarHelper, IDialogService dialogService)
         {
             EndofRunLogTable = new DataTable();
             SelectedEndofRunLog = new EndofRunData();
@@ -62,16 +62,16 @@ namespace BC_Control_System.ViewModels.LogDataModel
         }
 
         private void OpenDetail()
-{
-    if (SelectedEndofRunLog == null)
-        return;
+        {
+            if (SelectedEndofRunLog == null)
+                return;
 
-    var parameters = new NavigationParameters
+            var parameters = new NavigationParameters
     {
         { "EndofRunId", SelectedEndofRunLog.Id }
     };
-    _regionManager.RequestNavigate("ContentRegion", "ProcessLogDetailedInformationView", parameters);
-}
+            _regionManager.RequestNavigate("ContentRegion", "ProcessLogDetailedInformationView", parameters);
+        }
 
         public async void SelectTime()
         {
@@ -79,7 +79,7 @@ namespace BC_Control_System.ViewModels.LogDataModel
             {
                 IDialogResult r = null;
                 _dialogService.ShowDialog(nameof(SearchByTimeView), result => r = result);
-                if (r.Result==ButtonResult.OK)
+                if (r.Result == ButtonResult.OK)
                 {
                     var StartTime = r.Parameters.GetValue<DateTime>("Time1");
                     var EndTime = r.Parameters.GetValue<DateTime>("Time2");
@@ -89,22 +89,22 @@ namespace BC_Control_System.ViewModels.LogDataModel
 
             catch (Exception ee)
             {
-                
+
             }
-           
+
         }
 
         public async void OnNavigatedTo(NavigationContext navigationContext)
         {
             try
             {
-               
+
             }
             catch (Exception ee)
             {
-           
+
             }
-            
+
         }
 
         public bool IsNavigationTarget(NavigationContext navigationContext)
