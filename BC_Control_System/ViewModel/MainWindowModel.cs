@@ -635,7 +635,7 @@ namespace BC_Control_System.ViewModel
         private void _processControl_WTSDownRecipe(string obj, PusherStationState obj1)
         {
             string temppath = System.IO.Path.Combine(filepath, obj);
-            bool b=DownLoadRecipe("Tool", File.ReadAllText(temppath));
+            bool b = DownLoadRecipe("Tool", File.ReadAllText(temppath));
             PusherStationState tempObj = obj1;
             int storagetemp = 0;
             string batchIDTemp = "";
@@ -994,7 +994,32 @@ namespace BC_Control_System.ViewModel
         }
 
         #endregion
-
+        #region
+        [RelayCommand]
+        private void EAPModeChange()
+        {
+            try
+            {
+                var service = _containerProvider.Resolve<EAPService>();
+                IDialogParameters dialogParameters = new DialogParameters();
+                dialogParameters.Add("Param1", service.EAPControlState);
+                _dialogService.ShowDialog(nameof(EAPControlModelView), dialogParameters,
+                result =>
+                {
+                    if (result.Result == ButtonResult.OK)
+                    {
+                        int value = result.Parameters.GetValue<int>("Value1");
+                        bool b = service.ChangeEAPControlState(value);
+                        MessageBox.Show($"下载状态为 {b}");
+                    }
+                });
+            }
+            catch (Exception ee)
+            {
+                logOpration.WriteError(ee);
+            }
+        }
+        #endregion
 
     }
 }
