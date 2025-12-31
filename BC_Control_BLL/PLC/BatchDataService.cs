@@ -61,8 +61,9 @@ namespace BC_Control_BLL.PLC
                     {
                         UpdateModuleState?.Invoke(module);
                     }
+                    TankInProcessPre[i] = module.IsWafer.ActualValue;
                 }
-                TankInProcessPre = BatchDataCollection.Select(src => src.IsWafer.ActualValue).ToList();
+                
             }
             catch (Exception)
             {

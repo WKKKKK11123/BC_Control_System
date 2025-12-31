@@ -17,6 +17,7 @@ using BC_Control_Models.BenchConfig;
 using System.Windows.Input;
 using BC_Control_System.Service;
 using CommunityToolkit.Mvvm.ComponentModel;
+using System.Windows;
 
 namespace BC_Control_System.ViewModel
 {
@@ -28,7 +29,9 @@ namespace BC_Control_System.ViewModel
         private readonly BatchDataService _batchDataService;
         private readonly IBenchStationEntity _benchStationEntity;
         private readonly IExcelOperation _excelOpration;
+        [ObservableProperty]
         private List<StatusClass> tankLidCollections;
+        [ObservableProperty]
         private List<StatusClass> shutterCollections;
         [ObservableProperty]
         private ObservableCollection<StatusClass> _StorageStatus;
@@ -37,9 +40,17 @@ namespace BC_Control_System.ViewModel
         [ObservableProperty]
         private ObservableCollection<StatusClass> _OPStatus;
         [ObservableProperty]
+        private ObservableCollection<DataClass> _LFRStatus;
+        [ObservableProperty]
         private ObservableCollection<StationCollection> _LiftCollections;
         [ObservableProperty]
         private int _WTRActPos;
+        [ObservableProperty]
+        private WaferStatus _WTRActStatus;
+        [ObservableProperty]
+        private WaferStatus _PusherActStatus;
+        [ObservableProperty]
+        private WaferStatus _BufferActStatus;
         [ObservableProperty]
         private BindingList<ModuleStatus> _ModuleStatus;
         [ObservableProperty]
@@ -69,6 +80,7 @@ namespace BC_Control_System.ViewModel
             OPStatus = new ObservableCollection<StatusClass>();
             OpenStatusViewCommand = new DelegateCommand<object>(OpenStatusView);
             LiftCollections = new ObservableCollection<StationCollection>();
+            LFRStatus = new ObservableCollection<DataClass>();
             LoadFromExcel();
             AddStorage();
         }
@@ -80,6 +92,68 @@ namespace BC_Control_System.ViewModel
             keys.Add("Module", tempModule);
             _viewTransitionNavigator.MainVeiwNavigation("StatusMainView", keys);
         }
+        private void UpdatePlcStatusOnUI()
+        {
+
+            StorageStatus[1].Value = _processControl.StoragePlaceSenser[0] ? "1" : "0";
+            StorageStatus[2].Value = _processControl.StoragePlaceSenser[1] ? "1" : "0";
+            StorageStatus[3].Value = _processControl.StoragePlaceSenser[2] ? "1" : "0";
+            StorageStatus[4].Value = _processControl.StoragePlaceSenser[3] ? "1" : "0";
+            StorageStatus[5].Value = _processControl.StoragePlaceSenser[4] ? "1" : "0";
+            StorageStatus[6].Value = _processControl.StoragePlaceSenser[5] ? "1" : "0";
+            StorageStatus[7].Value = _processControl.StoragePlaceSenser[6] ? "1" : "0";
+            StorageStatus[8].Value = _processControl.StoragePlaceSenser[7] ? "1" : "0";
+            StorageStatus[9].Value = _processControl.StoragePlaceSenser[8] ? "1" : "0";
+            StorageStatus[10].Value = _processControl.StoragePlaceSenser[9] ? "1" : "0";
+            StorageStatus[11].Value = _processControl.StoragePlaceSenser[10] ? "1" : "0";
+            StorageStatus[12].Value = _processControl.StoragePlaceSenser[11] ? "1" : "0";
+            StorageStatus[13].Value = _processControl.StoragePlaceSenser[12] ? "1" : "0";
+            StorageStatus[14].Value = _processControl.StoragePlaceSenser[13] ? "1" : "0";
+            StorageStatus[15].Value = _processControl.StoragePlaceSenser[14] ? "1" : "0";
+            StorageStatus[16].Value = _processControl.StoragePlaceSenser[15] ? "1" : "0";
+            StorageStatus[17].Value = _processControl.StoragePlaceSenser[16] ? "1" : "0";
+            StorageStatus[18].Value = _processControl.StoragePlaceSenser[17] ? "1" : "0";
+
+            OPStatus[1].Value = _processControl.Opener1PlaceSenser ? "1" : "0";
+            OPStatus[2].Value = _processControl.Opener2PlaceSenser ? "1" : "0";
+
+            LDStatus[1].Value = _processControl.Lp1PlaceSenser ? "1" : "0";
+            LDStatus[2].Value = _processControl.Lp2PlaceSenser ? "1" : "0";
+            PusherActStatus = _processControl.PusherPlaceSenser ? WaferStatus.Processing : WaferStatus.Empty;
+            //Thread.Sleep(500);
+            bool tempbool = false;
+            int tempWTRPos = 0;
+            var wtrPos = _benchStationEntity.Stations?.FirstOrDefault(filter => filter.StationName == "WTR_1")?.ModuleStatus;
+            if (wtrPos != null)
+            {
+                tempbool = int.TryParse(wtrPos.FirstOrDefault(filter => filter.ParameterName == "Vertical Target Station")?.Value, out tempWTRPos);
+                if (tempbool)
+                {
+                    WTRActPos = tempWTRPos - 1;
+                }
+                tempbool = int.TryParse(wtrPos.FirstOrDefault(filter => filter.ParameterName == "BufferIsWafer")?.Value, out int bufferTempStatus);
+                if (tempbool)
+                {
+                    BufferActStatus = (WaferStatus)bufferTempStatus;
+                }
+                tempbool = int.TryParse(wtrPos.FirstOrDefault(filter => filter.ParameterName == "WTRIsWafer")?.Value, out int wtrTempStatus);
+                if (tempbool)
+                {
+                    WTRActStatus = (WaferStatus)wtrTempStatus;
+                }
+
+
+            }
+
+
+
+
+            _batchDataService.UpdateBatchData();
+            TankLidCollections.UpdateStatus();
+            ShutterCollections.UpdateStatus();
+
+        }
+
         private async void LoadFromExcel()
         {
             try
@@ -89,59 +163,96 @@ namespace BC_Control_System.ViewModel
                 shutterCollections = _excelOpration.ReadExcelToObjects<StatusClass>(filePath, "Shutters").ToList();
                 AddFactoryMessage();
                 LoadTankLidEntity();
-                await Task.Run(() =>
+
+                await Task.Run(async () =>
                 {
                     while (true)
                     {
                         try
                         {
-                            
-                            StorageStatus[1].Value = _processControl.StoragePlaceSenser[0] ? "1" : "0";
-                            StorageStatus[2].Value = _processControl.StoragePlaceSenser[1] ? "1" : "0";
-                            StorageStatus[3].Value = _processControl.StoragePlaceSenser[2] ? "1" : "0";
-                            StorageStatus[4].Value = _processControl.StoragePlaceSenser[3] ? "1" : "0";
-                            StorageStatus[5].Value = _processControl.StoragePlaceSenser[4] ? "1" : "0";
-                            StorageStatus[6].Value = _processControl.StoragePlaceSenser[5] ? "1" : "0";
-                            StorageStatus[7].Value = _processControl.StoragePlaceSenser[6] ? "1" : "0";
-                            StorageStatus[8].Value = _processControl.StoragePlaceSenser[7] ? "1" : "0";
-                            StorageStatus[9].Value = _processControl.StoragePlaceSenser[8] ? "1" : "0";
-                            StorageStatus[10].Value = _processControl.StoragePlaceSenser[9] ? "1" : "0";
-                            StorageStatus[11].Value = _processControl.StoragePlaceSenser[10] ? "1" : "0";
-                            StorageStatus[12].Value = _processControl.StoragePlaceSenser[11] ? "1" : "0";
-                            StorageStatus[13].Value = _processControl.StoragePlaceSenser[12] ? "1" : "0";
-                            StorageStatus[14].Value = _processControl.StoragePlaceSenser[13] ? "1" : "0";
-                            StorageStatus[15].Value = _processControl.StoragePlaceSenser[14] ? "1" : "0";
-                            StorageStatus[16].Value = _processControl.StoragePlaceSenser[15] ? "1" : "0";
-                            StorageStatus[17].Value = _processControl.StoragePlaceSenser[16] ? "1" : "0";
-                            StorageStatus[18].Value = _processControl.StoragePlaceSenser[17] ? "1" : "0";
+                            // 这里只“通知 UI 去更新”
+                            Application.Current.Dispatcher.Invoke(UpdatePlcStatusOnUI);
 
-                            OPStatus[1].Value = _processControl.Opener1PlaceSenser ? "1" : "0";
-                            OPStatus[2].Value = _processControl.Opener2PlaceSenser ? "1" : "0";
-
-                            LDStatus[1].Value = _processControl.Lp1PlaceSenser ? "1" : "0";
-                            LDStatus[2].Value = _processControl.Lp2PlaceSenser ? "1" : "0";
-                            Thread.Sleep(500);
-                            bool tempbool = false;
-                            int tempWTRPos = 0;
-                            var wtrPos = _benchStationEntity.Stations?.FirstOrDefault(filter => filter.StationName == "WTR_1")?.ModuleStatus;
-                            if (wtrPos != null)
-                            {
-                                tempbool = int.TryParse(wtrPos.FirstOrDefault(filter => filter.ParameterName == "Vertical Target Station")?.Value, out tempWTRPos);
-                            }
-                            WTRActPos = tempWTRPos;
-                            _batchDataService.UpdateBatchData();
-                            tankLidCollections.UpdateStatus();
-                            shutterCollections.UpdateStatus();
-                            Thread.Sleep(500);
+                            await Task.Delay(500);
                         }
-                        catch (System.Exception e)
+                        catch
                         {
-
-
                         }
-
                     }
                 });
+                //await Task.Run(() =>
+                //{
+                //    while (true)
+                //    {
+                //        try
+                //        {
+
+                //            StorageStatus[1].Value = _processControl.StoragePlaceSenser[0] ? "1" : "0";
+                //            StorageStatus[2].Value = _processControl.StoragePlaceSenser[1] ? "1" : "0";
+                //            StorageStatus[3].Value = _processControl.StoragePlaceSenser[2] ? "1" : "0";
+                //            StorageStatus[4].Value = _processControl.StoragePlaceSenser[3] ? "1" : "0";
+                //            StorageStatus[5].Value = _processControl.StoragePlaceSenser[4] ? "1" : "0";
+                //            StorageStatus[6].Value = _processControl.StoragePlaceSenser[5] ? "1" : "0";
+                //            StorageStatus[7].Value = _processControl.StoragePlaceSenser[6] ? "1" : "0";
+                //            StorageStatus[8].Value = _processControl.StoragePlaceSenser[7] ? "1" : "0";
+                //            StorageStatus[9].Value = _processControl.StoragePlaceSenser[8] ? "1" : "0";
+                //            StorageStatus[10].Value = _processControl.StoragePlaceSenser[9] ? "1" : "0";
+                //            StorageStatus[11].Value = _processControl.StoragePlaceSenser[10] ? "1" : "0";
+                //            StorageStatus[12].Value = _processControl.StoragePlaceSenser[11] ? "1" : "0";
+                //            StorageStatus[13].Value = _processControl.StoragePlaceSenser[12] ? "1" : "0";
+                //            StorageStatus[14].Value = _processControl.StoragePlaceSenser[13] ? "1" : "0";
+                //            StorageStatus[15].Value = _processControl.StoragePlaceSenser[14] ? "1" : "0";
+                //            StorageStatus[16].Value = _processControl.StoragePlaceSenser[15] ? "1" : "0";
+                //            StorageStatus[17].Value = _processControl.StoragePlaceSenser[16] ? "1" : "0";
+                //            StorageStatus[18].Value = _processControl.StoragePlaceSenser[17] ? "1" : "0";
+
+                //            OPStatus[1].Value = _processControl.Opener1PlaceSenser ? "1" : "0";
+                //            OPStatus[2].Value = _processControl.Opener2PlaceSenser ? "1" : "0";
+
+                //            LDStatus[1].Value = _processControl.Lp1PlaceSenser ? "1" : "0";
+                //            LDStatus[2].Value = _processControl.Lp2PlaceSenser ? "1" : "0";
+                //            PusherActStatus = _processControl.PusherPlaceSenser ? WaferStatus.Processing : WaferStatus.Empty;
+                //            Thread.Sleep(500);
+                //            bool tempbool = false;
+                //            int tempWTRPos = 0;
+                //            var wtrPos = _benchStationEntity.Stations?.FirstOrDefault(filter => filter.StationName == "WTR_1")?.ModuleStatus;
+                //            if (wtrPos != null)
+                //            {
+                //                tempbool = int.TryParse(wtrPos.FirstOrDefault(filter => filter.ParameterName == "Vertical Target Station")?.Value, out tempWTRPos);
+                //                if (tempbool)
+                //                {
+                //                    WTRActPos = tempWTRPos - 1;
+                //                }
+                //                tempbool = int.TryParse(wtrPos.FirstOrDefault(filter => filter.ParameterName == "BufferIsWafer")?.Value, out int bufferTempStatus);
+                //                if (tempbool)
+                //                {
+                //                    BufferActStatus = (WaferStatus)bufferTempStatus;
+                //                }
+                //                tempbool = int.TryParse(wtrPos.FirstOrDefault(filter => filter.ParameterName == "WTRIsWafer")?.Value, out int wtrTempStatus);
+                //                if (tempbool)
+                //                {
+                //                    WTRActStatus = (WaferStatus)wtrTempStatus;
+                //                }
+
+
+                //            }
+
+
+
+
+                //            _batchDataService.UpdateBatchData();
+                //            tankLidCollections.UpdateStatus();
+                //            shutterCollections.UpdateStatus();
+                //            Thread.Sleep(500);
+                //        }
+                //        catch (System.Exception e)
+                //        {
+
+
+                //        }
+
+                //    }
+                //});
             }
             catch (System.Exception ee)
             {
@@ -149,69 +260,7 @@ namespace BC_Control_System.ViewModel
             }
 
         }
-        private void Navigate(string moduleName)
-        {
-            NavigationParameters keys = new NavigationParameters();
-            try
-            {
-                string tempmodule;
-                switch (moduleName)
-                {
-                    case "Tank1#EKC":
-                        tempmodule = "SYS9070_1";
-                        keys.Add("ModuleName", tempmodule);
-                        break;
-                    case "Tank2#EKC":
-                        tempmodule = "SYS9070_2";
-                        keys.Add("ModuleName", tempmodule);
-                        break;
-                    case "Tank3#NMP":
-                        tempmodule = "NMP_3";
-                        keys.Add("ModuleName", tempmodule);
-                        break;
-                    case "Tank4#NMP":
-                        tempmodule = "NMP_4";
-                        keys.Add("ModuleName", tempmodule);
-                        break;
-                    case "Tank5#IPA":
-                        tempmodule = "IPA_5";
-                        keys.Add("ModuleName", tempmodule);
-                        break;
-                    case "Tank6#IPA":
-                        tempmodule = "IPA_6";
-                        keys.Add("ModuleName", tempmodule);
-                        break;
-                    case "Tank7#QDR":
-                        tempmodule = "QDR_7";
-                        keys.Add("ModuleName", tempmodule);
-                        break;
-                    case "Tank4#QDR":
-                        tempmodule = "QDR_4";
-                        keys.Add("ModuleName", tempmodule);
-                        break;
-                    case "Tank5#CC":
-                        tempmodule = "CC_8";
-                        keys.Add("ModuleName", tempmodule);
-                        break;
-                    case "Tank8#CC":
-                        tempmodule = "CC_8";
-                        keys.Add("ModuleName", tempmodule);
-                        break;
-                    default:
-                        tempmodule = moduleName;
-                        keys.Add("ModuleName", tempmodule);
-                        break;
-                }
 
-                _regionManager.Regions["ContentRegion"].RequestNavigate("StatusMainView", keys);
-            }
-            catch (Exception EX)
-            {
-
-
-            }
-
-        }
 
         private void LoadTankLidEntity()
         {
@@ -224,6 +273,18 @@ namespace BC_Control_System.ViewModel
                     if (item != null)
                     {
                         LiftCollections.Add(item);
+                        if (item.IOViewDataCollection.FirstOrDefault(filter => filter.ParameterName == "X轴工位1") != null
+                            && item.IOViewDataCollection.FirstOrDefault(filter => filter.ParameterName == "X轴工位2") != null)
+                        {
+                            LFRStatus.Add(item.IOViewDataCollection.FirstOrDefault(filter => filter.ParameterName == "X轴工位1"));
+                            LFRStatus.Add(item.IOViewDataCollection.FirstOrDefault(filter => filter.ParameterName == "X轴工位2"));
+                        }
+                        else
+                        {
+                            LFRStatus.Add(new DataClass());
+                            LFRStatus.Add(new DataClass());
+                        }
+                           
                     }
                     else
                     {

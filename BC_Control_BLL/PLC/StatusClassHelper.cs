@@ -129,6 +129,10 @@ namespace BC_Control_Helper
                 //}
 
                 UpdateItemValues(item, variable, dataType);
+                if(item.PLC==PlcEnum.PLC2 && item.ValueAddress =="M4088")
+                {
+                    
+                }
                 int value1;
                 if (!int.TryParse(item.ActualValue, out value1)
                     || item.StatusArribute.Count() == 0

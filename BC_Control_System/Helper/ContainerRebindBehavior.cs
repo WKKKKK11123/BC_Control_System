@@ -127,7 +127,7 @@ namespace ZCControlSystem.Controls.Behaviors
             }
             var info = ValveInfos?.Where(v => v.ParameterName == valve.Name).FirstOrDefault();
             if (info == null)
-                info = ValveInfos?.Where(v => v.ParameterName == valve.Tag.ToString()).FirstOrDefault();
+                info = ValveInfos?.Where(v => v.ParameterName == valve.Tag?.ToString()).FirstOrDefault();
             if (info == null)
                 return;
             if (
@@ -156,7 +156,7 @@ namespace ZCControlSystem.Controls.Behaviors
             IValueConverter valueConverter = null;
             var info = ValveInfos?.Where(v => v.ParameterName == ellipse.Name).FirstOrDefault();
             if (info == null)
-                info = ValveInfos?.Where(v => v.ParameterName == ellipse.Tag.ToString()).FirstOrDefault();
+                info = ValveInfos?.Where(v => v.ParameterName == ellipse.Tag?.ToString()).FirstOrDefault();
             if (info == null) return;
             if (true)
             {
@@ -318,7 +318,7 @@ namespace ZCControlSystem.Controls.Behaviors
             }
             var info = ValveInfos?.Where(v => v.ParameterName == control.Name).FirstOrDefault();
             if (info == null)
-                info = ValveInfos?.Where(v => v.ParameterName == control.Tag.ToString()).FirstOrDefault();
+                info = ValveInfos?.Where(v => v.ParameterName == control.Tag?.ToString()).FirstOrDefault();
             if (info == null)
                 return;
             IValueConverter valueConverter = null;

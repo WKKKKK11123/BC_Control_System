@@ -21,12 +21,20 @@
         <localConverters:DoubleToTwoDecimalConverter x:Key="TwoDecimalConverter" />
         <localConverters:StorageStateToBrushConverter x:Key="StoragShow" />
         <localConverters:BoolToBrushConverter x:Key="WTSShow" />
-        <conv:StringToBoolConverter x:Key="strtoBoolConv" />
+        <conv:StringToBoolConverter x:Key="strtoBoolConv" TrueValue="True" />
         <conv:BoolToBrushConverter
             x:Key="ConverterBoolToBrush"
             FalseValue="LightGray"
             TrueValue="Cyan" />
         <conv:BoolToVisibilityConverter x:Key="ConverterBoolToVisibility" />
+
+
+        <conv:ValueConverterGroup x:Key="StrToVisble">
+            <!--<valueConverters:ValueToBoolConverter/>-->
+            <conv:StringToBoolConverter TrueValue="True" />
+            <!--<conv:BoolInverter />-->
+            <conv:BoolToVisibilityConverter FalseValue="Hidden" TrueValue="Visible" />
+        </conv:ValueConverterGroup>
         <conv:ValueConverterGroup x:Key="ConverterTextToBrush">
             <!--<valueConverters:ValueToBoolConverter/>-->
             <conv:StringToBoolConverter FalseValue="False" TrueValue="True" />
@@ -41,8 +49,8 @@
             <conv:BoolToVisibilityConverter />
         </conv:ValueConverterGroup>
         <conv:ValueConverterGroup x:Key="LFRVisbleConv">
-            <conv:StringIsNotNullOrEmptyConverter/>
-            <conv:BoolToVisibilityConverter/>
+            <conv:StringIsNotNullOrEmptyConverter />
+            <conv:BoolToVisibilityConverter />
         </conv:ValueConverterGroup>
     </UserControl.Resources>
     <Grid>
@@ -588,8 +596,8 @@
                         Margin="-3,0,0,0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
-                        CloseSensor="{Binding ShutterStatus[7].Sensor2.Value, Converter={StaticResource strtoBoolConv}}"
-                        OpenSensor="{Binding ShutterStatus[7].Sensor1.Value, Converter={StaticResource strtoBoolConv}}" />
+                        CloseSensor="{Binding TankLidCollections[13].Value, Converter={StaticResource strtoBoolConv}}"
+                        OpenSensor="{Binding TankLidCollections[12].Value, Converter={StaticResource strtoBoolConv}}" />
                     <Controls:ShutterControl
                         x:Name="Shtter6"
                         Grid.Column="1"
@@ -598,8 +606,8 @@
                         Margin="-3,0,0,0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
-                        CloseSensor="{Binding ShutterStatus[6].Sensor2.Value, Converter={StaticResource strtoBoolConv}}"
-                        OpenSensor="{Binding ShutterStatus[6].Sensor1.Value, Converter={StaticResource strtoBoolConv}}" />
+                        CloseSensor="{Binding TankLidCollections[11].Value, Converter={StaticResource strtoBoolConv}}"
+                        OpenSensor="{Binding TankLidCollections[10].Value, Converter={StaticResource strtoBoolConv}}" />
                     <Controls:ShutterControl
                         x:Name="Shtter5"
                         Grid.Column="2"
@@ -608,8 +616,8 @@
                         Margin="-3,0,0,0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
-                        CloseSensor="{Binding ShutterStatus[5].Sensor2.Value, Converter={StaticResource strtoBoolConv}}"
-                        OpenSensor="{Binding ShutterStatus[5].Sensor1.Value, Converter={StaticResource strtoBoolConv}}" />
+                        CloseSensor="{Binding TankLidCollections[9].Value, Converter={StaticResource strtoBoolConv}}"
+                        OpenSensor="{Binding TankLidCollections[8].Value, Converter={StaticResource strtoBoolConv}}" />
                     <Controls:ShutterControl
                         x:Name="Shtter4"
                         Grid.Column="4"
@@ -618,8 +626,8 @@
                         Margin="-3,0,0,0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
-                        CloseSensor="{Binding ShutterStatus[4].Sensor2.Value, Converter={StaticResource strtoBoolConv}}"
-                        OpenSensor="{Binding ShutterStatus[4].Sensor1.Value, Converter={StaticResource strtoBoolConv}}" />
+                        CloseSensor="{Binding TankLidCollections[7].Value, Converter={StaticResource strtoBoolConv}}"
+                        OpenSensor="{Binding TankLidCollections[6].Value, Converter={StaticResource strtoBoolConv}}" />
                     <Controls:ShutterControl
                         x:Name="Shtter3"
                         Grid.Column="6"
@@ -628,8 +636,8 @@
                         Margin="-3,0,0,0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
-                        CloseSensor="{Binding ShutterStatus[3].Sensor2.Value, Converter={StaticResource strtoBoolConv}}"
-                        OpenSensor="{Binding ShutterStatus[3].Sensor1.Value, Converter={StaticResource strtoBoolConv}}" />
+                        CloseSensor="{Binding TankLidCollections[5].Value, Converter={StaticResource strtoBoolConv}}"
+                        OpenSensor="{Binding TankLidCollections[4].Value, Converter={StaticResource strtoBoolConv}}" />
                     <Controls:ShutterControl
                         x:Name="Shtter2"
                         Grid.Column="8"
@@ -638,8 +646,8 @@
                         Margin="-3,0,0,0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
-                        CloseSensor="{Binding ShutterStatus[2].Sensor2.Value, Converter={StaticResource strtoBoolConv}}"
-                        OpenSensor="{Binding ShutterStatus[2].Sensor1.Value, Converter={StaticResource strtoBoolConv}}" />
+                        CloseSensor="{Binding TankLidCollections[3].Value, Converter={StaticResource strtoBoolConv}}"
+                        OpenSensor="{Binding TankLidCollections[2].Value, Converter={StaticResource strtoBoolConv}}" />
                     <Controls:ShutterControl
                         x:Name="Shtter1"
                         Grid.Column="10"
@@ -648,8 +656,8 @@
                         Margin="-3,0,0,0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
-                        CloseSensor="{Binding ShutterStatus[1].Sensor2.Value, Converter={StaticResource strtoBoolConv}}"
-                        OpenSensor="{Binding ShutterStatus[1].Sensor1.Value, Converter={StaticResource strtoBoolConv}}" />
+                        CloseSensor="{Binding TankLidCollections[1].Value, Converter={StaticResource strtoBoolConv}}"
+                        OpenSensor="{Binding TankLidCollections[0].Value, Converter={StaticResource strtoBoolConv}}" />
 
                 </Grid>
                 <Border
@@ -731,7 +739,7 @@
                                     Canvas.Top="42"
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Top"
-                                    Status2="{Binding BufferWafer}" />
+                                    Status2="{Binding BufferActStatus}" />
                                 <Image
                                     Width="70"
                                     Margin="0,-10,0,4"
@@ -909,7 +917,7 @@
                                     Canvas.Top="42"
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Top"
-                                    Status2="{Binding PusherWafer}" />
+                                    Status2="{Binding PusherActStatus}" />
 
                                 <Image
                                     Width="70"
@@ -1120,37 +1128,200 @@
                             </ItemsControl>
                         </Grid>
                     </Border>
-                    <ItemsControl FlowDirection="RightToLeft" ItemsSource="{Binding  LiftCollections}" x:Name="LiftCollection" Grid.Row="1">
-                        <!--  你的数据模板  -->
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <UniformGrid Columns="12" />
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <Border
-                                    Grid.Column="0"
-                                    Background="Transparent"
-                                    BorderBrush="Black"
-                                    BorderThickness="0.5">
-                                    <i:Interaction.Triggers>
-                                        <i:EventTrigger EventName="MouseLeftButtonDown">
-                                            <i:InvokeCommandAction Command="{Binding DataContext.OpenStatusViewCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}" CommandParameter="{Binding}" />
-                                        </i:EventTrigger>
-                                    </i:Interaction.Triggers>
-                                    <StackPanel>
-                                        <TextBlock
-                                            Margin="4"
-                                            FontSize="16"
-                                            Text="{Binding StationName}"
-                                            HorizontalAlignment="Right"/>
-                                        <Image Width="60" Source="pack://application:,,,/Resources/Lift.png" Visibility="{Binding StationName, Converter={StaticResource LFRVisbleConv}}" />
-                                    </StackPanel>
-                                </Border>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Border
+                            Grid.Column="0"
+                            BorderBrush="Black"
+                            BorderThickness="1" />
+                        <Border
+                            Grid.Column="1"
+                            BorderBrush="Black"
+                            BorderThickness="1">
+                            <StackPanel>
+                                <TextBlock
+                                    Margin="4"
+                                    HorizontalAlignment="Left"
+                                    FontSize="16"
+                                    Text="LFR_6" />
+                                <Image Width="60" Source="pack://application:,,,/Resources/Lift.png" />
+                            </StackPanel>
+                        </Border>
+                 
+                        <Border
+                            Grid.Column="2"
+                            BorderBrush="Black"
+                            BorderThickness="1">
+                            <StackPanel>
+                                <TextBlock
+                                    Margin="4"
+                                    HorizontalAlignment="Left"
+                                    FontSize="16"
+                                    Text="LFR_5" />
+                                <Image
+                                    Width="60"
+                                    Source="pack://application:,,,/Resources/Lift.png"
+                                    Visibility="{Binding LFRStatus[9].Value, Converter={StaticResource StrToVisble}}" />
+                            </StackPanel>
+                        </Border>
+                        <Border
+                            Grid.Column="3"
+                            BorderBrush="Black"
+                            BorderThickness="1">
+                            <StackPanel>
+                                <TextBlock
+                                    Margin="4"
+                                    HorizontalAlignment="Left"
+                                    FontSize="16"
+                                    Text="" />
+                                <Image
+                                    Width="60"
+                                    Source="pack://application:,,,/Resources/Lift.png"
+                                    Visibility="{Binding LFRStatus[8].Value, Converter={StaticResource StrToVisble}}" />
+                            </StackPanel>
+                        </Border>
+                        <Border
+                            Grid.Column="4"
+                            BorderBrush="Black"
+                            BorderThickness="1">
+                            <StackPanel>
+                                <TextBlock
+                                    Margin="4"
+                                    HorizontalAlignment="Left"
+                                    FontSize="16"
+                                    Text="LFR_4" />
+                                <Image
+                                    Width="60"
+                                    Source="pack://application:,,,/Resources/Lift.png"
+                                    Visibility="{Binding LFRStatus[7].Value, Converter={StaticResource StrToVisble}}" />
+                            </StackPanel>
+                        </Border>
+                        <Border
+                            Grid.Column="5"
+                            BorderBrush="Black"
+                            BorderThickness="1">
+                            <StackPanel>
+                                <TextBlock
+                                    Margin="4"
+                                    HorizontalAlignment="Left"
+                                    FontSize="16"
+                                    Text="" />
+                                <Image
+                                    Width="60"
+                                    Source="pack://application:,,,/Resources/Lift.png"
+                                    Visibility="{Binding LFRStatus[6].Value, Converter={StaticResource StrToVisble}}" />
+                            </StackPanel>
+                        </Border>
+                        <Border
+                            Grid.Column="6"
+                            BorderBrush="Black"
+                            BorderThickness="1">
+                            <StackPanel>
+                                <TextBlock
+                                    Margin="4"
+                                    HorizontalAlignment="Left"
+                                    FontSize="16"
+                                    Text="LFR_3" />
+                                <Image
+                                    Width="60"
+                                    Source="pack://application:,,,/Resources/Lift.png"
+                                    Visibility="{Binding LFRStatus[5].Value, Converter={StaticResource StrToVisble}}" />
+                            </StackPanel>
+                        </Border>
+                        <Border
+                            Grid.Column="7"
+                            BorderBrush="Black"
+                            BorderThickness="1">
+                            <StackPanel>
+                                <TextBlock
+                                    Margin="4"
+                                    HorizontalAlignment="Left"
+                                    FontSize="16"
+                                    Text="" />
+                                <Image
+                                    Width="60"
+                                    Source="pack://application:,,,/Resources/Lift.png"
+                                    Visibility="{Binding LFRStatus[4].Value, Converter={StaticResource StrToVisble}}" />
+                            </StackPanel>
+                        </Border>
+                        <Border
+                            Grid.Column="8"
+                            BorderBrush="Black"
+                            BorderThickness="1">
+                            <StackPanel>
+                                <TextBlock
+                                    Margin="4"
+                                    HorizontalAlignment="Left"
+                                    FontSize="16"
+                                    Text="LFR_2" />
+                                <Image
+                                    Width="60"
+                                    Source="pack://application:,,,/Resources/Lift.png"
+                                    Visibility="{Binding LFRStatus[3].Value, Converter={StaticResource StrToVisble}}" />
+                            </StackPanel>
+                        </Border>
+                        <Border
+                            Grid.Column="9"
+                            BorderBrush="Black"
+                            BorderThickness="1">
+                            <StackPanel>
+                                <TextBlock
+                                    Margin="4"
+                                    HorizontalAlignment="Left"
+                                    FontSize="16"
+                                    Text="" />
+                                <Image
+                                    Width="60"
+                                    Source="pack://application:,,,/Resources/Lift.png"
+                                    Visibility="{Binding LFRStatus[2].Value, Converter={StaticResource StrToVisble}}" />
+                            </StackPanel>
+                        </Border>
+                        <Border
+                            Grid.Column="10"
+                            BorderBrush="Black"
+                            BorderThickness="1">
+                            <StackPanel>
+                                <TextBlock
+                                    Margin="4"
+                                    HorizontalAlignment="Left"
+                                    FontSize="16"
+                                    Text="LFR_1" />
+                                <Image
+                                    Width="60"
+                                    Source="pack://application:,,,/Resources/Lift.png"
+                                    Visibility="{Binding LFRStatus[1].Value, Converter={StaticResource StrToVisble}}" />
+                            </StackPanel>
+                        </Border>
+                        <Border
+                            Grid.Column="11"
+                            BorderBrush="Black"
+                            BorderThickness="1">
+                            <StackPanel>
+                                <TextBlock
+                                    Margin="4"
+                                    HorizontalAlignment="Left"
+                                    FontSize="16"
+                                    Text="" />
+                                <Image
+                                    Width="60"
+                                    Source="pack://application:,,,/Resources/Lift.png"
+                                    Visibility="{Binding LFRStatus[0].Value, Converter={StaticResource StrToVisble}}" />
+                            </StackPanel>
+                        </Border>
+                    </Grid>
                 </Grid>
             </Grid>
         </Border>

@@ -11,8 +11,8 @@
     xmlns:ioviewmodel="clr-namespace:BC_Control_System.ViewModel.Status.IOViewModel"
     xmlns:local="clr-namespace:BC_Control_System.View.Status.IOView"
     xmlns:localCommand="clr-namespace:BC_Control_System.Command"
-     xmlns:localbehaviors="clr-namespace:ZCControlSystem.Controls.Behaviors"
     xmlns:localConverters="clr-namespace:BC_Control_System.Converters"
+    xmlns:localbehaviors="clr-namespace:ZCControlSystem.Controls.Behaviors"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="650"
     d:DesignWidth="650"
@@ -71,7 +71,6 @@
                     Height="15"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
-                    Fill="{Binding TankStatusClass.VerticalEnable.Value, Converter={StaticResource ConverterBoolToRedBrush}}"
                     Stroke="Black"
                     StrokeThickness="0.5" />
                 <Ellipse
@@ -82,7 +81,6 @@
                     Height="15"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
-                    Fill="{Binding TankStatusClass.VerticalInit.Value, Converter={StaticResource ConverterBoolToRedBrush}}"
                     Stroke="Black"
                     StrokeThickness="0.5" />
                 <Ellipse
@@ -93,7 +91,6 @@
                     Height="15"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
-                    Fill="{Binding TankStatusClass.VerticalBusy.Value, Converter={StaticResource ConverterBoolToRedBrush}}"
                     Stroke="Black"
                     StrokeThickness="0.5" />
                 <TextBlock
@@ -125,7 +122,6 @@
                     Height="30"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
-                    ActState="{Binding TankStatusClass.VerticalAxisFLS.Value, Converter={StaticResource StringIsBoolConv}}"
                     ScaleFactor="0.7" />
                 <Controls:UtypePhotoelectricSwitch
                     x:Name="Z轴原点Sensor"
@@ -135,7 +131,6 @@
                     Height="30"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
-                    ActState="{Binding TankStatusClass.VerticalAxisDOG.Value, Converter={StaticResource ConvStringToBool}}"
                     ScaleFactor="0.7" />
                 <Controls:UtypePhotoelectricSwitch
                     x:Name="Z轴负极限Sensor"
@@ -145,7 +140,6 @@
                     Height="30"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
-                    ActState="{Binding TankStatusClass.VerticalAxisRLS.Value, Converter={StaticResource ConvStringToBool}}"
                     ScaleFactor="0.7" />
                 <TextBlock
                     Canvas.Left="19"
@@ -186,7 +180,7 @@
                     Canvas.Left="238"
                     Canvas.Top="280"
                     Width="40"
-                    Height="142"
+                    Height="192"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
                     BorderBrush="Black"
@@ -199,21 +193,24 @@
                             x:Name="Z轴上定位"
                             Height="25"
                             Margin="0,10"
-                            Background="{Binding TankStatusClass.VerticalPosUp.Value, Converter={StaticResource ConverterBoolToYellowBrush}}"
+                            BorderBrush="Black"
+                            BorderThickness="0.5" />
+                        <Border
+                            x:Name="Z轴横移位"
+                            Height="25"
+                            Margin="0,10"
                             BorderBrush="Black"
                             BorderThickness="0.5" />
                         <Border
                             x:Name="Z轴等待位"
                             Height="25"
                             Margin="0,10"
-                            Background="{Binding TankStatusClass.VerticalPosSide.Value, Converter={StaticResource ConverterBoolToYellowBrush}}"
                             BorderBrush="Black"
                             BorderThickness="0.5" />
                         <Border
                             x:Name="Z轴下定位"
                             Height="25"
                             Margin="0,10"
-                            Background="{Binding TankStatusClass.VerticalPosDown.Value, Converter={StaticResource ConverterBoolToYellowBrush}}"
                             BorderBrush="Black"
                             BorderThickness="0.5" />
                     </StackPanel>
@@ -233,8 +230,8 @@
                     FontSize="12"
                     Text="Side" />
                 <TextBlock
-                    Canvas.Left="187"
-                    Canvas.Top="388"
+                    Canvas.Left="189"
+                    Canvas.Top="433"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top"
                     FontSize="12"
@@ -249,7 +246,6 @@
                     Height="16"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
-                    Fill="{Binding TankStatusClass.VerticalError.Value, Converter={StaticResource ConverterBoolToRedBrush}}"
                     Stroke="Black"
                     StrokeThickness="0.5" />
                 <TextBlock
@@ -267,7 +263,6 @@
                     Height="16"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
-                    Fill="{Binding TankStatusClass.VerticalAlarm.Value, Converter={StaticResource ConverterBoolToRedBrush}}"
                     Stroke="Black"
                     StrokeThickness="0.5" />
                 <TextBlock
@@ -285,23 +280,218 @@
                     FontSize="14"
                     Text="Vertical" />
 
-                <Ellipse
-                    x:Name="工位有料信号"
-                    Canvas.Left="358"
-                    Canvas.Top="318"
-                    Width="120"
-                    Height="120"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Top"
-                    Fill="{Binding TankStatusClass.LFRIswafer.Value, Converter={StaticResource ConverterBoolToTransparentBrush}}"
-                    Stroke="{Binding TankStatusClass.LFRIswafer.Value, Converter={StaticResource ConverterBoolToTransparent2Brush}}"
-                    StrokeThickness="0.5" />
+                <!--<Ellipse
+                 x:Name="工位有料信号"
+                 Canvas.Left="358"
+                 Canvas.Top="318"
+                 Width="120"
+                 Height="120"
+                 HorizontalAlignment="Left"
+                 VerticalAlignment="Top"
+
+                 Stroke="{Binding TankStatusClass.LFRIswafer.Value, Converter={StaticResource ConverterBoolToTransparent2Brush}}"
+                 StrokeThickness="0.5" />-->
                 <Image
                     Canvas.Left="365"
                     Canvas.Top="113"
                     Width="102"
                     Height="342"
                     Source="/Resources/LiftPic.png" />
+                <Ellipse
+                    x:Name="X轴使能信号"
+                    Canvas.Left="208"
+                    Canvas.Top="67"
+                    Width="15"
+                    Height="15"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Stroke="Black"
+                    StrokeThickness="0.5" />
+                <Ellipse
+                    x:Name="X轴初始化完成"
+                    Canvas.Left="208"
+                    Canvas.Top="90"
+                    Width="15"
+                    Height="15"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Stroke="Black"
+                    StrokeThickness="0.5" />
+                <Ellipse
+                    x:Name="X轴运行中"
+                    Canvas.Left="208"
+                    Canvas.Top="113"
+                    Width="15"
+                    Height="15"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Stroke="Black"
+                    StrokeThickness="0.5" />
+                <TextBlock
+                    Canvas.Left="143"
+                    Canvas.Top="36"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontSize="14"
+                    Text="Lateral" />
+                <TextBlock
+                    Canvas.Left="162"
+                    Canvas.Top="112"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontSize="14"
+                    Text="Busy" />
+                <TextBlock
+                    Canvas.Left="149"
+                    Canvas.Top="66"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontSize="14"
+                    Text="Enable" />
+                <TextBlock
+                    Canvas.Left="172"
+                    Canvas.Top="89"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontSize="14"
+                    Text="Init" />
+                <Ellipse
+                    x:Name="X轴Error"
+                    Canvas.Left="208"
+                    Canvas.Top="137"
+                    Width="15"
+                    Height="16"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Stroke="Black"
+                    StrokeThickness="0.5" />
+                <TextBlock
+                    Canvas.Left="161"
+                    Canvas.Top="137"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontSize="14"
+                    Text="Error" />
+                <Ellipse
+                    x:Name="X轴Alarm"
+                    Canvas.Left="208"
+                    Canvas.Top="163"
+                    Width="15"
+                    Height="16"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Stroke="Black"
+                    StrokeThickness="0.5" />
+                <TextBlock
+                    Canvas.Left="154"
+                    Canvas.Top="163"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontSize="14"
+                    Text="Alarm" />
+                <Border
+                    Canvas.Left="334"
+                    Canvas.Top="484"
+                    Width="112"
+                    Height="40"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Top"
+                    BorderBrush="Black"
+                    BorderThickness="0.8">
+                    <StackPanel Background="Gray" Orientation="Horizontal">
+                        <i:Interaction.Behaviors>
+                            <localbehaviors:ContainerRebindBehavior RebindTrigger="True" ValveInfos="{Binding IODataCollection}" />
+                        </i:Interaction.Behaviors>
+                        <Border
+                            x:Name="X轴工位1"
+                            Width="25"
+                            Margin="15,0"
+                            BorderBrush="Black"
+                            BorderThickness="0.5" />
+                        <Border
+                            x:Name="X轴工位2"
+                            Width="25"
+                            Margin="15,0"
+                            BorderBrush="Black"
+                            BorderThickness="0.5" />
+                    </StackPanel>
+                </Border>
+                <TextBlock
+                    Canvas.Left="286"
+                    Canvas.Top="462"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    FontSize="14"
+                    Text="Lateral" />
+                <TextBlock
+                    Canvas.Left="281"
+                    Canvas.Top="580"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    FontSize="14"
+                    Text="FLS" />
+                <Controls:UtypePhotoelectricSwitch
+                    x:Name="X轴负极限Sensor"
+                    Canvas.Left="277"
+                    Canvas.Top="554"
+                    Width="31"
+                    Height="30"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Top"
+                    ScaleFactor="0.7" />
+                <TextBlock
+                    Canvas.Left="321"
+                    Canvas.Top="581"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    FontSize="14"
+                    Text="DOG" />
+                <Controls:UtypePhotoelectricSwitch
+                    x:Name="X轴原点Sensor"
+                    Canvas.Left="323"
+                    Canvas.Top="553"
+                    Width="31"
+                    Height="30"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    ScaleFactor="0.7" />
+                <TextBlock
+                    Canvas.Left="494"
+                    Canvas.Top="577"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    FontSize="14"
+                    Text="RLS" />
+                <Controls:UtypePhotoelectricSwitch
+                    x:Name="X轴正极限Sensor"
+                    Canvas.Left="486"
+                    Canvas.Top="547"
+                    Width="31"
+                    Height="30"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    ScaleFactor="0.7" />
+                <TextBlock
+                    Canvas.Left="348"
+                    Canvas.Top="533"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    FontSize="12"
+                    Text="ST_1" />
+                <TextBlock
+                    Canvas.Left="404"
+                    Canvas.Top="532"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Top"
+                    FontSize="12"
+                    Text="ST_2" />
+                <TextBlock
+                    Canvas.Left="172"
+                    Canvas.Top="386"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    FontSize="12"
+                    Text="Stand By" />
             </Canvas>
         </Viewbox>
     </Grid>

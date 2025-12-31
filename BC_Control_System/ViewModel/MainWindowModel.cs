@@ -120,7 +120,7 @@ namespace BC_Control_System.ViewModel
 
                 if (result == MessageBoxResult.Yes)
                 {
-                    _plcHelper.CloseAll();
+                    //_plcHelper.CloseAll();
                     Application.Current.Shutdown();
                 }
             });
@@ -955,7 +955,7 @@ namespace BC_Control_System.ViewModel
                     }
                     string temp = "";
 
-                    for (int i = 1; i < 13; i++)
+                    for (int i = 1; i < 14; i++)
                     {
                         temp = string.Concat(temp, $"PLC{i} State {_plcHelper.ConnectState((PlcEnum)(i - 1))}  ");
                     }
