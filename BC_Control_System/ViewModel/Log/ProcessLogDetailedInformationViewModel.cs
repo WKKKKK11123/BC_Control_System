@@ -121,6 +121,7 @@ namespace BC_Control_System.ViewModel.Log
         {
             try
             {
+                if (value == null) return;
                 NavigationParameters keys = new NavigationParameters();
                 if (value.StationNo==0)
                 {
@@ -142,18 +143,23 @@ namespace BC_Control_System.ViewModel.Log
         public void OnNavigatedFrom(NavigationContext navigationContext) { }
         public async void OnNavigatedTo(NavigationContext navigationContext)
         {
+            Init();
             if (navigationContext.Parameters.ContainsKey("EndofRunId"))
             {
                 _endofRunId = navigationContext.Parameters.GetValue<int>("EndofRunId");
 
                 var tankList = await _tankProcessService.Query(x => x.DataId == _endofRunId);
                 TankList.Clear();
+                //TankList = new ObservableCollection<TankProcess>(tankList);
                 TankList.AddRange(tankList);
-
+                
             }
         }
 
-
+        private void Init()
+        {
+            
+        }
 
     }
 }

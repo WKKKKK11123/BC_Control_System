@@ -94,7 +94,6 @@ namespace BC_Control_System.ViewModel
         }
         private void UpdatePlcStatusOnUI()
         {
-
             StorageStatus[1].Value = _processControl.StoragePlaceSenser[0] ? "1" : "0";
             StorageStatus[2].Value = _processControl.StoragePlaceSenser[1] ? "1" : "0";
             StorageStatus[3].Value = _processControl.StoragePlaceSenser[2] ? "1" : "0";
@@ -120,6 +119,7 @@ namespace BC_Control_System.ViewModel
             LDStatus[1].Value = _processControl.Lp1PlaceSenser ? "1" : "0";
             LDStatus[2].Value = _processControl.Lp2PlaceSenser ? "1" : "0";
             PusherActStatus = _processControl.PusherPlaceSenser ? WaferStatus.Processing : WaferStatus.Empty;
+            
             //Thread.Sleep(500);
             bool tempbool = false;
             int tempWTRPos = 0;
@@ -144,10 +144,6 @@ namespace BC_Control_System.ViewModel
 
 
             }
-
-
-
-
             _batchDataService.UpdateBatchData();
             TankLidCollections.UpdateStatus();
             ShutterCollections.UpdateStatus();
@@ -295,7 +291,6 @@ namespace BC_Control_System.ViewModel
                 for (int i = 12; i > 0; i--)
                 {
 
-
                     TankLidStatus.Add(new DoubleSensor()
                     {
                         Sensor1 = tankLidCollections.FirstOrDefault(filter => filter.ParameterName == $"Tank{i}LidOpenSensor")!,
@@ -393,34 +388,34 @@ namespace BC_Control_System.ViewModel
 
             });
 
-            ModuleStatus2.Add(new ModuleStatus2()
-            {
-                ModuleName2 = "N2 Liquid Level 2",
-                Current = tempFactory.Find(para => para.ParameterName == "N2LiquidLevel2Current"),
-                SettingUpLime = tempFactory.Find(para => para.ParameterName == "N2LiquidLevel2SettingUpLime"),
-                SettingDownLime = tempFactory.Find(para => para.ParameterName == "N2LiquidLevel2SettingDownLime"),
-                SettingDelayTime = tempFactory.Find(para => para.ParameterName == "N2LiquidLevel2SettingDelayTime"),
+            //ModuleStatus2.Add(new ModuleStatus2()
+            //{
+            //    ModuleName2 = "N2 Liquid Level 2",
+            //    Current = tempFactory.Find(para => para.ParameterName == "N2LiquidLevel2Current"),
+            //    SettingUpLime = tempFactory.Find(para => para.ParameterName == "N2LiquidLevel2SettingUpLime"),
+            //    SettingDownLime = tempFactory.Find(para => para.ParameterName == "N2LiquidLevel2SettingDownLime"),
+            //    SettingDelayTime = tempFactory.Find(para => para.ParameterName == "N2LiquidLevel2SettingDelayTime"),
 
-            });
+            //});
 
-            ModuleStatus2.Add(new ModuleStatus2()
-            {
-                ModuleName2 = "N2 Static Eliminator",
-                Current = tempFactory.Find(para => para.ParameterName == "N2StaticEliminatorCurrent"),
-                SettingUpLime = tempFactory.Find(para => para.ParameterName == "N2StaticEliminatorSettingUpLime"),
-                SettingDownLime = tempFactory.Find(para => para.ParameterName == "N2StaticEliminatorSettingDownLime"),
-                SettingDelayTime = tempFactory.Find(para => para.ParameterName == "N2StaticEliminatorSettingDelayTime"),
+            //ModuleStatus2.Add(new ModuleStatus2()
+            //{
+            //    ModuleName2 = "N2 Static Eliminator",
+            //    Current = tempFactory.Find(para => para.ParameterName == "N2StaticEliminatorCurrent"),
+            //    SettingUpLime = tempFactory.Find(para => para.ParameterName == "N2StaticEliminatorSettingUpLime"),
+            //    SettingDownLime = tempFactory.Find(para => para.ParameterName == "N2StaticEliminatorSettingDownLime"),
+            //    SettingDelayTime = tempFactory.Find(para => para.ParameterName == "N2StaticEliminatorSettingDelayTime"),
 
-            });
+            //});
 
-            ModuleStatus2.Add(new ModuleStatus2()
-            {
-                ModuleName2 = "CO2 Pressure",
-                Current = tempFactory.Find(para => para.ParameterName == "CO2PressureCurrent"),
-                SettingUpLime = tempFactory.Find(para => para.ParameterName == "CO2PressureSettingUpLime"),
-                SettingDownLime = tempFactory.Find(para => para.ParameterName == "CO2PressureSettingDownLime"),
-                SettingDelayTime = tempFactory.Find(para => para.ParameterName == "CO2PressureSettingDelayTime"),
-            });
+            //ModuleStatus2.Add(new ModuleStatus2()
+            //{
+            //    ModuleName2 = "CO2 Pressure",
+            //    Current = tempFactory.Find(para => para.ParameterName == "CO2PressureCurrent"),
+            //    SettingUpLime = tempFactory.Find(para => para.ParameterName == "CO2PressureSettingUpLime"),
+            //    SettingDownLime = tempFactory.Find(para => para.ParameterName == "CO2PressureSettingDownLime"),
+            //    SettingDelayTime = tempFactory.Find(para => para.ParameterName == "CO2PressureSettingDelayTime"),
+            //});
 
 
         }

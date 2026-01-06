@@ -44,7 +44,7 @@ namespace ZC_Control_System.ViewModel.Opration
             DialogParameters keys = new DialogParameters();
             keys.Add("Value1", CarrierID);
             keys.Add("Value2", Location);
-            keys.Add("Value3", Location);
+            //keys.Add("Value3", Location);
             //var result = PLCSelect.Instance.CommonWrite(value, NewSiteValue);         
             RequestClose?.Invoke(new DialogResult(ButtonResult.OK, keys));
 

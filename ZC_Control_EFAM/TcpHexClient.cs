@@ -18,6 +18,7 @@ namespace ZC_Control_EFAM
 
         private uint transactionId = 0;
         private readonly object idLock = new object();
+        private readonly object rcvLock = new object();
         private readonly List<byte> receiveBuffer = new List<byte>();
         private readonly StringBuilder receiveBuffer1 = new StringBuilder();
 
@@ -49,9 +50,12 @@ namespace ZC_Control_EFAM
             };
             client.Events.DataReceived += (s, e) =>
             {
+             
+              
                 //ProcessReceived(e.Data.Slice(0, e.Data.Count).ToArray());
                 byte[] data = e.Data.Take(e.Data.Count).ToArray();
                 ProcessReceived(data);
+                
             };
 
             sendThread = new Thread(SendQueueWorker) { IsBackground = true };
@@ -163,33 +167,37 @@ namespace ZC_Control_EFAM
 
         private void ProcessReceived(byte[] data)
         {
-            try
+            lock (rcvLock)
             {
-                receiveBuffer.AddRange(data);
-                //receiveBuffer1.Append(Encoding.UTF8.GetString(data));
 
-                while (receiveBuffer.Count > 5)
+                try
                 {
-                    byte length = receiveBuffer[0];
-                    if (receiveBuffer.Count < length + 1)
-                        break;
-                    List<byte> subList = receiveBuffer.Skip(0).Take(length + 1).ToList();
-                    receiveBuffer.RemoveRange(0, length + 1);
+                    receiveBuffer.AddRange(data);
+                    //receiveBuffer1.Append(Encoding.UTF8.GetString(data));
 
-                    Byte[] bytes = subList.Skip(1).Take(4).ToArray();
-                    Array.Reverse(bytes);
-                    uint u32 = BitConverter.ToUInt32(bytes, 0);
-                    long intValue = u32;
-                    OnHexDataReceived?.Invoke(intValue, subList);
-                    if (CheckRecvIsStatus(subList))
-                        DisplayLog_1(BitConverter.ToString(subList.ToArray()).Replace("-", " "), 1);
-                    else
-                        DisplayLog(BitConverter.ToString(subList.ToArray()).Replace("-", " "), 1);
+                    while (receiveBuffer.Count > 5)
+                    {
+                        byte length = receiveBuffer[0];
+                        if (receiveBuffer.Count < length + 1)
+                            break;
+                        List<byte> subList = receiveBuffer.Skip(0).Take(length + 1).ToList();
+                        receiveBuffer.RemoveRange(0, length + 1);
+
+                        Byte[] bytes = subList.Skip(1).Take(4).ToArray();
+                        Array.Reverse(bytes);
+                        uint u32 = BitConverter.ToUInt32(bytes, 0);
+                        long intValue = u32;
+                        OnHexDataReceived?.Invoke(intValue, subList);
+                        if (CheckRecvIsStatus(subList))
+                            DisplayLog_1(BitConverter.ToString(subList.ToArray()).Replace("-", " "), 1);
+                        else
+                            DisplayLog(BitConverter.ToString(subList.ToArray()).Replace("-", " "), 1);
+                    }
                 }
-            }
-            catch (Exception ex)
-            {
-                ;
+                catch (Exception ex)
+                {
+                    ;
+                }
             }
         }
 

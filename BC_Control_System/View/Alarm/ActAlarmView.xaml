@@ -49,14 +49,14 @@
                 VerticalScrollBarVisibility="Visible">
 
                 <DataGrid.Columns>
-                    <DataGridTextColumn
+                    <!--<DataGridTextColumn
                         Width="150"
                         Binding="{Binding Date, StringFormat={}{0:yyyy年MM月dd日}}"
                         FontSize="16"
-                        Header="Data" />
+                        Header="Data" />-->
                     <DataGridTextColumn
-                        Width="150"
-                        Binding="{Binding ReceivedTime, Mode=TwoWay}"
+                        Width="180"
+                        Binding="{Binding InsertTime, Mode=TwoWay}"
                         FontSize="16"
                         Header="Time" />
                     <DataGridTextColumn

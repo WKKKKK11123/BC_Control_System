@@ -390,6 +390,7 @@ namespace ZC_Control_EFAM.ProcessControl
         {
             if (eFAM_Data.IsConnected)
             {
+                Thread.Sleep(500);
                 await eFAM_Data.Sys_Get_LPStatus();
                 await eFAM_Data.GetStatusCommand(StationID.HV);
                 await eFAM_Data.GetStatusCommand(StationID.Pusher);

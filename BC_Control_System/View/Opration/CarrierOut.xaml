@@ -23,10 +23,11 @@
         </Style>
     </prism:Dialog.WindowStyle>
     <UserControl.Resources>
-        <conv:IntegerToBoolConverter x:Key="IntToBoolConverter0" TrueValue="1" />
-        <conv:IntegerToBoolConverter x:Key="IntToBoolConverter1" TrueValue="2" />
-        <conv:IntegerToBoolConverter x:Key="IntToBoolConverter2" TrueValue="3" />
-        <conv:IntegerToBoolConverter x:Key="IntToBoolConverter3" TrueValue="4" />
+        <conv:IntegerToBoolConverter x:Key="IntToBoolConverter0" TrueValue="0" />
+        <conv:IntegerToBoolConverter x:Key="IntToBoolConverter1" TrueValue="1" />
+        <conv:IntegerToBoolConverter x:Key="IntToBoolConverter2" TrueValue="2" />
+        <conv:IntegerToBoolConverter x:Key="IntToBoolConverter3" TrueValue="3" />
+        <conv:IntegerToBoolConverter x:Key="IntToBoolConverter4" TrueValue="4" />
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -39,17 +40,17 @@
 
         <Grid Grid.Row="0">
             <TextBlock
-            Margin="10,0,0,0"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Center"
-            Text="Move Carrier from internal buffer to load port ?" />
+                Margin="10,0,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Text="Move Carrier from internal buffer to load port ?" />
         </Grid>
         <StackPanel Grid.Row="1" Orientation="Horizontal">
             <TextBlock
-            Margin="10,0,0,0"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Center"
-            Text="Carrier ID" />
+                Margin="10,0,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Text="Carrier ID" />
             <TextBox
                 Width="160"
                 Height="26"
@@ -60,67 +61,63 @@
         </StackPanel>
         <StackPanel Grid.Row="2" Orientation="Horizontal">
             <TextBlock
-            Margin="10,14,0,0"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top"
-            Text="Out Port" />
-            <StackPanel
-            Margin="40,10,0,0"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top">
-                <RadioButton
+                Margin="10,14,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Text="Out Port" />
+            <StackPanel Margin="40,10,0,0">
+                <!--<RadioButton
                     Margin="4"
-                    HorizontalAlignment="Left"
                     Content="Auto Select"
                     GroupName="OutPort"
-                    IsChecked="True"
-                    Style="{x:Null}" />
+                    IsChecked="{Binding Location, Mode=TwoWay, Converter={StaticResource IntToBoolConverter0}}" />-->
+
                 <RadioButton
                     Margin="4"
-                    HorizontalAlignment="Left"
                     Content="Load port 1"
                     GroupName="OutPort"
-                    Style="{x:Null}" />
+                    IsChecked="{Binding Location, Mode=TwoWay, Converter={StaticResource IntToBoolConverter1}}" />
+
                 <RadioButton
                     Margin="4"
-                    HorizontalAlignment="Left"
                     Content="Load port 2"
                     GroupName="OutPort"
-                    Style="{x:Null}" />
-                <RadioButton
+                    IsChecked="{Binding Location, Mode=TwoWay, Converter={StaticResource IntToBoolConverter2}}" />
+
+                <!--<RadioButton
                     Margin="4"
-                    HorizontalAlignment="Left"
                     Content="Load port 3"
                     GroupName="OutPort"
-                    Style="{x:Null}" />
+                    IsChecked="{Binding Location, Mode=TwoWay, Converter={StaticResource IntToBoolConverter3}}" />
+
                 <RadioButton
                     Margin="4"
-                    HorizontalAlignment="Left"
                     Content="Load port 4"
                     GroupName="OutPort"
-                    Style="{x:Null}" />
+                    IsChecked="{Binding Location, Mode=TwoWay, Converter={StaticResource IntToBoolConverter4}}" />-->
             </StackPanel>
+
         </StackPanel>
 
         <StackPanel Grid.Row="5" Orientation="Horizontal">
             <Button
-            Width="80"
-            Height="30"
-            Margin="200,0,0,0"
-            VerticalAlignment="Center"
-            Background="#E8E8E8"
-            Command="{Binding ConfirmCommand}"
-            Content="OK"
-            FontSize="12" />
+                Width="80"
+                Height="30"
+                Margin="200,0,0,0"
+                VerticalAlignment="Center"
+                Background="#E8E8E8"
+                Command="{Binding ConfirmCommand}"
+                Content="OK"
+                FontSize="12" />
             <Button
-            Width="80"
-            Height="30"
-            Margin="80,0,0,0"
-            VerticalAlignment="Center"
-            Background="#E8E8E8"
-            Command="{Binding CancelCommand}"
-            Content="Cancel"
-            FontSize="12" />
+                Width="80"
+                Height="30"
+                Margin="80,0,0,0"
+                VerticalAlignment="Center"
+                Background="#E8E8E8"
+                Command="{Binding CancelCommand}"
+                Content="Cancel"
+                FontSize="12" />
         </StackPanel>
     </Grid>
 </UserControl>

@@ -59,7 +59,7 @@ namespace BC_Control_System.Service
 
         public DataBaseAddService(IContainerProvider containerProvider, IExcelOperation excelOperation, ILogOpration logOpration, IEventAggregator eventAggregator)
         {
-            actualAlarmList = new List<AlarmLog>();            
+            actualAlarmList = new List<AlarmLog>();
             _containerProvider = containerProvider;
             tk10LogService = containerProvider.Resolve<TK10LogDataService>();
             tk9LogService = containerProvider.Resolve<TK9LogDataService>();
@@ -141,38 +141,39 @@ namespace BC_Control_System.Service
         /// <param name="moduleStatus"></param>
         public async void UpdateTankProcessLog(ModuleStatus moduleStatus)
         {
-            await Task.Run(async () =>
+            if (moduleStatus.IsWafer.Value == "1")
             {
-                if (moduleStatus.IsWafer.Value == "True")
+                long addResult = await tankProcessService.Add(new TankProcess
                 {
-                    long AddResult = await tankProcessService.Add(new TankProcess()
-                    {
-                        DataId = int.Parse(moduleStatus.DataID.Value),
-                        ModuleRecipeName = moduleStatus.UnitRecipeName.Value,
-                        StartTime = DateTime.Now,
-                        StationName = moduleStatus.StationName,
-                        StationNo = moduleStatus.StationNo
-                    });
-                    if (AddResult != 1)
-                    {
-                        _logOpration.WriteError($"制程记录添加失败{moduleStatus.ModuleName}");
-                    }
+                    DataId = int.Parse(moduleStatus.DataID.Value),
+                    ModuleRecipeName = moduleStatus.UnitRecipeName.Value,
+                    StartTime = DateTime.Now,
+                    StationName = moduleStatus.StationName,
+                    StationNo = moduleStatus.StationNo
+                });
 
-                }
-                else
-                {
-                    bool b = await tankProcessService.UpdateEntity(new TankProcess()
-                    {
-                        DataId = int.Parse(moduleStatus.DataID.Value),
-                        ModuleRecipeName = moduleStatus.UnitRecipeName.Value,
-                        StartTime = DateTime.Now,
-                        StationName = moduleStatus.ModuleName,
-                        StationNo= moduleStatus.StationNo
-                        
-                    });
-                    if (!b) _logOpration.WriteError($"制程记录变更失败{moduleStatus.ModuleName}");
-                }
-            });
+                if (addResult != 1)
+                    _logOpration.WriteError($"制程记录添加失败 {moduleStatus.ModuleName}");
+            }
+            else
+            {
+
+                bool updated = await tankProcessService.UpdateEntity(
+                 x => new TankProcess
+             {
+                 EndTime = DateTime.Now,
+                 ModuleRecipeName = moduleStatus.UnitRecipeName.Value,
+                 StationName = moduleStatus.ModuleName,
+                 StationNo = moduleStatus.StationNo
+             },
+             x => x.DataId == int.Parse(moduleStatus.DataID.Value) && x.StationNo== moduleStatus.StationNo
+);
+
+
+                if (!updated)
+                    _logOpration.WriteError($"制程记录变更失败 {moduleStatus.ModuleName}");
+            }
+
         }
         /// <summary>
         /// 设备事件触发记录
@@ -270,7 +271,7 @@ namespace BC_Control_System.Service
                         {
                             //Code = "",
                             Controller = plcEnum.ToString(),
-                            //ReceivedTime = variable.PosAlarmTime,
+                            InsertTime = variable.PosAlarmTime,
                             ClearedTime = variable.NegAlarmTime,
                             //AcknowledgeTime = “ ”,
                             AlarmType = "消失",

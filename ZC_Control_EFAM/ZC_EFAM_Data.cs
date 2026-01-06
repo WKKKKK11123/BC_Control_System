@@ -632,7 +632,7 @@ namespace ZC_Control_EFAM
                         //megModel = ss1;
                         return ss1.Value;
                     }
-                    if (sw.Elapsed >= TimeSpan.FromMilliseconds(60000))
+                    if (sw.Elapsed >= TimeSpan.FromMilliseconds(120000))
                     {
                         megModel.ErrorCode = $"Ω” ’≥¨ ±£°{sw.Elapsed.ToString()}";
                         return megModel;

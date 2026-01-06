@@ -82,7 +82,7 @@ namespace BC_Control_CustomControl.Controls
             //b.Height111 = (double)e.NewValue;
             //b.bor1.Height = (b.ActualHeight - b.ActualHeight * 0.07) / 100.0 * (double)e.NewValue;
             double dd = b.bath1.ActualWidth * (int)e.NewValue / b.SetPosition;
-            double time = Math.Abs(((int)e.NewValue - (int)e.OldValue)) * 2.5;
+            double time = Math.Abs(((int)e.NewValue - (int)e.OldValue)) * 0.85;
             DoubleAnimation animation = new DoubleAnimation
             {
                 To = dd,   // 结束值

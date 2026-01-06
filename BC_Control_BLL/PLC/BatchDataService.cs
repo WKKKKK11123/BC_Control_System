@@ -48,7 +48,7 @@ namespace BC_Control_BLL.PLC
                     {
                         continue;
                     }
-                    if (module.DataID.ActualValue!="0")
+                    if (module.DataID.ActualValue =="0")
                     {
                         continue;
                     }

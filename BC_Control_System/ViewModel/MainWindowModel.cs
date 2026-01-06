@@ -672,7 +672,7 @@ namespace BC_Control_System.ViewModel
 
                 CommonStaticMethods.WritePusherToPLC(obj1);
                 CommonMethods.PLC.Write("D5000", batchIDTemp, 20);
-                CommonMethods.PLC.Write("D5175", (short)id);
+                CommonMethods.PLC.Write("D5141", (short)id);
                 CommonMethods.PLC.Write("M4135", true);
                 CommonMethods.CommonWrite("M4113", "false");
             }

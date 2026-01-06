@@ -11,13 +11,16 @@ namespace BC_Control_Models.Log
 {
     [SugarTable("TankProcess")]
     public class TankProcess:IStationConfig
-    {        
+    {
+        [SugarColumn(IsPrimaryKey = true)]
+
         public int DataId { get; set; }
         public string ModuleRecipeName { get; set; } = "";
         public DateTime StartTime { get; set; }
         public DateTime? EndTime { get; set; }
         [SugarColumn(ColumnName = "TankName")]
         public string StationName { get; set; } = "";
+       
         public int StationNo { get; set; }
         [SugarColumn(IsIgnore = true)]
         public string FullInfo => $"Tank{StationNo}_{StationName}";

@@ -596,8 +596,8 @@
                         Margin="-3,0,0,0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
-                        CloseSensor="{Binding TankLidCollections[13].Value, Converter={StaticResource strtoBoolConv}}"
-                        OpenSensor="{Binding TankLidCollections[12].Value, Converter={StaticResource strtoBoolConv}}" />
+                        CloseSensor="{Binding ShutterCollections[13].Value, Converter={StaticResource strtoBoolConv}}"
+                        OpenSensor="{Binding ShutterCollections[12].Value, Converter={StaticResource strtoBoolConv}}" />
                     <Controls:ShutterControl
                         x:Name="Shtter6"
                         Grid.Column="1"
@@ -606,8 +606,8 @@
                         Margin="-3,0,0,0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
-                        CloseSensor="{Binding TankLidCollections[11].Value, Converter={StaticResource strtoBoolConv}}"
-                        OpenSensor="{Binding TankLidCollections[10].Value, Converter={StaticResource strtoBoolConv}}" />
+                        CloseSensor="{Binding ShutterCollections[11].Value, Converter={StaticResource strtoBoolConv}}"
+                        OpenSensor="{Binding ShutterCollections[10].Value, Converter={StaticResource strtoBoolConv}}" />
                     <Controls:ShutterControl
                         x:Name="Shtter5"
                         Grid.Column="2"
@@ -616,8 +616,8 @@
                         Margin="-3,0,0,0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
-                        CloseSensor="{Binding TankLidCollections[9].Value, Converter={StaticResource strtoBoolConv}}"
-                        OpenSensor="{Binding TankLidCollections[8].Value, Converter={StaticResource strtoBoolConv}}" />
+                        CloseSensor="{Binding ShutterCollections[9].Value, Converter={StaticResource strtoBoolConv}}"
+                        OpenSensor="{Binding ShutterCollections[8].Value, Converter={StaticResource strtoBoolConv}}" />
                     <Controls:ShutterControl
                         x:Name="Shtter4"
                         Grid.Column="4"
@@ -626,8 +626,8 @@
                         Margin="-3,0,0,0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
-                        CloseSensor="{Binding TankLidCollections[7].Value, Converter={StaticResource strtoBoolConv}}"
-                        OpenSensor="{Binding TankLidCollections[6].Value, Converter={StaticResource strtoBoolConv}}" />
+                        CloseSensor="{Binding ShutterCollections[7].Value, Converter={StaticResource strtoBoolConv}}"
+                        OpenSensor="{Binding ShutterCollections[6].Value, Converter={StaticResource strtoBoolConv}}" />
                     <Controls:ShutterControl
                         x:Name="Shtter3"
                         Grid.Column="6"
@@ -636,8 +636,8 @@
                         Margin="-3,0,0,0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
-                        CloseSensor="{Binding TankLidCollections[5].Value, Converter={StaticResource strtoBoolConv}}"
-                        OpenSensor="{Binding TankLidCollections[4].Value, Converter={StaticResource strtoBoolConv}}" />
+                        CloseSensor="{Binding ShutterCollections[5].Value, Converter={StaticResource strtoBoolConv}}"
+                        OpenSensor="{Binding ShutterCollections[4].Value, Converter={StaticResource strtoBoolConv}}" />
                     <Controls:ShutterControl
                         x:Name="Shtter2"
                         Grid.Column="8"
@@ -646,8 +646,8 @@
                         Margin="-3,0,0,0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
-                        CloseSensor="{Binding TankLidCollections[3].Value, Converter={StaticResource strtoBoolConv}}"
-                        OpenSensor="{Binding TankLidCollections[2].Value, Converter={StaticResource strtoBoolConv}}" />
+                        CloseSensor="{Binding ShutterCollections[3].Value, Converter={StaticResource strtoBoolConv}}"
+                        OpenSensor="{Binding ShutterCollections[2].Value, Converter={StaticResource strtoBoolConv}}" />
                     <Controls:ShutterControl
                         x:Name="Shtter1"
                         Grid.Column="10"
@@ -656,8 +656,8 @@
                         Margin="-3,0,0,0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
-                        CloseSensor="{Binding TankLidCollections[1].Value, Converter={StaticResource strtoBoolConv}}"
-                        OpenSensor="{Binding TankLidCollections[0].Value, Converter={StaticResource strtoBoolConv}}" />
+                        CloseSensor="{Binding ShutterCollections[1].Value, Converter={StaticResource strtoBoolConv}}"
+                        OpenSensor="{Binding ShutterCollections[0].Value, Converter={StaticResource strtoBoolConv}}" />
 
                 </Grid>
                 <Border
@@ -685,7 +685,9 @@
                 </Border>
                 <ItemsControl
                     x:Name="TankLid"
-                    Grid.Column="3"
+                    Grid.Column="2"
+                    Grid.ColumnSpan="2"
+                    Margin="135,0,0,0"
                     ItemsSource="{Binding TankLidStatus}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
@@ -737,6 +739,7 @@
                                 <Controls:TankWaferControl
                                     x:Name="BufferWafer"
                                     Canvas.Top="42"
+                                    Width="100"
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Top"
                                     Status2="{Binding BufferActStatus}" />
@@ -915,14 +918,15 @@
                                 <Controls:TankWaferControl
                                     x:Name="PusherWafer"
                                     Canvas.Top="42"
+                                    Width="100"
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Top"
                                     Status2="{Binding PusherActStatus}" />
 
-                                <Image
+                                <!--<Image
                                     Width="70"
                                     Margin="0,-10,0,4"
-                                    Source="/Resources/Pusher.png" />
+                                    Source="/Resources/Pusher.png" />-->
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="MouseLeftButtonDown">
                                         <i:InvokeCommandAction Command="" />
@@ -1160,7 +1164,7 @@
                                 <Image Width="60" Source="pack://application:,,,/Resources/Lift.png" />
                             </StackPanel>
                         </Border>
-                 
+
                         <Border
                             Grid.Column="2"
                             BorderBrush="Black"
@@ -1428,7 +1432,7 @@
                     <ItemsControl Grid.Column="1" ItemsSource="{Binding ModuleStatus2}">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
-                                <UniformGrid Columns="10" />
+                                <UniformGrid Columns="7" />
                             </ItemsPanelTemplate>
                         </ItemsControl.ItemsPanel>
                         <ItemsControl.ItemTemplate>

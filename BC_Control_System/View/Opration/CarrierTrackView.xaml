@@ -52,7 +52,7 @@
                         <Setter Property="Height" Value="55" />
                         <Setter Property="Visibility" Value="{Binding PlaceSenser, Converter={StaticResource BoolToVisibilityConverter}}" />
                         <Setter Property="Background" Value="{Binding StationInfo.MAPError, Converter={StaticResource BoolToColorConverter}}" />
-                        <Setter Property="IsEnabled" Value="{Binding StationInfo.MAPError, Converter={StaticResource InverseBooleanConverter}}" />
+                        <!--<Setter Property="IsEnabled" Value="{Binding StationInfo.MAPError, Converter={StaticResource InverseBooleanConverter}}" />-->
                     </Style>
                 </DataGrid.RowStyle>
                 <DataGrid.Columns>
@@ -205,7 +205,7 @@
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
 
-                    <DataGridTemplateColumn
+                    <!--<DataGridTemplateColumn
                         Width="120"
                         Header="LoadingPort"
                         IsReadOnly="True">
@@ -225,7 +225,7 @@
                                     Text="{Binding StationInfo.Form_LP}" />
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
+                    </DataGridTemplateColumn>-->
                     <DataGridTemplateColumn
                         Width="100"
                         Header="Batch ID"

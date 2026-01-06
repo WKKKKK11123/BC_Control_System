@@ -7,10 +7,12 @@
     xmlns:local1="clr-namespace:BC_Control_CustomControl;assembly=BC_Control_CustomControl"
     xmlns:local3="clr-namespace:BC_Control_Models.ClassK.SQLService;assembly=BC_Control_Models"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Width="800"
-    Height="450"
     mc:Ignorable="d">
     <Grid>
-        <local1:UserPlotControl LinesType="{Binding ValueType}" ValueLines="{Binding CurveValues}" />
+        <local1:UserPlotControl
+            Width="1600"
+            Height="800"
+            LinesType="{Binding ValueType}"
+            ValueLines="{Binding CurveValues}" />
     </Grid>
 </UserControl>

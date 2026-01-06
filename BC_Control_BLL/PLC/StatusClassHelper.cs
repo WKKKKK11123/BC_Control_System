@@ -129,7 +129,7 @@ namespace BC_Control_Helper
                 //}
 
                 UpdateItemValues(item, variable, dataType);
-                if(item.PLC==PlcEnum.PLC2 && item.ValueAddress =="M4088")
+                if(item.PLC==PlcEnum.PLC2 && item.ValueAddress =="D506")
                 {
                     
                 }

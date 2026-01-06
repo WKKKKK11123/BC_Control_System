@@ -417,6 +417,11 @@ namespace BC_Control_CustomControl
                     }
                 };
                 tempplot.Refresh();
+                // 关键：在这里加一行
+                _plot.Plot.Axes.AutoScale(); // 自动缩放到当前所有可见数据
+                _plot.Plot.Axes.AutoScaleX(); // 也可以只缩放X轴（推荐）
+
+                _plot.Refresh();
             }
             catch (Exception EE)
             {

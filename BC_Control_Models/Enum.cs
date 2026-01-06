@@ -30,21 +30,29 @@ namespace BC_Control_Models
     {
         [Description("Robot")]
         PLC1,
-        [Description("LPD")]
+        [Description("Ag_1")]
         PLC2,
-        [Description("QDR/CC")]
+        [Description("Ag_2")]
         PLC3,
-        [Description("NMP")]
+        [Description("Ni_1")]
         PLC4,
-        [Description("EKC")]
+        [Description("Ni_2")]
         PLC5,
+        [Description("Ti_1")]
         PLC6,
+        [Description("LPD")]
         PLC7,
+        [Description("CC")]
         PLC8,
+        [Description("Ag_1/MIX")]
         PLC9,
+        [Description("Ag_2/MIX")]
         PLC10,
+        [Description("Ni_1/MIX")]
         PLC11,
+        [Description("Ni_2/MIX")]
         PLC12,
+        [Description("LPD/MIX")]
         PLC13
     }
     public enum TempratureEnum

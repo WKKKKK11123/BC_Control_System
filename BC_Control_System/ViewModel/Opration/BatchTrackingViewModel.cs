@@ -32,6 +32,7 @@ namespace BC_Control_System.ViewModel.Opration
             ModuleStatusCollection = new BindingList<ModuleStatus>(_batchDataService.BatchDataCollection);
             ProcessPauseCommand = new RelayCommand<ModuleStatus>(ProcessPause);
             ProcessRestartCommand=new RelayCommand<ModuleStatus>(ProcessRestart);
+            OprationCollection = new Dictionary<string, (string, string)>();
             AddModuleMessage();
         }       
         private void AddModuleMessage()

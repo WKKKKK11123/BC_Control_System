@@ -13,12 +13,12 @@ namespace BC_Control_CustomControl.Controls
         {
             InitializeComponent();
         }
-       
+
 
         #region MyRegion
 
 
-        public static readonly DependencyProperty StatusProperty =
+        public static readonly DependencyProperty Status2Property =
            DependencyProperty.Register("Status2", typeof(WaferStatus), typeof(TankWaferControl),
                new PropertyMetadata(WaferStatus.Empty, OnStatusChanged));
 
@@ -32,8 +32,8 @@ namespace BC_Control_CustomControl.Controls
 
         public WaferStatus Status2
         {
-            get => (WaferStatus)GetValue(StatusProperty);
-            set => SetValue(StatusProperty, value);
+            get => (WaferStatus)GetValue(Status2Property);
+            set => SetValue(Status2Property, value);
         }
 
         public bool IsWaferVisible2
@@ -49,7 +49,7 @@ namespace BC_Control_CustomControl.Controls
         }
         #endregion
 
-        
+
         private static void OnStatusChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var control = d as TankWaferControl;
@@ -70,11 +70,14 @@ namespace BC_Control_CustomControl.Controls
         {
             switch (status2)
             {
-                case WaferStatus.Processing: return Brushes.Cyan;
+                case WaferStatus.Processing:
+
+                    return Brushes.Cyan;
                 case WaferStatus.Ready: return Brushes.Yellow;
                 case WaferStatus.Completed: return Brushes.Red;
                 case WaferStatus.Error: return Brushes.Red;
-                default: return Brushes.Transparent;
+                default:
+                    return Brushes.Transparent;
             }
         }
     }
