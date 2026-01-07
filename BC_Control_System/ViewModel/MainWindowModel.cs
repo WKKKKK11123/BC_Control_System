@@ -40,6 +40,7 @@ using BC_Control_BLL.recipedownload;
 using CommunityToolkit.Mvvm.ComponentModel;
 using ScottPlot.Interactivity;
 using System.Windows.Shapes;
+using ScottPlot.Colormaps;
 
 namespace BC_Control_System.ViewModel
 {
@@ -60,6 +61,7 @@ namespace BC_Control_System.ViewModel
         private readonly ILogOpration logOpration;
         private readonly IContainerProvider _containerProvider;
         private readonly SysAdmin _userAdmin;
+        private readonly EAPService _eapService;
         string filepath = "C:\\212Recipe\\Tool";
         private ProcessControl _processControl;
         #endregion
@@ -160,7 +162,7 @@ namespace BC_Control_System.ViewModel
                 _plcHelper.LoadInfo();
                 #endregion
 
-
+                _eapService = _eapService;
                 cts = new CancellationTokenSource();
                 _regionManager =
                     regionManager ?? throw new ArgumentNullException(nameof(regionManager));
@@ -171,6 +173,7 @@ namespace BC_Control_System.ViewModel
                 _processControl.WTRGetCompleteEvent += _processControl_WTRGetCompleteEvent;
                 _processControl.WTRPutCompleteEvent += _processControl_WTRPutCompleteEvent;
                 _processControl.WTSDownRecipe += _processControl_WTSDownRecipe;
+                _processControl.CJComplete+= _processControl_CJComplete;
                 #region Command
                 LogoutCommand = new DelegateCommand(ExecuteLogout);
                 OpenFolderCommand = new DelegateCommand<object>(OpenFolderDialogView);
@@ -330,7 +333,7 @@ namespace BC_Control_System.ViewModel
         public void CommunicateMessageWithPLC(CancellationTokenSource ctsSource)
         {
             CancellationTokenSource cancellationTokenSource = ctsSource;
-            _containerProvider.Resolve<EAPService>().CJStartAction = new Action<string, string, string, string>(ActionCJ);
+            _eapService.CJStartAction = new Action<string, string, string, string>(ActionCJ);
             Task.Run(() =>
             {
                 try
@@ -356,7 +359,7 @@ namespace BC_Control_System.ViewModel
                 {
                     while (!cancellationTokenSource.IsCancellationRequested)
                     {
-                        switch (_containerProvider.Resolve<EAPService>().EAPControlState)
+                        switch (_eapService.EAPControlState)
                         {
                             case 0:
                                 EAPControlMode = "Offline";
@@ -377,9 +380,9 @@ namespace BC_Control_System.ViewModel
                         }
                         Task[] tasks = new Task[2];
                         tasks[0] = WriteStorageLogToPLC();
-                        tasks[1] = _containerProvider.Resolve<EAPService>().RunUpdateEapStatus(cancellationTokenSource);
+                        tasks[1] = _eapService.RunUpdateEapStatus(cancellationTokenSource);
                         await Task.WhenAll(tasks);
-                        
+
                         await Task.Delay(200);
                     }
                 }
@@ -694,15 +697,14 @@ namespace BC_Control_System.ViewModel
             }
 
         }
-        private void _processControl_WTRPutCompleteEvent(PusherStationState obj)
+        private void _processControl_CJComplete(string s)
         {
-            CommonStaticMethods.ReadPLCToPusher(obj);
-            PusherStationState tempObj = obj;
             Task.Run(async () =>
             {
                 try
                 {
-                    await _logAddService.UpdateEndofRunLog((int)tempObj.Odd_Data.StorageID);
+                    
+                    await _logAddService.UpdateEndofRunLog(s);
                 }
                 catch (Exception ee)
                 {
@@ -710,9 +712,16 @@ namespace BC_Control_System.ViewModel
                 }
                 finally
                 {
-                    CommonMethods.CommonWrite("M4112", "false");
+
                 }
             });
+        }
+
+        private void _processControl_WTRPutCompleteEvent(PusherStationState obj)
+        {
+            CommonStaticMethods.ReadPLCToPusher(obj);
+            PusherStationState tempObj = obj;
+            CommonMethods.CommonWrite("M4112", "false");
 
         }
         private void _processControl_WTRGetCompleteEvent(PusherStationState obj)
@@ -1016,7 +1025,7 @@ namespace BC_Control_System.ViewModel
         {
             try
             {
-                var service = _containerProvider.Resolve<EAPService>();
+                var service = _eapService;
                 IDialogParameters dialogParameters = new DialogParameters();
                 dialogParameters.Add("Param1", service.EAPControlState);
                 _dialogService.ShowDialog(nameof(EAPControlModelView), dialogParameters,

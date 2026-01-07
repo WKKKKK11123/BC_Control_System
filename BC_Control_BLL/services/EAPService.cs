@@ -39,6 +39,7 @@ namespace BC_Control_BLL.Services
 
         public EAPService(XHuaiEAPClass _eapStatus, IPLCHelper plcHelper)
         {
+            _cts = new CancellationTokenSource();
             _plcHelper = plcHelper;
             eapStatus = _eapStatus;
             //cjPath = @"D:\XHuai\LotJob\CJ";
@@ -194,20 +195,20 @@ namespace BC_Control_BLL.Services
                 int downloadOutCarrierID = 258020;
                 for (int i = 0; i < 2; i++)
                 {
-                    OperateResult<short> releaseAck = PLCSelect.Instance.SelectPLC(PlcEnum.PLC1).ReadInt16($"ZR{downloadReleaseStatus + i * 1}");
+                    OperateResult<short> releaseAck = _plcHelper.SelectPLC(PlcEnum.PLC1).ReadInt16($"ZR{downloadReleaseStatus + i * 1}");
 
                     if (releaseAck.Content == 1)
                     {
-                        string carrierIDByRelease = PLCSelect.Instance.SelectPLC(PlcEnum.PLC1).ReadString($"ZR{downloadReleaseCarrierID}", 20).Content.Replace('\0', ' ').Trim();
+                        string carrierIDByRelease = _plcHelper.SelectPLC(PlcEnum.PLC1).ReadString($"ZR{downloadReleaseCarrierID}", 20).Content.Replace('\0', ' ').Trim();
                         CarrierReleaseAction?.Invoke(i + 1, carrierIDByRelease);
-                        PLCSelect.Instance.SelectPLC(PlcEnum.PLC1).Write($"ZR{downloadReleaseStatus + i * 1}", (short)0);
+                        _plcHelper.SelectPLC(PlcEnum.PLC1).Write($"ZR{downloadReleaseStatus + i * 1}", (short)0);
                     }
-                    OperateResult<short> outdAck = PLCSelect.Instance.SelectPLC(PlcEnum.PLC1).ReadInt16($"ZR{downloadoutStatus + i * 1}");
+                    OperateResult<short> outdAck = _plcHelper.SelectPLC(PlcEnum.PLC1).ReadInt16($"ZR{downloadoutStatus + i * 1}");
                     if (outdAck.Content == 1)
                     {
-                        string carrierIDByOut = PLCSelect.Instance.SelectPLC(PlcEnum.PLC1).ReadString($"ZR{downloadOutCarrierID}", 20).Content.Trim();
+                        string carrierIDByOut = _plcHelper.SelectPLC(PlcEnum.PLC1).ReadString($"ZR{downloadOutCarrierID}", 20).Content.Trim();
                         CarrierOutAction?.Invoke(i + 1, carrierIDByOut);
-                        bool b = PLCSelect.Instance.SelectPLC(PlcEnum.PLC1).Write($"ZR{downloadoutStatus + i * 1}", (short)0).IsSuccess;
+                        bool b = _plcHelper.SelectPLC(PlcEnum.PLC1).Write($"ZR{downloadoutStatus + i * 1}", (short)0).IsSuccess;
                     }
                 }
             }

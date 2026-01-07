@@ -27,6 +27,7 @@ namespace BC_Control_System.Service
     public class DataBaseAddService
     {
         #region
+        private readonly EAPService _eapManager;
         private readonly IContainerProvider _containerProvider;
         private readonly TK1LogDataService tk1LogService;
         private readonly TK2LogDataService tk2LogService;
@@ -61,6 +62,7 @@ namespace BC_Control_System.Service
         {
             actualAlarmList = new List<AlarmLog>();
             _containerProvider = containerProvider;
+            _eapManager = containerProvider.Resolve<EAPService>();
             tk10LogService = containerProvider.Resolve<TK10LogDataService>();
             tk9LogService = containerProvider.Resolve<TK9LogDataService>();
             tk8LogService = containerProvider.Resolve<TK8LogDataService>();
@@ -364,19 +366,19 @@ namespace BC_Control_System.Service
         /// </summary>
         /// <param name="storageID"></param>
         /// <returns></returns>
-        public async Task UpdateEndofRunLog(int storageID)
+        public async Task UpdateEndofRunLog(string batchID)
         {
             try
             {
-                var data = await endofRunLogService.Query(filter => (storageID == filter.MessageID && filter.Status == "Run"));
+                var data = await endofRunLogService.Query(filter => (batchID.Replace("\0", "") == filter.BatchID && filter.Status == "Run"));
                 if (data.Count() > 0)
                 {
                     var updatedata = data.Last();
                     updatedata.EndTime = DateTime.Now;
                     updatedata.Status = "Finish";
                     bool b = await endofRunLogService.UpdateEntity(updatedata);
-                    _containerProvider.Resolve<EAPService>().CJStopAction = new Func<string>(() => { return updatedata.BatchID.Replace("\0", ""); });
-                    _containerProvider.Resolve<EAPService>().CJEndState = true;
+                    _eapManager.CJStopAction = new Func<string>(() => { return updatedata.BatchID.Replace("\0", ""); });
+                    _eapManager.CJEndState = true;
                 }
             }
             catch (Exception ee)
