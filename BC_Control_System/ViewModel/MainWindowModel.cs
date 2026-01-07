@@ -93,6 +93,8 @@ namespace BC_Control_System.ViewModel
         [ObservableProperty]
         private DateTime _DateTime;
         [ObservableProperty]
+        private string _EAPControlMode;
+        [ObservableProperty]
         private ObservableCollection<StationCollection> _ProcessTankCollections;
         [ObservableProperty]
         private ObservableCollection<StationCollection> _BufferTankCollections;
@@ -354,7 +356,20 @@ namespace BC_Control_System.ViewModel
                 {
                     while (!cancellationTokenSource.IsCancellationRequested)
                     {
-
+                        switch (_containerProvider.Resolve<EAPService>().EAPControlState)
+                        {
+                            case 0:
+                                EAPControlMode = "Offline";
+                                break;
+                            case 1:
+                                EAPControlMode = "Online Local";
+                                break;
+                            case 2:
+                                EAPControlMode = "Online Remote";
+                                break;
+                            default:
+                                break;
+                        }
                         if (!CommonMethods.Device.IsConnected)
                         {
                             await Task.Delay(500);
@@ -364,6 +379,7 @@ namespace BC_Control_System.ViewModel
                         tasks[0] = WriteStorageLogToPLC();
                         tasks[1] = _containerProvider.Resolve<EAPService>().RunUpdateEapStatus(cancellationTokenSource);
                         await Task.WhenAll(tasks);
+                        
                         await Task.Delay(200);
                     }
                 }
@@ -635,7 +651,7 @@ namespace BC_Control_System.ViewModel
         private void _processControl_WTSDownRecipe(string obj, PusherStationState obj1)
         {
             string temppath = System.IO.Path.Combine(filepath, obj);
-            bool b=DownLoadRecipe("Tool", File.ReadAllText(temppath));
+            bool b = DownLoadRecipe("Tool", File.ReadAllText(temppath));
             PusherStationState tempObj = obj1;
             int storagetemp = 0;
             string batchIDTemp = "";
@@ -994,7 +1010,32 @@ namespace BC_Control_System.ViewModel
         }
 
         #endregion
-
+        #region
+        [RelayCommand]
+        private void EAPModeChange()
+        {
+            try
+            {
+                var service = _containerProvider.Resolve<EAPService>();
+                IDialogParameters dialogParameters = new DialogParameters();
+                dialogParameters.Add("Param1", service.EAPControlState);
+                _dialogService.ShowDialog(nameof(EAPControlModelView), dialogParameters,
+                result =>
+                {
+                    if (result.Result == ButtonResult.OK)
+                    {
+                        int value = result.Parameters.GetValue<int>("Value1");
+                        bool b = service.ChangeEAPControlState(value);
+                        MessageBox.Show($"下载状态为 {b}");
+                    }
+                });
+            }
+            catch (Exception ee)
+            {
+                logOpration.WriteError(ee);
+            }
+        }
+        #endregion
 
     }
 }

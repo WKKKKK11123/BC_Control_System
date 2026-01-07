@@ -23,10 +23,10 @@
         </Style>
     </prism:Dialog.WindowStyle>
     <UserControl.Resources>
-        <conv:IntegerToBoolConverter x:Key="IntToBoolConverter0" TrueValue="1" />
-        <conv:IntegerToBoolConverter x:Key="IntToBoolConverter1" TrueValue="2" />
-        <conv:IntegerToBoolConverter x:Key="IntToBoolConverter2" TrueValue="3" />
-        <conv:IntegerToBoolConverter x:Key="IntToBoolConverter3" TrueValue="4" />
+        <conv:IntegerToBoolConverter x:Key="IntToBoolConverter0" TrueValue="0" />
+        <conv:IntegerToBoolConverter x:Key="IntToBoolConverter1" TrueValue="1" />
+        <conv:IntegerToBoolConverter x:Key="IntToBoolConverter2" TrueValue="2" />
+        <conv:IntegerToBoolConverter x:Key="IntToBoolConverter3" TrueValue="3" />
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -62,7 +62,7 @@
                     HorizontalAlignment="Left"
                     Content="Online Remote"
                     GroupName="EAPState"
-                    IsChecked="{Binding ControlMode, Converter={StaticResource IntToBoolConverter1}}"
+                    IsChecked="{Binding ControlMode, Converter={StaticResource IntToBoolConverter2}}"
                     Style="{x:Null}" />
             </StackPanel>
         </StackPanel>

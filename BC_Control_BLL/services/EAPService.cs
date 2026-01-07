@@ -27,12 +27,15 @@ namespace BC_Control_BLL.Services
         private int pjuStatus = 260500;
         private int pjsID = 260600;
         private int PJStatus;
+        private int offlineAddress = 5001;
+        private int onlineRemoteAddress = 5002;
+        private int onlineLocalAddress = 5003;
         public Action<string, string, string, string> CJStartAction;
         public Func<string> CJStopAction;
         public Action<int, string> CarrierReleaseAction;
         public Action<int, string> CarrierOutAction;
         public bool CJEndState { get; set; }
-
+        public int EAPControlState { get; set; }
 
         public EAPService(XHuaiEAPClass _eapStatus, IPLCHelper plcHelper)
         {
@@ -51,6 +54,27 @@ namespace BC_Control_BLL.Services
                 CJStopAction?.Invoke();
             }
         }
+        public bool ChangeEAPControlState(int value)
+        {
+            try
+            {
+                switch (value)
+                {
+                    case 0:
+                        return _plcHelper.SelectPLC().Write($"M{offlineAddress}","True").IsSuccess;
+                    case 1:
+                        return _plcHelper.SelectPLC().Write($"M{onlineLocalAddress}", "True").IsSuccess;
+                    case 2:
+                        return _plcHelper.SelectPLC().Write($"M{onlineRemoteAddress}", "True").IsSuccess;
+                    default:
+                        return false;
+                }
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
         public async Task RunUpdateEapStatus(CancellationTokenSource cts)
         {
             _cts = cts;
@@ -67,6 +91,7 @@ namespace BC_Control_BLL.Services
                     if (device.IsConnected)
                     {
                         eapStatus.EAPMode = Convert.ToInt32(device[$"D12"].ToString());
+                        EAPControlState = eapStatus.EAPMode;
                         //获取当前storage工位运行的状态信息
                         for (int i = 0; i < eapStatus.EAPStatusCollection.Count(); i++)
                         {

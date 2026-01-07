@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using Prism.Services.Dialogs;
 using ScottPlot;
 using System;
@@ -15,15 +16,15 @@ namespace BC_Control_System.ViewModel.Opration
         [ObservableProperty]
         private int _controlMode = 0;
         public event Action<IDialogResult> RequestClose;
-
+        [RelayCommand]
         private void Confirm()
         {
             DialogParameters keys = new DialogParameters();
             keys.Add("Value1", ControlMode);
             //var result = PLCSelect.Instance.CommonWrite(value, NewSiteValue);         
             RequestClose?.Invoke(new DialogResult(ButtonResult.OK, keys));
-
         }
+        [RelayCommand]
         private void Cancel()
         {
             RequestClose?.Invoke(new DialogResult(ButtonResult.No));
