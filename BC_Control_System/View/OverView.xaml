@@ -918,7 +918,9 @@
                                 <Controls:TankWaferControl
                                     x:Name="PusherWafer"
                                     Canvas.Top="42"
-                                    Width="100"
+                                    Width="80"
+                                    Height="80"
+                                    Margin="10,10"
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Top"
                                     Status2="{Binding PusherActStatus}" />

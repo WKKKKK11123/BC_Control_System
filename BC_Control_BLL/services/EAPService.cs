@@ -124,14 +124,21 @@ namespace BC_Control_BLL.Services
                 }
                 foreach (var item in eapStatus.CJS.CJS)
                 {
-                    Thread.Sleep(500);
-                    EAPStatusClass? temp = eapStatus.EAPStatusCollection.Where(P => P.CJID == item.objid).FirstOrDefault();
-                    if (temp == null) continue;
-                    Thread.Sleep(500);
+                    EAPStatusClass temp;
+                    Thread.Sleep(1000);
+                    if (!(eapStatus.EAPStatusCollection?.Where(P => P.CJID == item.objid)?.FirstOrDefault() == null))
+                    {
+                        temp = eapStatus.EAPStatusCollection?.Where(P => P.CJID == item.objid)?.FirstOrDefault();
+                        if ((temp.PJID == null) || (temp.CJID == null) || (temp.CJStatus == null) || (temp.PJStatus == null) || (temp == null)) continue;
+                    }
+                    else
+                    {
+                        continue;
+                    }
                     if (temp.CJStatus == "3")
                     {
                         string RFID1 = item.carrierinputspec[0];
-                        string RFID2 = "";
+                        string RFID2 = null;
                         //根据当前的PJID 未运行的运单号
                         if (item.carrierinputspec.Count() == 2)
                         {
@@ -144,11 +151,11 @@ namespace BC_Control_BLL.Services
                         ProcessJobClass temppjEntity = JSONHelper.JSONToEntity<ProcessJobClass>(temppj);
                         string tempRecipeName = $"{temppjEntity.Recipe.Name}.json";
                         CJStartAction?.Invoke(cjTempName, tempRecipeName, RFID1, RFID2);
-                        _plcHelper.CommonWrite($"ZR{cjuStatus + temp.No}", "4");
+                        CommonMethods.CommonWrite($"ZR{cjuStatus + temp.No}", "4");
                         Thread.Sleep(1000);
-                        _plcHelper.CommonWrite($"ZR{pjuStatus + temp.No}", "4");
+                        CommonMethods.CommonWrite($"ZR{pjuStatus + temp.No}", "4");
                     }
-                }
+                }            
             }
             catch (Exception ex)
             {
@@ -185,30 +192,35 @@ namespace BC_Control_BLL.Services
         /// <summary>
         /// CarrierOut Or Release 20251016
         /// </summary>
+        /// <summary>
+        /// CarrierOut Or Release 20251016
+        /// </summary>
         private void CarrierOutOrRelease()
         {
             try
             {
                 int downloadReleaseStatus = 271125;
                 int downloadoutStatus = 270040;
-                int downloadReleaseCarrierID = 258000;
-                int downloadOutCarrierID = 258020;
-                for (int i = 0; i < 2; i++)
+                int downloadReleaseCarrierID = 258000;//LP1起始地址  共4个LP  
+                int downloadOutCarrierID = 258100;//LP1起始地址  共4个LP  
+
+
+                for (int i = 0; i < 4; i++)
                 {
-                    OperateResult<short> releaseAck = _plcHelper.SelectPLC(PlcEnum.PLC1).ReadInt16($"ZR{downloadReleaseStatus + i * 1}");
+                    OperateResult<short> releaseAck = PLCSelect.Instance.SelectPLC(PlcEnum.PLC1).ReadInt16($"ZR{downloadReleaseStatus + i * 1}");
 
                     if (releaseAck.Content == 1)
                     {
-                        string carrierIDByRelease = _plcHelper.SelectPLC(PlcEnum.PLC1).ReadString($"ZR{downloadReleaseCarrierID}", 20).Content.Replace('\0', ' ').Trim();
+                        string carrierIDByRelease = PLCSelect.Instance.SelectPLC(PlcEnum.PLC1).ReadString($"ZR{downloadReleaseCarrierID + i * 20}", 20).Content.Replace('\0', ' ').Trim();
                         CarrierReleaseAction?.Invoke(i + 1, carrierIDByRelease);
-                        _plcHelper.SelectPLC(PlcEnum.PLC1).Write($"ZR{downloadReleaseStatus + i * 1}", (short)0);
+                        PLCSelect.Instance.SelectPLC(PlcEnum.PLC1).Write($"ZR{downloadReleaseStatus + i * 1}", (short)0);
                     }
-                    OperateResult<short> outdAck = _plcHelper.SelectPLC(PlcEnum.PLC1).ReadInt16($"ZR{downloadoutStatus + i * 1}");
+                    OperateResult<short> outdAck = PLCSelect.Instance.SelectPLC(PlcEnum.PLC1).ReadInt16($"ZR{downloadoutStatus + i * 1}");
                     if (outdAck.Content == 1)
                     {
-                        string carrierIDByOut = _plcHelper.SelectPLC(PlcEnum.PLC1).ReadString($"ZR{downloadOutCarrierID}", 20).Content.Trim();
+                        string carrierIDByOut = PLCSelect.Instance.SelectPLC(PlcEnum.PLC1).ReadString($"ZR{downloadOutCarrierID + i * 20}", 20).Content.Trim();
                         CarrierOutAction?.Invoke(i + 1, carrierIDByOut);
-                        bool b = _plcHelper.SelectPLC(PlcEnum.PLC1).Write($"ZR{downloadoutStatus + i * 1}", (short)0).IsSuccess;
+                        bool b = PLCSelect.Instance.SelectPLC(PlcEnum.PLC1).Write($"ZR{downloadoutStatus + i * 1}", (short)0).IsSuccess;
                     }
                 }
             }

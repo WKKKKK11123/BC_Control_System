@@ -162,7 +162,7 @@ namespace BC_Control_System.ViewModel
                 _plcHelper.LoadInfo();
                 #endregion
 
-                _eapService = _eapService;
+                _eapService = containerProvider.Resolve<EAPService>();
                 cts = new CancellationTokenSource();
                 _regionManager =
                     regionManager ?? throw new ArgumentNullException(nameof(regionManager));

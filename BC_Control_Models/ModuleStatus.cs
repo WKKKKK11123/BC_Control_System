@@ -30,6 +30,7 @@ namespace BC_Control_Models
         public StatusClass DataID { get; set; } = new StatusClass();
         public StatusClass LidLeftSensorStatus { get; set; } = new StatusClass();
         public StatusClass LidRightSensorStatus { get; set; } = new StatusClass();
+        public StatusClass InError { get; set; } = new StatusClass();
 
     }
 }

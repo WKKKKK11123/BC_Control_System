@@ -166,8 +166,9 @@ namespace BC_Control_System.Service
                  EndTime = DateTime.Now,
                  ModuleRecipeName = moduleStatus.UnitRecipeName.Value,
                  StationName = moduleStatus.ModuleName,
-                 StationNo = moduleStatus.StationNo
-             },
+                 StationNo = moduleStatus.StationNo,
+                 InError = moduleStatus.InError.Value
+                 },
              x => x.DataId == int.Parse(moduleStatus.DataID.Value) && x.StationNo== moduleStatus.StationNo
 );
 

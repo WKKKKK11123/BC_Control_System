@@ -10,7 +10,7 @@ using SqlSugar;
 namespace BC_Control_Models.Log
 {
     [SugarTable("TankProcess")]
-    public class TankProcess:IStationConfig
+    public class TankProcess : IStationConfig
     {
         [SugarColumn(IsPrimaryKey = true)]
 
@@ -20,8 +20,8 @@ namespace BC_Control_Models.Log
         public DateTime? EndTime { get; set; }
         [SugarColumn(ColumnName = "TankName")]
         public string StationName { get; set; } = "";
-       
         public int StationNo { get; set; }
+        public string InError { get; set; } = "0";
         [SugarColumn(IsIgnore = true)]
         public string FullInfo => $"Tank{StationNo}_{StationName}";
         [SugarColumn(IsIgnore = true)]

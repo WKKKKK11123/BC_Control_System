@@ -48,11 +48,11 @@ namespace BC_Control_BLL.PLC
                     {
                         continue;
                     }
-                    if (module.DataID.ActualValue =="0")
+                    if (module.DataID.ActualValue == "0")
                     {
                         continue;
                     }
-                    if (module.IsWafer.ActualValue=="1" 
+                    if (module.IsWafer.ActualValue == "1"
                         && !string.IsNullOrWhiteSpace(module.FlowRecipeName.ActualValue))
                     {
                         UpdateModuleState?.Invoke(module);
@@ -63,7 +63,7 @@ namespace BC_Control_BLL.PLC
                     }
                     TankInProcessPre[i] = module.IsWafer.ActualValue;
                 }
-                
+
             }
             catch (Exception)
             {
@@ -103,6 +103,7 @@ namespace BC_Control_BLL.PLC
                         UnitRecipeStepTime = module.BatchDataCollection.Find(para => para.ParameterName == "UnitRecipeStepTime") ?? new StatusClass(),
                         IsWafer = module.BatchDataCollection.Find(para => para.ParameterName == "IsWafer") ?? new StatusClass(),
                         DataID = module.BatchDataCollection.Find(para => para.ParameterName == "DataID") ?? new StatusClass(),
+                        InError = module.BatchDataCollection.Find(para => para.ParameterName == "InError") ?? new StatusClass(),
                     });
                 }
             }
